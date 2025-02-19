@@ -1,37 +1,10 @@
 import { cn } from '@/lib/utils';
-import { ClipboardIcon, EyeIcon, EyeSlashIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { CheckIcon, EyeIcon, EyeSlashIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
-const classNormal = "group/item flex-1 flex items-center justify-center rounded-md bg-zinc-50 hover:bg-zinc-100/90 text-xs font-medium text-zinc-600 ring-1 ring-inset ring-zinc-500/10";
-const classCopied = "group/item flex-1 flex items-center justify-center rounded-md bg-green-50 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-500/10";
-const classDelete = "group/item flex-1 flex items-center justify-center rounded-md bg-zinc-50 hover:bg-red-50 text-xs font-medium text-zinc-600 hover:text-red-700 ring-1 ring-inset ring-zinc-500/10 hover:ring-red-600/10"
-
-interface CopyButtonProps {
-    text: string;
-}
-function CopyButton({ text }: CopyButtonProps) {
-    const [isCopied, setIsCopied] = useState(false);
-
-    const copyToClipboard = async () => {
-        try {
-            await navigator.clipboard.writeText(text);
-            setIsCopied(true);
-            setTimeout(() => setIsCopied(false), 2000);
-        } catch (err) {
-            console.error("Erreur de copie :", err);
-        }
-    }
-
-    return (
-        <button className={cn(isCopied ? classCopied : classNormal)} onClick={copyToClipboard}>
-            {isCopied ? (
-                <span>Copied</span>
-            ) : (
-                <ClipboardIcon className="size-6" />
-            )}
-        </button>
-    )
-}
+const classNormal = "group/item flex items-center justify-center rounded-md px-4 py-2 bg-transparent hover:bg-cyan-50 text-xs font-medium text-zinc-600 hover:text-cyan-700 ring-1 ring-inset ring-zinc-500/10 hover:ring-cyan-600/10";
+const classDelete = "group/item flex items-center justify-center rounded-md px-4 py-2 bg-transparent hover:bg-red-50 text-xs font-medium text-zinc-600 hover:text-red-700 ring-1 ring-inset ring-zinc-500/10 hover:ring-red-600/10"
+const classDeleted= "group/item flex items-center justify-center rounded-md px-4 py-2 bg-red-50 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10"
 
 interface PrivateButtonProps {
     isBlur: boolean;
@@ -41,9 +14,9 @@ function PrivateButton({ isBlur, setIsBlur }: PrivateButtonProps) {
     return (
         <button className={cn(classNormal)} onClick={() => setIsBlur(!isBlur)}>
             {isBlur ? (
-                <EyeSlashIcon className="size-6" />
+                <EyeSlashIcon className="size-5" />
             ) : (
-                <EyeIcon className="size-6" />
+                <EyeIcon className="size-5" />
             )}
         </button>
     )
@@ -65,14 +38,14 @@ function TrashButton({ id }: TrashButtonProps) {
     }
 
     return (
-        <button className={cn(classDelete)} onClick={() => deleteItem()}>
+        <button className={cn(isDeleted ? classDeleted : classDelete)} onClick={() => deleteItem()}>
             {isDeleted ? (
-                <span>Deleted</span>
+                <CheckIcon className="size-5" />
             ) : (
-                <TrashIcon className="size-6" />
+                <TrashIcon className="size-5" />
             )}
         </button>
     )
 }
 
-export { CopyButton, PrivateButton, TrashButton };
+export { PrivateButton, TrashButton };

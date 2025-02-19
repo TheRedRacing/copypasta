@@ -1,6 +1,6 @@
 {
   "name": "copypasta",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@dnd-kit/abstract": "^0.0.9",
+    "@dnd-kit/react": "^0.0.9",
     "@heroicons/react": "^2.2.0",
     "@hookform/resolvers": "^4.1.0",
     "@radix-ui/react-dialog": "^1.1.6",

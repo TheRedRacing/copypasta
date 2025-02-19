@@ -6,6 +6,7 @@ import { EmptyAdd } from "@/components/add";
 import Card from "@/components/card";
 
 type ClipboardItem = {
+	id: number;
 	text: string;
 	private: boolean;
 };
@@ -37,12 +38,12 @@ export default function Home() {
 	}
 
 	return (
-		<main className="flex-1 p-4 sm:px-10 lg:px-16">
-			<div className="grid grid-cols-[repeat(auto-fill,minmax(10rem,1fr))] gap-6">
+		<main className="flex-1">
+			<ul>
 				{clipboard.map((item, index) => (
 					<Card key={index} index={index} item={item} />
 				))}
-			</div>
+			</ul>
 		</main>
 	);
 }

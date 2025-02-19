@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -7,46 +8,14 @@ import { z } from "zod"
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Switch } from "@/components/ui/switch"
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Textarea } from "./ui/textarea"
-import { cn } from "@/lib/utils"
-import { useState } from "react"
+import { PencilIcon } from "@heroicons/react/24/outline"
 
-export function HeaderAdd() {
-    return (
-        <AddDialog>
-            <Button size={'sm'}>Add new</Button>
-        </AddDialog>
-    )
-}
-
-export function EmptyAdd() {
-    return (
-        <AddDialog>
-            <button
-                type="button"
-                className="relative flex-1 w-full h-full rounded-lg border-2 border-dashed border-zinc-300 p-24 text-center hover:border-zinc-400 focus:outline-none"
-            >
-                <div className="text-center">
-                    <h3 className="mt-2 text-sm font-semibold text-zinc-900">
-                        No data available
-                    </h3>
-                    <p className="mt-1 text-sm text-zinc-500">
-                        Click the button below to add a new row.
-                    </p>
-                    <div className="mt-4">
-                        <div className={cn(buttonVariants({ variant: "default", size: "default" }))}>
-                            Add new row
-                        </div>
-                    </div>
-                </div>
-            </button>
-        </AddDialog>
-    )
-}
-
-interface AddDialogProps {
-    children: React.ReactNode
+interface EditDialogProps {
+    id: number;
+    text: string;
+    isPrivate: boolean;
 }
 
 const formSchema = z.object({
@@ -54,23 +23,22 @@ const formSchema = z.object({
     private: z.boolean().optional(),
 })
 
-function AddDialog({ children }: AddDialogProps) {
+export default function EditDialog({ id, text, isPrivate }: EditDialogProps) {
     const [isOpen, setIsOpen] = useState(false);
 
     // 1. Define your form.
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            text: "",
-            private: false,
+            text: text,
+            private: isPrivate,
         },
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         const clipboardText = localStorage.getItem('clipboardTexts') || '[]';
         const clipboard = JSON.parse(clipboardText);
-        const nextId = clipboard.length;
-        clipboard.unshift({ id: nextId +1, text: values.text, private: values.private });
+        clipboard[id] = { text: values.text, private: values.private };
         localStorage.setItem('clipboardTexts', JSON.stringify(clipboard));
         form.reset();
         setIsOpen(false);
@@ -80,7 +48,9 @@ function AddDialog({ children }: AddDialogProps) {
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                {children}
+                <button className="group/item flex items-center justify-center rounded-md px-4 py-2 bg-transparent hover:bg-cyan-50 text-xs font-medium text-zinc-600 hover:text-cyan-700 ring-1 ring-inset ring-zinc-500/10 hover:ring-cyan-600/10" onClick={() => setIsOpen(!isOpen)}>
+                    <PencilIcon className="size-5" />
+                </button>
             </DialogTrigger>
             <DialogContent>
                 <Form {...form}>
