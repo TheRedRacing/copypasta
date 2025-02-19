@@ -7,6 +7,8 @@ import Header from "@/components/header";
 import Cookies from "@/components/cookies";
 import Footer from "@/components/footer";
 
+import { Analytics } from "@vercel/analytics/react"
+
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],
   style: ["normal"],
@@ -28,6 +30,7 @@ export default function RootLayout({children}: Readonly<{children: React.ReactNo
         {children}
         <Cookies />
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
