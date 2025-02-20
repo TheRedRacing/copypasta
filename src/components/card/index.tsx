@@ -5,8 +5,10 @@ import EditDialog from "../edit";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 
 
+/* 
 import { useSortable } from '@dnd-kit/react/sortable';
-import { RestrictToVerticalAxis } from '@dnd-kit/abstract/modifiers';
+import { RestrictToVerticalAxis } from '@dnd-kit/abstract/modifiers'; 
+*/
 
 interface CardProps {
     index: number;
@@ -35,13 +37,12 @@ export default function Card({ index, item }: CardProps) {
         }
     }
 
-    const { ref, handleRef } = useSortable({ id: item.id, index, modifiers: [RestrictToVerticalAxis] });
+    //const { ref, handleRef } = useSortable({ id: item.id, index, modifiers: [RestrictToVerticalAxis] });
 
     return (
-        <li key={index} ref={ref} className={cn(isCopied ? classCopied : classNormal)}>
-            {/* V1.0.2 */}
-            <button className="hidden sm:w-10 lg:w-16 sm:flex items-center justify-center py-4 text-zinc-400 hover:text-zinc-900" ref={handleRef}>
-                <Bars3Icon className="size-5" />
+        <li key={index} /* ref={ref} */ className={cn(isCopied ? classCopied : classNormal)}>
+            <button className="hidden sm:w-10 lg:w-16 sm:flex items-center justify-center py-4 text-zinc-400 hover:text-zinc-900" /* ref={handleRef} */>
+                <Bars3Icon className="size-5 hidden" />
             </button>
             <button className="flex-1 flex items-center justify-start pl-4 sm:pl-0 py-4" onClick={copyToClipboard}>
                 {isCopied ? (

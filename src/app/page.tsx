@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { EmptyAdd } from "@/components/add";
 import Card from "@/components/card";
 
+import { DragDropProvider } from '@dnd-kit/react';
+
 type ClipboardItem = {
 	id: number;
 	text: string;
@@ -39,11 +41,17 @@ export default function Home() {
 
 	return (
 		<main className="flex-1">
+			<DragDropProvider
+				onDragEnd={(event) => {
+					console.log(event);
+				}}
+			>
 			<ul>
 				{clipboard.map((item, index) => (
 					<Card key={index} index={index} item={item} />
 				))}
 			</ul>
+			</DragDropProvider>
 		</main>
 	);
 }
