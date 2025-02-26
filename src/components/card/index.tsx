@@ -4,26 +4,19 @@ import { useState } from "react";
 import EditDialog from "../edit";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 
-
-/* 
 import { useSortable } from '@dnd-kit/react/sortable';
-import { RestrictToVerticalAxis } from '@dnd-kit/abstract/modifiers'; 
-*/
+import { RestrictToVerticalAxis } from '@dnd-kit/abstract/modifiers';
+import { clipboardItem } from "@/lib/types";
 
 interface CardProps {
     index: number;
-    item: {
-        id: number;
-        text: string;
-        private: boolean;
-    };
+    item: clipboardItem;
 }
 
-const classNormal = "group/card flex-1 flex items-center justify-between border-y border-zinc-200 -my-px bg-white hover:bg-zinc-50";
-const classCopied = "group/card flex-1 flex items-center justify-between border-y border-zinc-200 -my-px bg-green-50 text-green-600";
+const classNormal = "relative flex-1 flex items-center justify-between border-y border-zinc-200 -my-px bg-white hover:bg-zinc-50";
 
 export default function Card({ index, item }: CardProps) {
-    const [isBlur, setIsBlur] = useState(item.private);
+    const [isBlur, setIsBlur] = useState(item.isPrivate);
 
     const [isCopied, setIsCopied] = useState(false);
 
@@ -37,24 +30,23 @@ export default function Card({ index, item }: CardProps) {
         }
     }
 
-    //const { ref, handleRef } = useSortable({ id: item.id, index, modifiers: [RestrictToVerticalAxis] });
+    const { ref, handleRef } = useSortable({ id:item.id, index, modifiers: [RestrictToVerticalAxis] });
 
     return (
-        <li key={index} /* ref={ref} */ className={cn(isCopied ? classCopied : classNormal)}>
-            <button className="hidden sm:w-10 lg:w-16 sm:flex items-center justify-center py-4 text-zinc-400 hover:text-zinc-900" /* ref={handleRef} */>
-                <Bars3Icon className="size-5 hidden" />
+        <li key={item.id} ref={ref} className={classNormal}>
+            <div className={cn(isCopied ? "h-full opacity-100" : "h-0 opacity-0", "absolute inset-x-0 select-none flex items-center justify-center text-sm bg-green-50 text-green-600 transition-all duration-500 ease-in-out")}>
+                Copied
+            </div>
+            <button type="button" className="hidden sm:w-10 lg:w-16 sm:flex items-center justify-center py-4 text-zinc-400 hover:text-zinc-900" ref={handleRef}>
+                <Bars3Icon className="size-5" />
             </button>
-            <button className="flex-1 flex items-center justify-start pl-4 sm:pl-0 py-4" onClick={copyToClipboard}>
-                {isCopied ? (
-                    <span className="text-sm">Copied</span>
-                ) : (
-                    <span className={cn(isBlur && "blur-sm", "text-left text-sm line-clamp-1")}>{item.text}</span>
-                )}
+            <button type="button" className="flex-1 flex items-center justify-start pl-4 sm:pl-0 py-4" onClick={copyToClipboard}>
+                <span className={cn(isBlur && "blur-sm", "text-left text-sm line-clamp-1")}>{item.text}</span>
             </button>
             <div className="flex shrink-0 items-center gap-2 py-2 pr-4 sm:pr-10 lg:pr-16">
                 <PrivateButton isBlur={isBlur} setIsBlur={setIsBlur} />
-                <EditDialog id={index} text={item.text} isPrivate={item.private} />
-                <TrashButton id={index} />
+                <EditDialog item={item} />
+                <TrashButton id={item.id} />
             </div>
         </li>
     );

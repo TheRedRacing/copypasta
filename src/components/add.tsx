@@ -51,7 +51,7 @@ interface AddDialogProps {
 
 const formSchema = z.object({
     text: z.string().min(2, "You must enter at least 2 characters"),
-    private: z.boolean().optional(),
+    isPrivate: z.boolean().optional(),
 })
 
 function AddDialog({ children }: AddDialogProps) {
@@ -62,7 +62,7 @@ function AddDialog({ children }: AddDialogProps) {
         resolver: zodResolver(formSchema),
         defaultValues: {
             text: "",
-            private: false,
+            isPrivate: false,
         },
     })
 
@@ -70,7 +70,7 @@ function AddDialog({ children }: AddDialogProps) {
         const clipboardText = localStorage.getItem('clipboardTexts') || '[]';
         const clipboard = JSON.parse(clipboardText);
         const nextId = clipboard.length;
-        clipboard.unshift({ id: nextId +1, text: values.text, private: values.private });
+        clipboard.unshift({ id: nextId + 1, text: values.text, isPrivate: values.isPrivate });
         localStorage.setItem('clipboardTexts', JSON.stringify(clipboard));
         form.reset();
         setIsOpen(false);
@@ -104,7 +104,7 @@ function AddDialog({ children }: AddDialogProps) {
                         />
                         <FormField
                             control={form.control}
-                            name="private"
+                            name="isPrivate"
                             render={({ field }) => (
                                 <FormItem className="flex flex-row items-center justify-between gap-10 rounded-lg border border-zinc-300 p-4">
                                     <div className="space-y-0.5">

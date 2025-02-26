@@ -2,9 +2,9 @@ import { cn } from '@/lib/utils';
 import { CheckIcon, EyeIcon, EyeSlashIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
-const classNormal = "group/item flex items-center justify-center rounded-md px-4 py-2 bg-transparent hover:bg-cyan-50 text-xs font-medium text-zinc-600 hover:text-cyan-700 ring-1 ring-inset ring-zinc-500/10 hover:ring-cyan-600/10";
-const classDelete = "group/item flex items-center justify-center rounded-md px-4 py-2 bg-transparent hover:bg-red-50 text-xs font-medium text-zinc-600 hover:text-red-700 ring-1 ring-inset ring-zinc-500/10 hover:ring-red-600/10"
-const classDeleted= "group/item flex items-center justify-center rounded-md px-4 py-2 bg-red-50 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10"
+const classNormal = "flex items-center justify-center rounded-md px-4 py-2 bg-transparent hover:bg-cyan-50 text-xs font-medium text-zinc-600 hover:text-cyan-700 ring-1 ring-inset ring-zinc-500/10 hover:ring-cyan-600/10";
+const classDelete = "flex items-center justify-center rounded-md px-4 py-2 bg-transparent hover:bg-red-50 text-xs font-medium text-zinc-600 hover:text-red-700 ring-1 ring-inset ring-zinc-500/10 hover:ring-red-600/10"
+const classDeleted= "flex items-center justify-center rounded-md px-4 py-2 bg-red-50 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10"
 
 interface PrivateButtonProps {
     isBlur: boolean;

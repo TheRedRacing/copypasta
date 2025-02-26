@@ -11,34 +11,34 @@ import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button";
 import { Textarea } from "./ui/textarea"
 import { PencilIcon } from "@heroicons/react/24/outline"
-
-interface EditDialogProps {
-    id: number;
-    text: string;
-    isPrivate: boolean;
-}
+import { clipboardItem, itemClipboardItem } from "@/lib/types"
 
 const formSchema = z.object({
     text: z.string().min(2, "You must enter at least 2 characters"),
-    private: z.boolean().optional(),
+    isPrivate: z.boolean().optional(),
 })
 
-export default function EditDialog({ id, text, isPrivate }: EditDialogProps) {
+export default function EditDialog({ item }: itemClipboardItem) {
     const [isOpen, setIsOpen] = useState(false);
 
     // 1. Define your form.
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            text: text,
-            private: isPrivate,
+            text: item.text,
+            isPrivate: item.isPrivate,
         },
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         const clipboardText = localStorage.getItem('clipboardTexts') || '[]';
         const clipboard = JSON.parse(clipboardText);
-        clipboard[id] = { text: values.text, private: values.private };
+        const index = clipboard.findIndex((i: clipboardItem) => i.id === item.id);
+        clipboard[index] = {
+            id: item.id,
+            text: values.text,
+            isPrivate: values.isPrivate,
+        };
         localStorage.setItem('clipboardTexts', JSON.stringify(clipboard));
         form.reset();
         setIsOpen(false);
@@ -74,7 +74,7 @@ export default function EditDialog({ id, text, isPrivate }: EditDialogProps) {
                         />
                         <FormField
                             control={form.control}
-                            name="private"
+                            name="isPrivate"
                             render={({ field }) => (
                                 <FormItem className="flex flex-row items-center justify-between gap-10 rounded-lg border border-zinc-300 p-4">
                                     <div className="space-y-0.5">

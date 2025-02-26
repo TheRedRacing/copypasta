@@ -6,22 +6,30 @@ import { EmptyAdd } from "@/components/add";
 import Card from "@/components/card";
 
 import { DragDropProvider } from '@dnd-kit/react';
-
-type ClipboardItem = {
-	id: number;
-	text: string;
-	private: boolean;
-};
+import { move } from '@dnd-kit/helpers';
+import { clipboardItem } from "@/lib/types";
 
 export default function Home() {
-	const [clipboard, setClipboard] = useState<ClipboardItem[]>([]);
+	const [clipboard, setClipboard] = useState<clipboardItem[]>([]);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const clipboardText = localStorage.getItem("clipboardTexts") || "[]";
-		setClipboard(JSON.parse(clipboardText));
-		setLoading(false); // Une fois chargé, on enlève le loader
+		const savedData = JSON.parse(localStorage.getItem("clipboardTexts") || "[]");
+		if (savedData.length > 0) {
+			setClipboard(savedData);
+		}
+		setLoading(false);
 	}, []);
+
+	
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const onDragEnd = (event: any) => {
+		const moved = move(clipboard, event);
+		setClipboard(moved);
+		setTimeout(() => {
+			localStorage.setItem("clipboardTexts", JSON.stringify(moved));
+		}, 1000);
+	}
 
 	if (loading) {
 		return (
@@ -41,17 +49,23 @@ export default function Home() {
 
 	return (
 		<main className="flex-1">
-			<DragDropProvider
-				onDragEnd={(event) => {
-					console.log(event);
-				}}
-			>
-			<ul>
-				{clipboard.map((item, index) => (
-					<Card key={index} index={index} item={item} />
-				))}
-			</ul>
+			<DragDropProvider onDragEnd={onDragEnd}>
+				<ListItems clipboard={clipboard} />
 			</DragDropProvider>
 		</main>
 	);
+}
+
+interface listItemsProps {
+	clipboard: clipboardItem[];
+}
+
+function ListItems({ clipboard }: listItemsProps) {
+	return (
+		<ul>
+			{clipboard.map((item, index) => (
+				<Card key={item.id} index={index} item={item} />
+			))}
+		</ul>
+	)
 }
