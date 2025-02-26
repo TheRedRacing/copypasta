@@ -24,6 +24,7 @@ export default function Home() {
 	
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const onDragEnd = (event: any) => {
+		event.preventDefault();
 		const moved = move(clipboard, event);
 		setClipboard(moved);
 		setTimeout(() => {
@@ -49,7 +50,9 @@ export default function Home() {
 
 	return (
 		<main className="flex-1">
-			<DragDropProvider onDragEnd={onDragEnd}>
+			<DragDropProvider onDragEnd={onDragEnd} onDragOver={(event) => {
+				event.preventDefault();
+			}}>
 				<ListItems clipboard={clipboard} />
 			</DragDropProvider>
 		</main>

@@ -37,7 +37,7 @@ export default function Card({ index, item }: CardProps) {
             <div className={cn(isCopied ? "h-full opacity-100" : "h-0 opacity-0", "absolute inset-x-0 select-none flex items-center justify-center text-sm bg-green-50 text-green-600 transition-all duration-500 ease-in-out")}>
                 Copied
             </div>
-            <button type="button" className="hidden sm:w-10 lg:w-16 sm:flex items-center justify-center py-4 text-zinc-400 hover:text-zinc-900" ref={handleRef}>
+            <button type="button" className="hidden sm:w-6 lg:w-12 sm:flex items-center justify-center mx-4 my-2 py-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-200/80 rounded-md" ref={handleRef}>
                 <Bars3Icon className="size-5" />
             </button>
             <button type="button" className="flex-1 flex items-center justify-start pl-4 sm:pl-0 py-4" onClick={copyToClipboard}>
