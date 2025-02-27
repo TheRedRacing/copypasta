@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { HeaderAdd } from "@/components/add";
+import ThemeOption from "./ThemeDialog";
 
 export default function Header() {
     return (
@@ -8,13 +9,14 @@ export default function Header() {
                 <Link href="/" className="font-bold">
                     <span>CopyPasta</span>
                 </Link>
-                <span className="inline-flex items-center rounded-md bg-cyan-50 px-2 py-1 text-xs font-medium text-cyan-600 ring-1 ring-inset ring-cyan-500/10">
-                    V.1.0.5
+                <span className="inline-flex items-center rounded-md bg-primary-50 px-2 py-1 text-xs font-medium text-primary-600 ring-1 ring-inset ring-primary-500/10">
+                    V.1.0.6
                 </span>
             </div>
 
-            <div className="flex items-end gap-2">                
+            <div className="flex items-end gap-2">
                 <HeaderAdd />
+                <ThemeOption />
             </div>
         </header>
     );

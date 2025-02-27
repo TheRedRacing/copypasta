@@ -3,9 +3,9 @@ import { cn } from '@/lib/utils';
 import { CheckIcon, EyeIcon, EyeSlashIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
-const classNormal = "flex items-center justify-center rounded-md px-4 py-2 bg-transparent hover:bg-cyan-50 text-xs font-medium text-zinc-600 hover:text-cyan-700 ring-1 ring-inset ring-zinc-500/10 hover:ring-cyan-600/10";
+const classNormal = "flex items-center justify-center rounded-md px-4 py-2 bg-transparent hover:bg-primary-50 text-xs font-medium text-zinc-600 hover:text-primary-700 ring-1 ring-inset ring-zinc-500/10 hover:ring-primary-600/10";
 const classDelete = "flex items-center justify-center rounded-md px-4 py-2 bg-transparent hover:bg-red-50 text-xs font-medium text-zinc-600 hover:text-red-700 ring-1 ring-inset ring-zinc-500/10 hover:ring-red-600/10"
-const classDeleted= "flex items-center justify-center rounded-md px-4 py-2 bg-red-50 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10"
+const classDeleted = "flex items-center justify-center rounded-md px-4 py-2 bg-red-50 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10"
 
 interface PrivateButtonProps {
     isBlur: boolean;
@@ -31,7 +31,7 @@ function TrashButton({ item }: TrashButtonProps) {
 
     const deleteItem = () => {
         const id = item.id;
-        
+
         // Récupération des données sauvegardées
         const savedData: clipboardItem[] = JSON.parse(localStorage.getItem("clipboardTexts") || "[]");
         const savedOrder: number[] = JSON.parse(localStorage.getItem("clipboardOrder") || "[]");
@@ -41,7 +41,7 @@ function TrashButton({ item }: TrashButtonProps) {
         const updatedOrder = savedOrder.filter((order) => order !== id);
 
         // Mise à jour des données
-        localStorage.setItem('clipboardOrder', JSON.stringify(updatedOrder));     
+        localStorage.setItem('clipboardOrder', JSON.stringify(updatedOrder));
         localStorage.setItem('clipboardTexts', JSON.stringify(updatedTexts));
 
         // Mise à jour de l'état
