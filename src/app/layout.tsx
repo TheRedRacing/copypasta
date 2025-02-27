@@ -17,7 +17,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "PMI - Copypasta",
+  title: "Copypasta",
   description: "A simple clipboard manager",
   authors: [{name: "Maxime Sickenberg"}],
 };
