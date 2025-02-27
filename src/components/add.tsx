@@ -84,7 +84,8 @@ function AddDialog({ children }: AddDialogProps) {
         // Reset the form and close the dialog.
         form.reset();
         setIsOpen(false);
-        window.location.reload();
+        // Reload to the page / to update the clipboard.
+        window.location.replace("/");
     }
 
     return (

@@ -51,7 +51,7 @@ export default function Card({ index, item, data }: CardProps) {
             <div className="flex shrink-0 items-center gap-2 py-2 pr-4 sm:pr-10 lg:pr-16">
                 <PrivateButton isBlur={isBlur} setIsBlur={setIsBlur} />
                 <EditDialog item={data} />
-                <TrashButton id={data.id} />
+                <TrashButton item={data} />
             </div>
         </li>
     );

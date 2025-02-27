@@ -1,3 +1,4 @@
+import { clipboardItem } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { CheckIcon, EyeIcon, EyeSlashIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
@@ -23,17 +24,30 @@ function PrivateButton({ isBlur, setIsBlur }: PrivateButtonProps) {
 }
 
 interface TrashButtonProps {
-    id: number;
+    item: clipboardItem;
 }
-function TrashButton({ id }: TrashButtonProps) {
+function TrashButton({ item }: TrashButtonProps) {
     const [isDeleted, setIsDeleted] = useState(false);
 
     const deleteItem = () => {
-        const clipboardText = localStorage.getItem('clipboardTexts') || '[]';
-        const clipboard: ClipboardItem[] = JSON.parse(clipboardText);
-        const updatedTexts = clipboard.filter((_, i) => i !== id);
+        const id = item.id;
+        
+        // Récupération des données sauvegardées
+        const savedData: clipboardItem[] = JSON.parse(localStorage.getItem("clipboardTexts") || "[]");
+        const savedOrder: number[] = JSON.parse(localStorage.getItem("clipboardOrder") || "[]");
+
+        // Suppression de l'élément dans le tableau
+        const updatedTexts = savedData.filter((item) => item.id !== id);
+        const updatedOrder = savedOrder.filter((order) => order !== id);
+
+        // Mise à jour des données
+        localStorage.setItem('clipboardOrder', JSON.stringify(updatedOrder));     
         localStorage.setItem('clipboardTexts', JSON.stringify(updatedTexts));
+
+        // Mise à jour de l'état
         setIsDeleted(true);
+
+        // Rechargement de la page
         setTimeout(() => window.location.reload(), 500);
     }
 
