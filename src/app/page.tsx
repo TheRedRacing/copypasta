@@ -5,32 +5,45 @@ import { useEffect, useState } from "react";
 import { EmptyAdd } from "@/components/add";
 import Card from "@/components/card";
 
-import { DragDropProvider } from '@dnd-kit/react';
-import { move } from '@dnd-kit/helpers';
-import { clipboardItem } from "@/lib/types";
+import { DndContext, closestCenter } from '@dnd-kit/core';
+import { arrayMove, SortableContext } from '@dnd-kit/sortable';
+import { type clipboardItem } from "@/lib/types";
+import { restrictToVerticalAxis, restrictToWindowEdges } from '@dnd-kit/modifiers';
 
 export default function Home() {
-	const [clipboard, setClipboard] = useState<clipboardItem[]>([]);
+	const [clipboardData, setClipboardData] = useState<clipboardItem[]>([]);
+	const [clipboardOrder, setclipboardOrder] = useState<number[]>([]);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const savedData = JSON.parse(localStorage.getItem("clipboardTexts") || "[]");
-		if (savedData.length > 0) {
-			setClipboard(savedData);
+		const savedData:clipboardItem[] = JSON.parse(localStorage.getItem("clipboardTexts") || "[]");
+		const savedOrder:number[] = JSON.parse(localStorage.getItem("clipboardOrder") || "[]");
+
+		if (savedData.length > 0 && savedOrder.length > 0) {
+			setClipboardData(savedData);
+			setclipboardOrder(savedOrder);			
 		}
 		setLoading(false);
 	}, []);
 
-	
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const onDragEnd = (event: any) => {
-		event.preventDefault();
-		const moved = move(clipboard, event);
-		setClipboard(moved);
-		setTimeout(() => {
-			localStorage.setItem("clipboardTexts", JSON.stringify(moved));
-		}, 1000);
-	}
+	const onDragEnd = (event: { active: any; over: any; }) => {
+		const { active, over } = event;
+
+		if (active.id !== over.id) {
+			const oldIndex = clipboardOrder.indexOf(active.id);
+			const newIndex = clipboardOrder.indexOf(over.id);
+
+			if (oldIndex === -1 || newIndex === -1) return;
+
+			// Mise à jour de l'ordre des IDs
+			const newOrder = arrayMove(clipboardOrder, oldIndex, newIndex);
+			setclipboardOrder(newOrder);
+
+			// 🔥 Sauvegarde dans localStorage
+			localStorage.setItem("clipboardOrder", JSON.stringify(newOrder));
+		}
+	};
 
 	if (loading) {
 		return (
@@ -40,7 +53,7 @@ export default function Home() {
 		);
 	}
 
-	if (clipboard.length === 0) {
+	if (clipboardData.length === 0) {
 		return (
 			<main className="flex-1 flex flex-col items-center justify-center p-10 sm:p-20 md:px-32 lg:px-40">
 				<EmptyAdd />
@@ -50,25 +63,27 @@ export default function Home() {
 
 	return (
 		<main className="flex-1">
-			<DragDropProvider onDragEnd={onDragEnd} onDragOver={(event) => {
-				event.preventDefault();
-			}}>
-				<ListItems clipboard={clipboard} />
-			</DragDropProvider>
+			<DndContext modifiers={[restrictToVerticalAxis, restrictToWindowEdges]} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+				<SortableContext items={clipboardOrder}>
+					<ListItems clipboardOrder={clipboardOrder} clipboardData={clipboardData} />
+				</SortableContext>
+			</DndContext>
 		</main>
 	);
 }
 
 interface listItemsProps {
-	clipboard: clipboardItem[];
+	clipboardOrder: number[];
+	clipboardData: clipboardItem[];
 }
 
-function ListItems({ clipboard }: listItemsProps) {
+function ListItems({ clipboardOrder, clipboardData }: listItemsProps) {
 	return (
 		<ul>
-			{clipboard.map((item, index) => (
-				<Card key={item.id} index={index} item={item} />
-			))}
+			{clipboardOrder.map((item, index) => {
+				const data = clipboardData.find((data) => data.id === item);
+				return data ? <Card key={item} index={index} item={item} data={data} /> : null;
+			})}
 		</ul>
 	)
 }

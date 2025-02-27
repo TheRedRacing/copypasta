@@ -67,11 +67,21 @@ function AddDialog({ children }: AddDialogProps) {
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
+        // Get the clipboard from the local storage.
         const clipboardText = localStorage.getItem('clipboardTexts') || '[]';
+        const clipboardOrder = JSON.parse(localStorage.getItem("clipboardOrder") || "[]");
+
+        // Add the new row to the clipboard
         const clipboard = JSON.parse(clipboardText);
         const nextId = clipboard.length;
-        clipboard.unshift({ id: nextId + 1, text: values.text, isPrivate: values.isPrivate });
+        clipboard.unshift({ id: nextId, text: values.text, isPrivate: values.isPrivate });
+        clipboardOrder.unshift(nextId);
+
+        // Save the clipboard to the local storage.
         localStorage.setItem('clipboardTexts', JSON.stringify(clipboard));
+        localStorage.setItem('clipboardOrder', JSON.stringify(clipboardOrder));
+
+        // Reset the form and close the dialog.
         form.reset();
         setIsOpen(false);
         window.location.reload();
