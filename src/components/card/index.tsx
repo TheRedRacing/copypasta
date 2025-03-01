@@ -37,7 +37,7 @@ export default function Card({ index, item, data }: CardProps) {
     };
 
     return (
-        <li key={index} ref={setNodeRef} className="relative flex-1 flex items-center justify-between border border-zinc-200 -my-px bg-white hover:bg-zinc-50 px-4 dark:bg-dark-main dark:border-zinc-700 dark:hover:bg-dark-hover first:rounded-t-lg last:rounded-b-lg" style={style} {...attributes}>
+        <li key={index} ref={setNodeRef} className="relative flex-1 flex items-center justify-between border border-zinc-200 -my-px bg-white hover:bg-zinc-50 px-4 dark:bg-dark-main dark:border-zinc-800 dark:hover:bg-dark-hover first:rounded-t-lg last:rounded-b-lg" style={style} {...attributes}>
             <button type="button" className="flex-1 flex items-center justify-start pl-4 sm:pl-0 py-4" onClick={copyToClipboard}>
                 <span className={cn(isBlur && "blur-sm", "text-left text-sm line-clamp-1")}>{data.text}</span>
             </button>
