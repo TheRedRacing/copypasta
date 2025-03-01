@@ -8,6 +8,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { clipboardItem } from "@/lib/types";
 import { ButtonCard } from "../ui/button";
+import { track } from "@vercel/analytics";
 
 interface CardProps {
     index: number;
@@ -23,6 +24,7 @@ export default function Card({ index, item, data }: CardProps) {
     const copyToClipboard = async () => {
         try {
             await navigator.clipboard.writeText(data.text);
+            track("row copied");
             setIsCopied(true);
             setTimeout(() => setIsCopied(false), 2000);
         } catch (err) {

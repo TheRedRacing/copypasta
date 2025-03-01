@@ -12,6 +12,8 @@ import { Textarea } from "./ui/textarea"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
 
+import { track } from '@vercel/analytics';
+
 export function HeaderAdd() {
     return (
         <AddDialog>
@@ -80,6 +82,9 @@ function AddDialog({ children }: AddDialogProps) {
         // Save the clipboard to the local storage.
         localStorage.setItem('clipboardTexts', JSON.stringify(clipboard));
         localStorage.setItem('clipboardOrder', JSON.stringify(clipboardOrder));
+
+        // Track the event
+        track("new-row added");
 
         // Reset the form and close the dialog.
         form.reset();

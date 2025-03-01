@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import { CheckIcon, EyeIcon, EyeSlashIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { ButtonCard } from '../ui/button';
+import { track } from '@vercel/analytics';
 
 interface PrivateButtonProps {
     isBlur: boolean;
@@ -43,6 +44,9 @@ function TrashButton({ item }: TrashButtonProps) {
 
         // Mise à jour de l'état
         setIsDeleted(true);
+
+        // tracking
+        track("row deleted");
 
         // Rechargement de la page
         setTimeout(() => window.location.reload(), 500);
