@@ -34,7 +34,7 @@ export default function Cookies() {
         <div className="px-4 sm:px-6 lg:px-12">
             <div className="rounded-lg flex flex-col justify-between gap-x-8 gap-y-4 bg-white p-6 ring-1 ring-zinc-200 md:flex-row md:items-center lg:px-8">
                 <p className="max-w-5xl text-sm/6 text-zinc-900">
-                    {"This website does not use any database. All items are stored locally in your browser's localStorage. If you clear your site data or browser storage, all saved items will be permanently lost. Learn more in our"} <a href="/help" className="text-cyan-600 underline">Help Center</a>.
+                    {"This website does not use any database. All items are stored locally in your browser's localStorage. If you clear your site data or browser storage, all saved items will be permanently lost. Learn more in our"} <a href="/help" className="text-primary-600 underline">Help Center</a>.
                 </p>
                 <div className="flex flex-none items-center gap-x-5">
                     <Button onClick={() => acceptCookies()}>

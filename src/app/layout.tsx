@@ -3,6 +3,8 @@ import "@/styles/globals.css";
 import { Roboto } from "next/font/google";
 
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/lib/themeProvider";
+
 import Header from "@/components/header";
 import Cookies from "@/components/cookies";
 import Footer from "@/components/footer";
@@ -20,16 +22,23 @@ export const metadata: Metadata = {
   title: "Copypasta",
   description: "A simple clipboard manager",
   authors: [{ name: "Maxime Sickenberg" }],
+  keywords: ["clipboard", "manager", "copy", "paste", "clipboard manager", "copypasta", "copy-pasta", "copy pasta"],
+  creator: "Maxime Sickenberg",
+  publisher: "Maxime Sickenberg"
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={cn(roboto.className, "flex flex-col min-h-screen antialiased")}>
-        <Header />
-        {children}
-        <Cookies />
-        <Footer />
+    <html lang="en" className={cn(roboto.className, "")} suppressHydrationWarning>
+      <body className="flex flex-col min-h-screen antialiased bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100">
+        <ThemeProvider defaultTheme="system" disableTransitionOnChange enableColorScheme enableSystem themes={["light", "dark", "cyan", "dark-cyan", "red", "dark-red", "orange", "dark-orange", "yellow", "dark-yellow", "green", "dark-green", "teal", "dark-teal", "blue", "dark-blue", "indigo", "dark-indigo", "pink", "dark-pink", "system-default", "system-red", "system-orange", "system-yellow", "system-green", "system-teal", "system-blue", "system-indigo", "system-pink"]}>
+          <>
+            <Header />
+            {children}
+            <Cookies />
+            <Footer />
+          </>
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>
