@@ -25,13 +25,13 @@ export function EmptyAdd() {
         <AddDialog>
             <button
                 type="button"
-                className="relative flex-1 w-full h-full rounded-lg border-2 border-dashed border-zinc-300 p-24 text-center hover:border-zinc-400 focus:outline-none"
+                className="relative flex-1 w-full h-full rounded-lg border-2 border-dashed border-zinc-300 p-24 text-center hover:border-zinc-400 focus:outline-none dark:border-zinc-700 dark:hover:border-zinc-600"
             >
                 <div className="text-center">
-                    <h3 className="mt-2 text-sm font-semibold text-zinc-900">
+                    <h3 className="mt-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                         No data available
                     </h3>
-                    <p className="mt-1 text-sm text-zinc-500">
+                    <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
                         Click the button below to add a new row.
                     </p>
                     <div className="mt-4">
