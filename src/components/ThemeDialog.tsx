@@ -82,63 +82,69 @@ const ThemeOption: React.FC = () => {
 
                     <div className="">
                         <p className="mb-2 text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-100">Choose the primary color of your application.</p>
-                        <div className="grid grid-cols-3 gap-4">
+                        <div className="grid grid-cols-2 gap-4">
                             <button
                                 type="button"
-                                className={cn(getDarkMode() === "light" ? "ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-zinc-950" : "", "overflow-hidden rounded border border-zinc-300 bg-zinc-100 text-zinc-900 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-zinc-500 dark:bg-zinc-800 dark:text-zinc-100 dark:focus-visible:ring-offset-zinc-950")}
+                                className="flex flex-col items-center justify-center gap-2"
                                 onClick={() => getTheme('light', getColor())}
                             >
-                                <div className="w-full border-b border-zinc-200 py-1 dark:border-zinc-500">Light</div>
-                                <div className="relative flex">
-                                    <span className="h-8 w-full bg-white"></span>
-                                    <span className="h-8 w-full bg-zinc-800"></span>
+                                <div className={cn("relative h-24 rounded-lg p-1 bg-zinc-50 border border-zinc-200 w-full overflow-hidden", getDarkMode() === "light" && "ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-zinc-950")}>
+                                    <div className="rounded-lg h-4 border border-zinc-300 p-1 flex items-center justify-between">
+                                        <div className="w-6 h-2 bg-zinc-200 rounded-full"></div>
+                                        <div className="w-4 h-2 bg-primary-500 rounded-full"></div>
+                                    </div>
+                                    <div className="py-1 space-y-px overflow-hidden">
+                                        <div className="h-2 bg-zinc-200 rounded-t-lg"></div>
+                                        <div className="h-2 bg-zinc-200"></div>
+                                        <div className="h-2 bg-zinc-200"></div>
+                                        <div className="h-2 bg-zinc-200"></div>
+                                        <div className="h-2 bg-zinc-200 rounded-b-lg"></div>
+                                    </div>
+                                    <div className="absolute bottom-0 inset-x-0 h-2 bg-primary-500"></div>
                                 </div>
+                                <div className="text-sm">Light</div>
                             </button>
                             <button
                                 type="button"
-                                className={cn(getDarkMode() === "dark" ? "ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-zinc-950" : "", "overflow-hidden rounded border border-zinc-300 bg-zinc-100 text-zinc-900 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-zinc-500 dark:bg-zinc-800 dark:text-zinc-100 dark:focus-visible:ring-offset-zinc-950")}
+                                className="flex flex-col items-center justify-center gap-2"
                                 onClick={() => getTheme('dark', getColor())}
                             >
-                                <div className="w-full border-b border-zinc-200 py-1 dark:border-zinc-500">Dark</div>
-                                <div className="relative flex">
-                                    <span className="h-8 w-full bg-white"></span>
-                                    <span className="h-8 w-full bg-zinc-800"></span>
+                                <div className={cn("relative h-24 rounded-lg p-1 bg-black w-full overflow-hidden", getDarkMode() === "dark" && "ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-zinc-950")}>
+                                    <div className="rounded-lg h-4 bg-white/20 p-1 flex items-center justify-between">
+                                        <div className="w-6 h-2 bg-[#595959] rounded-full"></div>
+                                        <div className="w-4 h-2 bg-primary-500 rounded-full"></div>
+                                    </div>
+                                    <div className="py-1 space-y-px rounded-lg overflow-hidden">
+                                        <div className="h-2 bg-white/35 rounded-t-lg"></div>
+                                        <div className="h-2 bg-white/35"></div>
+                                        <div className="h-2 bg-white/35"></div>
+                                        <div className="h-2 bg-white/35"></div>
+                                        <div className="h-2 bg-white/35 rounded-b-lg"></div>
+                                    </div>
+                                    <div className="absolute bottom-0 inset-x-0 h-2 bg-primary-600"></div>
                                 </div>
-                            </button>
-                            <button
-                                type="button"
-                                className={cn(getDarkMode() === "system" ? "ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-zinc-950" : "", "overflow-hidden rounded border border-zinc-300 bg-zinc-100 text-zinc-900 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-zinc-500 dark:bg-zinc-800 dark:text-zinc-100 dark:focus-visible:ring-offset-zinc-950")}
-                                onClick={() => getTheme('system', getColor())}
-                            >
-                                <div className="w-full border-b border-zinc-200 py-1 dark:border-zinc-500">System</div>
-                                <div className="relative flex">
-                                    <span className="h-8 w-full bg-white"></span>
-                                    <span className="h-8 w-full bg-zinc-800"></span>
-                                </div>
+                                <div className="text-sm">Dark</div>
                             </button>
                         </div>
                     </div>
                     <div>
                         <p className="mb-2 text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-100">Choose the primary color of your application.</p>
-                        <div className="grid grid-cols-3 gap-4">
+                        <div className="flex gap-2">
                             {colors.map((color, themeIdx) => (
                                 <button
                                     key={themeIdx}
                                     type="button"
-                                    className={cn(getColor() === color.value ? "ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-zinc-950" : "", "overflow-hidden rounded border border-zinc-300 bg-zinc-100 text-zinc-900 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-zinc-500 dark:bg-zinc-800 dark:text-zinc-100 dark:focus-visible:ring-offset-zinc-950")}
+                                    className={cn("relative overflow-hidden size-8 rounded-full border border-zinc-300 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-zinc-500 dark:bg-zinc-800 dark:text-zinc-100 dark:focus-visible:ring-offset-zinc-950", getColor() === color.value && "ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-zinc-950")}
                                     onClick={() => {
                                         getTheme(getDarkMode(), color.value);
                                     }}
                                 >
-                                    <div className="w-full border-b border-zinc-200 py-1 dark:border-zinc-500">{color.name}</div>
-                                    <div className="relative flex">
-                                        <span className="h-8 w-full bg-white"></span>
-                                        <span className="h-8 w-full bg-zinc-800"></span>
-                                        <span className={cn(color.color, "absolute inset-x-4 top-1.5 h-2 rounded-full")}></span>
-                                    </div>
+
+                                    <span className={cn(color.color, "absolute inset-0 rounded-full")}></span>
                                 </button>
                             ))}
                         </div>
+                        <p className="mt-6 text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-100">Your color theme is : <span className="capitalize">{getColor()}</span></p>
                     </div>
                 </DialogContent>
             </Dialog>

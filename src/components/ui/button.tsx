@@ -9,11 +9,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary-600 text-white hover:bg-primary-500 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-50/90",
+        default: "bg-primary-500 text-white hover:bg-primary-600 dark:bg-primary-400 dark:text-zinc-900 dark:hover:bg-primary-500",
         destructive:
           "bg-red-500 text-zinc-50 hover:bg-red-500/90 dark:bg-red-900 dark:text-zinc-50 dark:hover:bg-red-900/90",
         outline:
-          "border border-zinc-200 bg-white hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
+          "ring-1 ring-inset text-zinc-600 hover:text-primary-600 ring-gray-500/10 hover:ring-primary-500/50 hover:bg-primary-50 dark:text-zinc-300 dark:hover:text-primary-400 dark:ring-zinc-400/20 dark:hover:ring-primary-400/30 dark:hover:bg-primary-400/10",
         secondary:
           "bg-zinc-200 text-zinc-900 hover:bg-zinc-300 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-800/80",
         ghost: "hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
@@ -34,9 +34,7 @@ const buttonVariants = cva(
   }
 )
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   asChild?: boolean
 }
 
@@ -54,4 +52,34 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 )
 Button.displayName = "Button"
 
-export { Button, buttonVariants }
+
+const buttonCardVariants = cva(
+  "inline-flex items-center justify-center rounded-md bg-transparent h-8 px-4 text-xs font-medium ring-1 ring-inset",
+  {
+    variants: {
+      variant: {
+        default: "text-zinc-600 hover:text-primary-600 ring-gray-500/10 hover:ring-primary-500/50 hover:bg-primary-50 dark:text-zinc-300 dark:hover:text-primary-400 dark:ring-zinc-400/20 dark:hover:ring-primary-400/30 dark:hover:bg-primary-400/10",
+        destructive: "text-zinc-600 hover:text-red-600 ring-red-500/10 hover:ring-red-500/50 hover:bg-red-50 dark:text-zinc-300 dark:hover:text-red-400 dark:ring-zinc-400/20 dark:hover:ring-red-400/30 dark:hover:bg-red-500/10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
+
+export interface ButtonCardProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonCardVariants> {
+  asChild?: boolean
+}
+
+const ButtonCard = React.forwardRef<HTMLButtonElement, ButtonCardProps>(({ className, variant, asChild = false, ...props }, ref) => {
+  const Comp = asChild ? Slot : "button"
+  return (
+    <Comp className={cn(buttonCardVariants({ variant, className }))} ref={ref} {...props} />
+  )
+})
+ButtonCard.displayName = "ButtonCard"
+
+
+
+export { Button, ButtonCard, buttonVariants, buttonCardVariants }

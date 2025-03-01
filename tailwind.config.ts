@@ -23,6 +23,10 @@ export default {
 					"800": "rgba(var(--primary-800),<alpha-value>)",
 					"900": "rgba(var(--primary-900),<alpha-value>)",
 				},
+				dark: {
+					"main" : "rgba(var(--dark-main),<alpha-value>)",
+					"hover": "rgba(var(--dark-hover),<alpha-value>)",
+				},
 			},
 			keyframes: {
 				"accordion-down": {

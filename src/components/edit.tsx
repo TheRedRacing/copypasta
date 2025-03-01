@@ -8,7 +8,7 @@ import { z } from "zod"
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Switch } from "@/components/ui/switch"
-import { Button } from "@/components/ui/button";
+import { Button, ButtonCard } from "@/components/ui/button";
 import { Textarea } from "./ui/textarea"
 import { PencilIcon } from "@heroicons/react/24/outline"
 import { clipboardItem, itemClipboardItem } from "@/lib/types"
@@ -48,9 +48,9 @@ export default function EditDialog({ item }: itemClipboardItem) {
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <button className="group/item flex items-center justify-center rounded-md px-4 py-2 bg-transparent hover:bg-primary-50 text-xs font-medium text-zinc-600 hover:text-primary-700 ring-1 ring-inset ring-zinc-500/10 hover:ring-primary-600/10" onClick={() => setIsOpen(!isOpen)}>
+                <ButtonCard onClick={() => setIsOpen(!isOpen)}>
                     <PencilIcon className="size-5" />
-                </button>
+                </ButtonCard>
             </DialogTrigger>
             <DialogContent>
                 <Form {...form}>

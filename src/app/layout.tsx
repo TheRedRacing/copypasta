@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={cn(roboto.className, "")} suppressHydrationWarning>
-      <body className="flex flex-col min-h-screen antialiased bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100">
+      <body className="flex flex-col min-h-screen antialiased bg-zinc-50 dark:bg-black text-zinc-900 dark:text-zinc-100">
         <ThemeProvider defaultTheme="system" disableTransitionOnChange enableColorScheme enableSystem themes={["light", "dark", "cyan", "dark-cyan", "red", "dark-red", "orange", "dark-orange", "yellow", "dark-yellow", "green", "dark-green", "teal", "dark-teal", "blue", "dark-blue", "indigo", "dark-indigo", "pink", "dark-pink", "system-default", "system-red", "system-orange", "system-yellow", "system-green", "system-teal", "system-blue", "system-indigo", "system-pink"]}>
           <>
             <Header />
