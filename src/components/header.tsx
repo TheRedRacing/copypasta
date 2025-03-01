@@ -4,7 +4,7 @@ import ThemeOption from "./ThemeDialog";
 
 export default function Header() {
     return (
-        <header className="sticky top-0 inset-x-0 z-40 bg-white flex items-center justify-between border-b border-zinc-300 h-14 px-4 sm:px-10 lg:px-16">
+        <header className="fixed top-4 inset-x-4 z-40 bg-white flex items-center justify-between border border-zinc-200 rounded-lg h-14 px-4">
             <div className="flex items-end gap-2">
                 <Link href="/" className="font-bold">
                     <span>CopyPasta</span>

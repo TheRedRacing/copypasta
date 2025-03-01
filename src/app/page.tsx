@@ -16,12 +16,12 @@ export default function Home() {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const savedData:clipboardItem[] = JSON.parse(localStorage.getItem("clipboardTexts") || "[]");
-		const savedOrder:number[] = JSON.parse(localStorage.getItem("clipboardOrder") || "[]");
+		const savedData: clipboardItem[] = JSON.parse(localStorage.getItem("clipboardTexts") || "[]");
+		const savedOrder: number[] = JSON.parse(localStorage.getItem("clipboardOrder") || "[]");
 
 		if (savedData.length > 0 && savedOrder.length > 0) {
 			setClipboardData(savedData);
-			setclipboardOrder(savedOrder);			
+			setclipboardOrder(savedOrder);
 		}
 		setLoading(false);
 	}, []);
@@ -47,7 +47,7 @@ export default function Home() {
 
 	if (loading) {
 		return (
-			<main className="flex-1 flex items-center justify-center p-10 sm:p-20 md:p-32 lg:p-40">
+			<main className="flex-1 flex items-center justify-center mt-16 p-10 sm:p-20 md:p-32 lg:p-40">
 				<p className="text-lg font-semibold text-zinc-600">Chargement...</p>
 			</main>
 		);
@@ -55,19 +55,21 @@ export default function Home() {
 
 	if (clipboardData.length === 0) {
 		return (
-			<main className="flex-1 flex flex-col items-center justify-center p-10 sm:p-20 md:px-32 lg:px-40">
+			<main className="flex-1 flex flex-col items-center justify-center mt-16 p-10 sm:p-20 md:px-32 lg:px-40">
 				<EmptyAdd />
 			</main>
 		);
 	}
 
 	return (
-		<main className="flex-1">
-			<DndContext modifiers={[restrictToVerticalAxis, restrictToWindowEdges]} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-				<SortableContext items={clipboardOrder}>
-					<ListItems clipboardOrder={clipboardOrder} clipboardData={clipboardData} />
-				</SortableContext>
-			</DndContext>
+		<main className="flex-1 p-4 mt-16">
+			<div className="rounded-lg overflow-hidden border border-zinc-200">
+				<DndContext modifiers={[restrictToVerticalAxis, restrictToWindowEdges]} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+					<SortableContext items={clipboardOrder}>
+						<ListItems clipboardOrder={clipboardOrder} clipboardData={clipboardData} />
+					</SortableContext>
+				</DndContext>
+			</div>
 		</main>
 	);
 }
