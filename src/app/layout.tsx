@@ -19,10 +19,10 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: "Copypasta",
   description: "A simple clipboard manager",
-  authors: [{name: "Maxime Sickenberg"}],
+  authors: [{ name: "Maxime Sickenberg" }],
 };
 
-export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body className={cn(roboto.className, "flex flex-col min-h-screen antialiased")}>
