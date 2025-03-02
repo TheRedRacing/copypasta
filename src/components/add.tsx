@@ -123,7 +123,7 @@ function AddDialog({ children }: AddDialogProps) {
                             control={form.control}
                             name="isPrivate"
                             render={({ field }) => (
-                                <FormItem className="flex flex-row items-center justify-between gap-10 rounded-lg border border-zinc-300 p-4">
+                                <FormItem className="flex flex-row items-center justify-between gap-10 rounded-lg border border-zinc-300 p-4 dark:border-zinc-700">
                                     <div className="space-y-0.5">
                                         <FormLabel className="text-base font-medium">
                                             Hide row ?

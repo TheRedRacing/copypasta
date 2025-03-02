@@ -39,6 +39,8 @@ export default function Card({ index, item, data }: CardProps) {
         transition,
     };
 
+    attributes.tabIndex = -1;
+
     return (
         <div key={index} ref={setNodeRef} className={cn("relative flex-1 flex items-center justify-between border border-zinc-200 -my-px bg-white hover:bg-zinc-50 px-4 dark:bg-dark-main dark:border-zinc-800 dark:hover:bg-dark-hover first:rounded-t-lg last:rounded-b-lg overflow-hidden", focusClassName)} style={style} {...attributes}>
             <div className="flex-1 flex items-center justify-start pl-4 sm:pl-0 py-4" onClick={copyToClipboard}>
