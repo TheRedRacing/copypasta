@@ -1,11 +1,9 @@
-import Patern from "@/components/patern";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 export default function Help() {
     return (
-        <main className="flex-1 px-4 sm:px-10 lg:px-16">
-            <Patern />
-            {/* <Accordion type="single" collapsible className="w-full">
+        <main className="flex-1 p-4 mt-16">
+            <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="item-1">
                     <AccordionTrigger>Is it accessible?</AccordionTrigger>
                     <AccordionContent>
@@ -25,7 +23,7 @@ export default function Help() {
                         Yes. It's animated by default, but you can disable it if you prefer.
                     </AccordionContent>
                 </AccordionItem>
-            </Accordion> */}
+            </Accordion>
         </main>
     );
 }
