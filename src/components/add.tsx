@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils"
 import { useState } from "react"
 
 import { track } from '@vercel/analytics';
+import { focusClassName } from "@/lib/focus"
 
 export function HeaderAdd() {
     return (
@@ -27,7 +28,7 @@ export function EmptyAdd() {
         <AddDialog>
             <button
                 type="button"
-                className="relative flex-1 w-full h-full rounded-lg border-2 border-dashed border-zinc-300 p-24 text-center hover:border-zinc-400 focus:outline-none dark:border-zinc-700 dark:hover:border-zinc-600"
+                className={cn("relative flex-1 w-full h-full rounded-lg border-2 border-dashed border-zinc-300 p-24 text-center hover:border-zinc-400 focus:outline-none dark:border-zinc-700 dark:hover:border-zinc-600", focusClassName)}
             >
                 <div className="text-center">
                     <h3 className="mt-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100">

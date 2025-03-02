@@ -9,6 +9,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { clipboardItem } from "@/lib/types";
 import { ButtonCard } from "../ui/button";
 import { track } from "@vercel/analytics";
+import { focusClassName } from "@/lib/focus";
 
 interface CardProps {
     index: number;
@@ -39,10 +40,10 @@ export default function Card({ index, item, data }: CardProps) {
     };
 
     return (
-        <li key={index} ref={setNodeRef} className="relative flex-1 flex items-center justify-between border border-zinc-200 -my-px bg-white hover:bg-zinc-50 px-4 dark:bg-dark-main dark:border-zinc-800 dark:hover:bg-dark-hover first:rounded-t-lg last:rounded-b-lg" style={style} {...attributes}>
-            <button type="button" className="flex-1 flex items-center justify-start pl-4 sm:pl-0 py-4" onClick={copyToClipboard}>
+        <div key={index} ref={setNodeRef} className={cn("relative flex-1 flex items-center justify-between border border-zinc-200 -my-px bg-white hover:bg-zinc-50 px-4 dark:bg-dark-main dark:border-zinc-800 dark:hover:bg-dark-hover first:rounded-t-lg last:rounded-b-lg overflow-hidden", focusClassName)} style={style} {...attributes}>
+            <div className="flex-1 flex items-center justify-start pl-4 sm:pl-0 py-4" onClick={copyToClipboard}>
                 <span className={cn(isBlur && "blur-sm", "text-left text-sm line-clamp-1")}>{data.text}</span>
-            </button>
+            </div>
             <div className="flex shrink-0 items-center gap-2 py-2">
                 <PrivateButton isBlur={isBlur} setIsBlur={setIsBlur} />
                 <EditDialog item={data} />
@@ -53,9 +54,9 @@ export default function Card({ index, item, data }: CardProps) {
             </div>
 
 
-            <div className={cn(isCopied ? "h-full opacity-100" : "h-0 opacity-0", "absolute inset-x-0 select-none flex items-center justify-center text-sm bg-green-50 text-green-600 transition-all duration-500 ease-in-out")}>
+            <div className={cn(isCopied ? "h-full opacity-100" : "h-0 opacity-0", "absolute inset-x-0 select-none flex items-center justify-center text-sm bg-green-50 text-green-700 dark:bg-green-500/10 dark:text-green-400 transition-all duration-500 ease-in-out")}>
                 Copied
             </div>
-        </li>
+        </div>
     );
 }

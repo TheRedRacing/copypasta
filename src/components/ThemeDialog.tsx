@@ -9,6 +9,7 @@ import { themeMapping } from "@/lib/themeProvider";
 
 import { SwatchIcon } from "@heroicons/react/24/outline";
 import { Button } from "./ui/button";
+import { focusClassName } from "@/lib/focus";
 
 const colors = [
     { name: "Default", value: "default", color: "bg-cyan-500" },
@@ -70,7 +71,7 @@ const ThemeOption: React.FC = () => {
         <>
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button size={'sm'} variant={'outline'}>
+                    <Button size={'sm'} variant={'outline'} className={focusClassName}>
                         <SwatchIcon className="size-5" />
                     </Button>
                 </DialogTrigger>

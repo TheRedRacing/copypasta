@@ -3,9 +3,10 @@ import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
+import { focusClassName } from "@/lib/focus";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 dark:ring-offset-zinc-950 dark:focus-visible:ring-zinc-300",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -13,7 +14,7 @@ const buttonVariants = cva(
         destructive:
           "bg-red-500 text-zinc-50 hover:bg-red-500/90 dark:bg-red-900 dark:text-zinc-50 dark:hover:bg-red-900/90",
         outline:
-          "ring-1 ring-inset text-zinc-600 hover:text-primary-600 ring-gray-500/10 hover:ring-primary-500/50 hover:bg-primary-50 dark:text-zinc-300 dark:hover:text-primary-400 dark:ring-zinc-400/20 dark:hover:ring-primary-400/30 dark:hover:bg-primary-400/10",
+          "border text-zinc-600 hover:text-primary-600 border-gray-500/10 hover:border-primary-500/50 hover:bg-primary-50 dark:text-zinc-300 dark:hover:text-primary-400 dark:border-zinc-400/20 dark:hover:border-primary-400/30 dark:hover:bg-primary-400/10",
         secondary:
           "bg-zinc-200 text-zinc-900 hover:bg-zinc-300 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-800/80",
         ghost: "hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
@@ -43,7 +44,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : "button"
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size, className }), focusClassName)}
         ref={ref}
         {...props}
       />
@@ -54,12 +55,12 @@ Button.displayName = "Button"
 
 
 const buttonCardVariants = cva(
-  "inline-flex items-center justify-center rounded-md bg-transparent h-8 px-4 text-xs font-medium ring-1 ring-inset",
+  "inline-flex items-center justify-center rounded-md bg-transparent h-8 px-4 text-xs font-medium border",
   {
     variants: {
       variant: {
-        default: "text-zinc-600 hover:text-primary-600 ring-gray-500/10 hover:ring-primary-500/50 hover:bg-primary-50 dark:text-zinc-300 dark:hover:text-primary-400 dark:ring-zinc-400/20 dark:hover:ring-primary-400/30 dark:hover:bg-primary-400/10",
-        destructive: "text-zinc-600 hover:text-red-600 ring-red-500/10 hover:ring-red-500/50 hover:bg-red-50 dark:text-zinc-300 dark:hover:text-red-400 dark:ring-zinc-400/20 dark:hover:ring-red-400/30 dark:hover:bg-red-500/10",
+        default: "text-zinc-600 hover:text-primary-600 border-gray-500/10 hover:border-primary-500/50 hover:bg-primary-50 dark:text-zinc-300 dark:hover:text-primary-400 dark:border-zinc-400/20 dark:hover:border-primary-400/30 dark:hover:bg-primary-400/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black",
+        destructive: "text-zinc-600 hover:text-red-600 border-red-500/10 hover:border-red-500/50 hover:bg-red-50 dark:text-zinc-300 dark:hover:text-red-400 dark:border-zinc-400/20 dark:hover:border-red-400/30 dark:hover:bg-red-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black",
       },
     },
     defaultVariants: {
