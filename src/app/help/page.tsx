@@ -52,7 +52,7 @@ export default function Help() {
                                 </AccordionTrigger>
                                 <AccordionContent>
                                     If you find this project useful, you can support me by giving a ⭐ on <a href="https://github.com/theredracing" target="_blank" rel="noopener noreferrer" className="text-primary-600 underline">GitHub</a>.
-                                    You can also buy me a coffee at <a href="https://buymeacoffee.com/maximesickn" target="_blank" rel="noopener noreferrer" className="text-primary-600 underline">Buy Me a Coffee</a>.
+                                    You can also buy me a coffee at <a href="https://buymeacoffee.com/theredracing" target="_blank" rel="noopener noreferrer" className="text-primary-600 underline">Buy Me a Coffee</a>.
                                     <br/>Your support helps keep this project going! 🚀
                                 </AccordionContent>
                             </AccordionItem>
