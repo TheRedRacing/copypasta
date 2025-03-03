@@ -4,7 +4,6 @@ import ThemeOption from "./ThemeDialog";
 import { ClipboardIcon } from "@heroicons/react/24/outline";
 import { cn } from "@/lib/utils";
 import { focusClassName } from "@/lib/focus";
-import { Badge } from "./ui/badge";
 
 export default function Header() {
     return (
@@ -16,7 +15,6 @@ export default function Header() {
                     </span>
                     <span>CopyPasta</span>
                 </Link>
-                <Badge variant="green">1.0.7</Badge>
             </div>
 
             <div className="flex items-end gap-2">

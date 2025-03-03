@@ -62,7 +62,7 @@ export default function Home() {
 	}
 
 	return (
-		<main className="flex-1 p-4 mt-16">
+		<main className="flex-1 px-4 pt-6 mt-16 overflow-hidden">
 			<DndContext modifiers={[restrictToVerticalAxis, restrictToWindowEdges]} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
 				<SortableContext items={clipboardOrder}>
 					<ListItems clipboardOrder={clipboardOrder} clipboardData={clipboardData} />

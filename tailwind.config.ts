@@ -11,6 +11,9 @@ export default {
 	],
 	theme: {
 		extend: {
+			margin: {
+				"18": "4.5rem",
+			},
 			colors: {
 				primary: {
 					"50": "rgba(var(--primary-50),<alpha-value>)",
@@ -25,10 +28,10 @@ export default {
 					"900": "rgba(var(--primary-900),<alpha-value>)",
 				},
 				dark: {
-					"main" : "rgba(var(--dark-main),<alpha-value>)",
-					"header": "rgba(var(--dark-header),<alpha-value>)",
-					"hover": "rgba(var(--dark-hover),<alpha-value>)",
-				}
+					main: "rgba(var(--dark-main),<alpha-value>)",
+					header: "rgba(var(--dark-header),<alpha-value>)",
+					hover: "rgba(var(--dark-hover),<alpha-value>)",
+				},
 			},
 			keyframes: {
 				"accordion-down": {

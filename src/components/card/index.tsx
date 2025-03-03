@@ -38,7 +38,7 @@ export default function Card({ index, item, data }: CardProps) {
         transform: CSS.Transform.toString(transform),
         transition,
         position: isDragging ? "relative" : "relative",
-        zIndex: isDragging ? 1000 : 0,
+        zIndex: isDragging ? 20 : 0,
     };
 
     attributes.tabIndex = -1;
