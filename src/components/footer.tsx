@@ -26,16 +26,16 @@ const social: SocialLink[] = [
 
 export default function Footer() {
     return (
-        <footer className="mt-4 bg-white md:flex md:items-center md:justify-between border-t border-zinc-200 p-4 lg:px-8 dark:bg-dark-main dark:border-none">
+        <footer className="mt-4 bg-white md:flex md:items-center md:justify-between border-t border-zinc-200 p-4 lg:px-8 dark:bg-dark-header dark:border-none">
             <div className="flex gap-x-6 md:order-2">
                 {social.map((item) => (
-                    <Link key={item.name} href={item.href} className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
+                    <Link key={item.name} href={item.href} target='_blank' className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
                         <span className="sr-only">{item.name}</span>
                         <item.icon aria-hidden="true" className="size-6" />
                     </Link>
                 ))}
             </div>
-            <p className="text-xs">&copy; {new Date().getFullYear()} Maxime Sickenberg.</p>
+            <p className="text-xs">&copy; {new Date().getFullYear()} <Link href={"https://msickenberg.ch"} target='_blank'>Maxime Sickenberg</Link>.</p>
         </footer>
     );
 }

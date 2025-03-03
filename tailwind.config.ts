@@ -26,6 +26,7 @@ export default {
 				},
 				dark: {
 					"main" : "rgba(var(--dark-main),<alpha-value>)",
+					"header": "rgba(var(--dark-header),<alpha-value>)",
 					"hover": "rgba(var(--dark-hover),<alpha-value>)",
 				}
 			},

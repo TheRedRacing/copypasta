@@ -15,12 +15,13 @@
 		--primary-800: 21, 94, 117;
 		--primary-900: 22, 78, 99;
 
-		--dark-main: 26,26,26;
-		--dark-hover: 36,36,36;
+		--dark-main: 14, 14, 16;
+		--dark-header: 24, 24, 27;
+		--dark-hover: 24, 24, 27;
 	}
 
 	html[data-theme="red"],
-	html[data-theme="dark-red"], 
+	html[data-theme="dark-red"],
 	html[data-theme="system-red"] {
 		--primary-50: 254, 242, 242;
 		--primary-100: 254, 226, 226;
@@ -35,7 +36,7 @@
 	}
 
 	html[data-theme="orange"],
-	html[data-theme="dark-orange"], 
+	html[data-theme="dark-orange"],
 	html[data-theme="system-orange"] {
 		--primary-50: 255, 247, 237;
 		--primary-100: 255, 237, 213;
@@ -50,7 +51,7 @@
 	}
 
 	html[data-theme="yellow"],
-	html[data-theme="dark-yellow"], 
+	html[data-theme="dark-yellow"],
 	html[data-theme="system-yellow"] {
 		--primary-50: 254, 252, 232;
 		--primary-100: 254, 249, 195;
@@ -65,7 +66,7 @@
 	}
 
 	html[data-theme="green"],
-	html[data-theme="dark-green"], 
+	html[data-theme="dark-green"],
 	html[data-theme="system-green"] {
 		--primary-50: 240, 255, 244;
 		--primary-100: 198, 246, 213;
@@ -95,7 +96,7 @@
 	}
 
 	html[data-theme="teal"],
-	html[data-theme="dark-teal"], 
+	html[data-theme="dark-teal"],
 	html[data-theme="system-teal"] {
 		--primary-50: 240, 253, 250;
 		--primary-100: 204, 251, 241;
@@ -110,7 +111,7 @@
 	}
 
 	html[data-theme="blue"],
-	html[data-theme="dark-blue"], 
+	html[data-theme="dark-blue"],
 	html[data-theme="system-blue"] {
 		--primary-50: 239, 246, 255;
 		--primary-100: 219, 234, 254;
@@ -125,7 +126,7 @@
 	}
 
 	html[data-theme="indigo"],
-	html[data-theme="dark-indigo"], 
+	html[data-theme="dark-indigo"],
 	html[data-theme="system-indigo"] {
 		--primary-50: 238, 242, 255;
 		--primary-100: 224, 231, 255;
@@ -140,7 +141,7 @@
 	}
 
 	html[data-theme="purple"],
-	html[data-theme="dark-purple"], 
+	html[data-theme="dark-purple"],
 	html[data-theme="system-purple"] {
 		--primary-50: 245, 243, 255;
 		--primary-100: 237, 233, 254;
@@ -155,7 +156,7 @@
 	}
 
 	html[data-theme="pink"],
-	html[data-theme="dark-pink"], 
+	html[data-theme="dark-pink"],
 	html[data-theme="system-pink"] {
 		--primary-50: 253, 242, 248;
 		--primary-100: 252, 231, 243;
@@ -181,6 +182,6 @@ select:focus,
 select:focus-visible,
 textarea:focus,
 textarea:focus-visible {
-  outline: var(--primary-500) auto 2px;
-  outline-offset: 2rem;
+	outline: var(--primary-500) auto 2px;
+	outline-offset: 2rem;
 }
