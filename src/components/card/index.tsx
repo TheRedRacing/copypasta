@@ -5,11 +5,11 @@ import EditDialog from "../edit";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 
 import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
 import { clipboardItem } from "@/lib/types";
 import { ButtonCard } from "../ui/button";
 import { track } from "@vercel/analytics";
 import { focusClassName } from "@/lib/focus";
+import { CSS } from "@dnd-kit/utilities";
 
 interface CardProps {
     index: number;
@@ -33,10 +33,12 @@ export default function Card({ index, item, data }: CardProps) {
         }
     }
 
-    const { attributes, listeners, setNodeRef, transform, transition, setActivatorNodeRef } = useSortable({ id: item });
-    const style = {
-        transform: CSS.Translate.toString(transform),
+    const { attributes, listeners, setNodeRef, transform, transition, setActivatorNodeRef, isDragging } = useSortable({ id: item });
+    const style: React.CSSProperties = {
+        transform: CSS.Transform.toString(transform),
         transition,
+        position: isDragging ? "relative" : "relative",
+        zIndex: isDragging ? 1000 : 0,
     };
 
     attributes.tabIndex = -1;
