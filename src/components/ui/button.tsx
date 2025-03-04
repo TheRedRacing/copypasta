@@ -14,15 +14,16 @@ const buttonVariants = cva(
         destructive:
           "bg-red-500 text-zinc-50 hover:bg-red-500/90 dark:bg-red-900 dark:text-zinc-50 dark:hover:bg-red-900/90",
         outline:
-          "border text-zinc-600 hover:text-primary-600 border-gray-500/10 hover:border-primary-500/50 hover:bg-primary-50 dark:text-zinc-300 dark:hover:text-primary-400 dark:border-zinc-400/20 dark:hover:border-primary-400/30 dark:hover:bg-primary-400/10",
+          "border text-zinc-600 hover:text-primary-600 border-gray-500/30 hover:border-primary-500/50 hover:bg-primary-50 dark:text-zinc-300 dark:hover:text-primary-400 dark:border-zinc-400/20 dark:hover:border-primary-400/30 dark:hover:bg-primary-400/10",
         secondary:
           "bg-zinc-200 text-zinc-900 hover:bg-zinc-300 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-800/80",
         ghost: "hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
-        link: "text-zinc-900 underline-offset-4 hover:underline dark:text-zinc-50",
+        link: "text-zinc-900 underline-offset-4 hover:underline hover:text-primary-400 dark:text-zinc-50",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-8 px-6",
+        smicon: "h-8 w-8",
         form: "h-10 px-8",
         lg: "h-11 px-8",
         icon: "h-10 w-10",
@@ -59,8 +60,8 @@ const buttonCardVariants = cva(
   {
     variants: {
       variant: {
-        default: "text-zinc-600 hover:text-primary-600 border-gray-500/10 hover:border-primary-500/50 hover:bg-primary-50 dark:text-zinc-300 dark:hover:text-primary-400 dark:border-zinc-400/20 dark:hover:border-primary-400/30 dark:hover:bg-primary-400/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black",
-        destructive: "text-zinc-600 hover:text-red-600 border-red-500/10 hover:border-red-500/50 hover:bg-red-50 dark:text-zinc-300 dark:hover:text-red-400 dark:border-zinc-400/20 dark:hover:border-red-400/30 dark:hover:bg-red-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black",
+        default: "text-zinc-600 hover:text-primary-600 border-gray-500/30 hover:border-primary-500/50 hover:bg-primary-50 dark:text-zinc-300 dark:hover:text-primary-400 dark:border-zinc-400/20 dark:hover:border-primary-400/30 dark:hover:bg-primary-400/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black",
+        destructive: "text-zinc-600 hover:text-red-600 border-gray-500/30 hover:border-red-500/50 hover:bg-red-50 dark:text-zinc-300 dark:hover:text-red-400 dark:border-zinc-400/20 dark:hover:border-red-400/30 dark:hover:bg-red-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black",
       },
     },
     defaultVariants: {

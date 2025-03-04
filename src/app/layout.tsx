@@ -33,10 +33,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="flex flex-col min-h-[100svh] antialiased bg-zinc-50 dark:bg-dark-main text-zinc-900 dark:text-zinc-100">
         <ThemeProvider defaultTheme="system" disableTransitionOnChange enableColorScheme enableSystem themes={["light", "dark", "cyan", "dark-cyan", "red", "dark-red", "orange", "dark-orange", "yellow", "dark-yellow", "green", "dark-green", "teal", "dark-teal", "blue", "dark-blue", "indigo", "dark-indigo", "pink", "dark-pink", "system-default", "system-red", "system-orange", "system-yellow", "system-green", "system-teal", "system-blue", "system-indigo", "system-pink"]}>
           <>
-            <Header />
             {children}
             <Cookies />
-            <Footer />
           </>
         </ThemeProvider>
         <Analytics />

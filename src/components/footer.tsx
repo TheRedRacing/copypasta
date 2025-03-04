@@ -3,32 +3,59 @@ import Link from 'next/link';
 
 import { ClipboardIcon } from '@heroicons/react/24/outline';
 import { Badge } from './ui/badge';
+import { Button } from './ui/button';
 
 export default function Footer() {
     return (
         <footer className="bg-white flex flex-col gap-4 border-t border-zinc-200 pt-4 p-8 dark:bg-dark-header dark:border-none">
             <div className='flex items-center justify-between gap-4'>
-                <div className='flex items-center gap-4'>
-                    <span className="size-6 text-white flex items-center justify-center bg-primary-500 rounded">
-                        <ClipboardIcon className="size-4" />
-                    </span>
-                    <div className='flex items-center gap-4'>
-                        <Link href={"/"} className="text-sm text-zinc-600 hover:underline hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200">Home</Link>
-                        <span className='size-1 bg-zinc-400 rounded-full'></span>
-                        <Link href={"/help"} className="text-sm text-zinc-600 hover:underline hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200">Help</Link>
-                        <span className='size-1 bg-zinc-400 rounded-full'></span>
-                        <Link href={"/legal"} className="text-sm text-zinc-600 hover:underline hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200">Legal</Link>
-                        <span className='size-1 bg-zinc-400 rounded-full'></span>
-                        <Link href={"/contact"} className="text-sm text-zinc-600 hover:underline hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200">Contact</Link>
-                    </div>
+                <FooterContent />
+            </div>
+            <p className="text-xs text-zinc-500">&copy; {new Date().getFullYear()}, <Link href={"https://msickenberg.ch"} target='_blank' className='hover:text-red-500 hover:underline'>Maxime Sickenberg</Link>.</p>
+        </footer>
+    );
+}
+
+export function SmallFooter() {
+    return (
+        <footer className="bg-white border-t border-zinc-200 pt-4 p-8 dark:bg-dark-header dark:border-none">
+            <div className='mx-auto w-full max-w-6xl flex flex-col gap-4 px-6 xl:px-0'>
+                <div className='flex items-center justify-between gap-4'>
+                    <FooterContent />
                 </div>
-                <div className='flex items-center gap-4'>
-                    <Link href={"/changelog"}>
-                        <Badge variant="green">
-                            Changelog 1.0.7
-                        </Badge>
+                <p className="text-xs text-zinc-500">&copy; {new Date().getFullYear()}, <Link href={"https://msickenberg.ch"} target='_blank' className='hover:text-red-500 hover:underline'>Maxime Sickenberg</Link>.</p>
+            </div>
+        </footer>
+    );
+}
+
+
+function FooterContent() {
+    return (
+        <>
+            <div className='flex items-center'>
+                <span className="size-6 text-white flex items-center justify-center bg-primary-500 rounded">
+                    <ClipboardIcon className="size-4" />
+                </span>
+                <div className='flex items-center'>
+                    <Link href={"/"} className="px-4 py-2 text-sm text-zinc-600 hover:underline hover:text-primary-600 dark:text-zinc-400 dark:hover:text-primary-500">Home</Link>
+                    <span className='size-1 bg-zinc-400 rounded-full'></span>
+                    <Link href={"/help"} className="px-4 py-2 text-sm text-zinc-600 hover:underline hover:text-primary-600 dark:text-zinc-400 dark:hover:text-primary-500">Help</Link>
+                    <span className='size-1 bg-zinc-400 rounded-full'></span>
+                    <Link href={"/legal"} className="px-4 py-2 text-sm text-zinc-600 hover:underline hover:text-primary-600 dark:text-zinc-400 dark:hover:text-primary-500">Legal</Link>
+                    <span className='size-1 bg-zinc-400 rounded-full'></span>
+                    <Link href={"/contact"} className="px-4 py-2 text-sm text-zinc-600 hover:underline hover:text-primary-600 dark:text-zinc-400 dark:hover:text-primary-500">Contact</Link>
+                </div>
+            </div>
+            <div className='flex items-center gap-2'>
+                <Badge variant={'green'} className='hover:opacity-90'>
+                    <Link href="/changelog">
+                        Changelog 1.0.7
                     </Link>
-                    <Link href={'https://github.com/TheRedRacing'} target='_blank' className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">
+                </Badge>
+
+                <Button size={'smicon'} variant={'outline'} asChild>
+                    <Link href={'https://github.com/TheRedRacing'} target='_blank'>
                         <span className="sr-only">Github</span>
                         <svg fill="currentColor" viewBox="0 0 24 24" className='size-6'>
                             <path
@@ -38,9 +65,8 @@ export default function Footer() {
                             />
                         </svg>
                     </Link>
-                </div>
+                </Button>
             </div>
-            <p className="text-xs text-zinc-600 dark:text-zinc-400">&copy; {new Date().getFullYear()}, <Link href={"https://msickenberg.ch"} target='_blank' className='hover:underline'>Maxime Sickenberg</Link>.</p>
-        </footer>
-    );
+        </>
+    )
 }

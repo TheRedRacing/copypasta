@@ -9,6 +9,8 @@ import { DndContext, closestCenter } from '@dnd-kit/core';
 import { arrayMove, SortableContext } from '@dnd-kit/sortable';
 import { type clipboardItem } from "@/lib/types";
 import { restrictToVerticalAxis, restrictToWindowEdges } from '@dnd-kit/modifiers';
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 export default function Home() {
 	const [clipboardData, setClipboardData] = useState<clipboardItem[]>([]);
@@ -47,28 +49,40 @@ export default function Home() {
 
 	if (loading) {
 		return (
-			<main className="flex-1 flex items-center justify-center mt-16 p-10 sm:p-20 md:p-32 lg:p-40">
-				<p className="text-lg font-semibold text-zinc-600">Chargement...</p>
-			</main>
+			<>
+				<Header />
+				<main className="flex-1 flex items-center justify-center mt-16 p-10 sm:p-20 md:p-32 lg:p-40">
+					<p className="text-lg font-semibold text-zinc-600">Chargement...</p>
+				</main>
+				<Footer />
+			</>
 		);
 	}
 
 	if (clipboardData.length === 0) {
 		return (
-			<main className="flex-1 flex flex-col items-center justify-center mt-16 p-10 sm:p-20 md:px-32 lg:px-40">
-				<EmptyAdd />
-			</main>
+			<>
+				<Header />
+				<main className="flex-1 flex flex-col items-center justify-center mt-16 p-10 sm:p-20 md:px-32 lg:px-40">
+					<EmptyAdd />
+				</main>
+				<Footer />
+			</>
 		);
 	}
 
 	return (
-		<main className="flex-1 px-4 pt-6 mt-16 overflow-hidden">
-			<DndContext modifiers={[restrictToVerticalAxis, restrictToWindowEdges]} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-				<SortableContext items={clipboardOrder}>
-					<ListItems clipboardOrder={clipboardOrder} clipboardData={clipboardData} />
-				</SortableContext>
-			</DndContext>
-		</main>
+		<>
+			<Header />
+			<main className="flex-1 px-4 pt-6 mt-16 overflow-hidden">
+				<DndContext modifiers={[restrictToVerticalAxis, restrictToWindowEdges]} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+					<SortableContext items={clipboardOrder}>
+						<ListItems clipboardOrder={clipboardOrder} clipboardData={clipboardData} />
+					</SortableContext>
+				</DndContext>
+			</main>
+			<Footer />
+		</>
 	);
 }
 

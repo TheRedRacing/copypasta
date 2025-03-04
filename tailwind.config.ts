@@ -11,6 +11,9 @@ export default {
 	],
 	theme: {
 		extend: {
+			screens: {
+				"gx" : "1152px",
+			},
 			margin: {
 				"18": "4.5rem",
 			},
