@@ -57,7 +57,7 @@ export default function Card({ index, item, data }: CardProps) {
                 <TrashButton item={data} />
             </div>
 
-            <div className={cn(isCopied ? "opacity-100" : "opacity-0", "absolute inset-0 select-none flex items-center justify-center text-sm bg-green-50 text-green-700 dark:bg-green-500/10 dark:text-green-400 transition-all duration-500 ease-in-out")}>
+            <div className={cn(isCopied ? "opacity-100 z-0" : "opacity-0 -z-10", "absolute inset-0 select-none flex items-center justify-center text-sm bg-green-50 text-green-700 dark:bg-green-500/10 dark:text-green-400 transition-all duration-500 ease-in-out")}>
                 Copied
             </div>
         </li>
