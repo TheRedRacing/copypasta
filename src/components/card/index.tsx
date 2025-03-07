@@ -45,7 +45,7 @@ export default function Card({ index, item, data }: CardProps) {
 
     return (
         <li key={index} ref={setNodeRef} className={cn("relative flex-1 flex items-stretch justify-between border border-zinc-200 -my-px px-4 bg-white hover:bg-zinc-50 dark:bg-dark-main dark:border-zinc-800 dark:hover:bg-dark-hover first:rounded-t-lg last:rounded-b-lg overflow-hidden", focusClassName)} style={style} {...attributes}>
-            <ButtonCard {...listeners} ref={setActivatorNodeRef} className="flex items-center justify-center w-8 h-8 p-1 py-2 mr-2">
+            <ButtonCard {...listeners} ref={setActivatorNodeRef} className="flex items-center justify-center w-8 h-8 p-1 my-2 mr-2">
                 <Bars3Icon className="size-5" />
             </ButtonCard>
             <div className="flex-1 flex items-center justify-start pl-4 sm:pl-0 py-2" onClick={copyToClipboard}>
@@ -57,7 +57,7 @@ export default function Card({ index, item, data }: CardProps) {
                 <TrashButton item={data} />
             </div>
 
-            <div className={cn(isCopied ? "h-full opacity-100" : "h-0 opacity-0", "absolute inset-x-0 select-none flex items-center justify-center text-sm bg-green-50 text-green-700 dark:bg-green-500/10 dark:text-green-400 transition-all duration-500 ease-in-out")}>
+            <div className={cn(isCopied ? "h-full opacity-100" : "h-0 opacity-0", "absolute inset-0 select-none flex items-center justify-center text-sm bg-green-50 text-green-700 dark:bg-green-500/10 dark:text-green-400 transition-all duration-500 ease-in-out")}>
                 Copied
             </div>
         </li>
