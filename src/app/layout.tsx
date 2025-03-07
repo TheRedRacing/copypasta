@@ -5,9 +5,7 @@ import { Roboto } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/lib/themeProvider";
 
-import Header from "@/components/header";
 import Cookies from "@/components/cookies";
-import Footer from "@/components/footer";
 
 import { Analytics } from "@vercel/analytics/react"
 
