@@ -9,7 +9,6 @@ import { ButtonCard } from "../ui/button";
 import { track } from "@vercel/analytics";
 import { focusClassName } from "@/lib/focus";
 import { CSS } from "@dnd-kit/utilities";
-import { ShortIcon } from "../icons/short";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 
 interface CardProps {

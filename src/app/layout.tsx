@@ -5,8 +5,6 @@ import { Roboto } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/lib/themeProvider";
 
-import Cookies from "@/components/cookies";
-
 import { Analytics } from "@vercel/analytics/react"
 
 const roboto = Roboto({
