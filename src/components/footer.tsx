@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ClipboardIcon } from '@heroicons/react/24/outline';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
+import changelog from "@/changelog.json";
 
 export default function Footer() {
     return (
@@ -11,7 +12,7 @@ export default function Footer() {
             <div className='flex items-center justify-between gap-4'>
                 <FooterContent />
             </div>
-            <p className="text-xs text-zinc-500">&copy; {new Date().getFullYear()}, <Link href={"https://msickenberg.ch"} target='_blank' className='hover:text-red-500 hover:underline'>Maxime Sickenberg</Link>.</p>
+            <p className="text-xs text-zinc-500">&copy; {new Date().getFullYear()}, Maxime Sickenberg.</p>
         </footer>
     );
 }
@@ -23,12 +24,14 @@ export function SmallFooter() {
                 <div className='flex items-center justify-between gap-4'>
                     <FooterContent />
                 </div>
-                <p className="text-xs text-zinc-500">&copy; {new Date().getFullYear()}, <Link href={"https://msickenberg.ch"} target='_blank' className='hover:text-red-500 hover:underline'>Maxime Sickenberg</Link>.</p>
+                <p className="text-xs text-zinc-500">&copy; {new Date().getFullYear()}, Maxime Sickenberg.</p>
             </div>
         </footer>
     );
 }
 
+// When website is live, replace the following line with the one below : 
+// <Link href={"https://msickenberg.ch"} target='_blank' className='hover:text-red-500 hover:underline'>Maxime Sickenberg</Link>
 
 function FooterContent() {
     return (
@@ -38,24 +41,26 @@ function FooterContent() {
                     <ClipboardIcon className="size-4" />
                 </span>
                 <div className='flex items-center'>
-                    <Link href={"/"} className="px-4 py-2 text-sm text-zinc-600 hover:underline hover:text-primary-600 dark:text-zinc-400 dark:hover:text-primary-500">Home</Link>
+                    <Link href={"/"} className="px-4 py-2 text-sm text-zinc-600 hover:underline hover:text-primary-500 dark:text-zinc-400 dark:hover:text-primary-500">Home</Link>
                     <span className='size-1 bg-zinc-400 rounded-full'></span>
-                    <Link href={"/help"} className="px-4 py-2 text-sm text-zinc-600 hover:underline hover:text-primary-600 dark:text-zinc-400 dark:hover:text-primary-500">Help</Link>
+                    <Link href={"/faq"} className="px-4 py-2 text-sm text-zinc-600 hover:underline hover:text-primary-500 dark:text-zinc-400 dark:hover:text-primary-500">F.A.Q</Link>
+                    {/* 
                     <span className='size-1 bg-zinc-400 rounded-full'></span>
-                    <Link href={"/legal"} className="px-4 py-2 text-sm text-zinc-600 hover:underline hover:text-primary-600 dark:text-zinc-400 dark:hover:text-primary-500">Legal</Link>
+                    <Legal /> 
+                    */}
                     <span className='size-1 bg-zinc-400 rounded-full'></span>
-                    <Link href={"/contact"} className="px-4 py-2 text-sm text-zinc-600 hover:underline hover:text-primary-600 dark:text-zinc-400 dark:hover:text-primary-500">Contact</Link>
+                    <Link href={"/contact"} className="px-4 py-2 text-sm text-zinc-600 hover:underline hover:text-primary-500 dark:text-zinc-400 dark:hover:text-primary-500">Contact</Link>
                 </div>
             </div>
             <div className='flex items-center gap-2'>
                 <Badge variant={'green'} className='hover:opacity-90'>
                     <Link href="/changelog">
-                        Changelog 1.0.7
+                        Changelog {changelog.current_version}
                     </Link>
                 </Badge>
 
                 <Button size={'smicon'} variant={'outline'} asChild>
-                    <Link href={'https://github.com/TheRedRacing'} target='_blank'>
+                    <Link href={'https://github.com/TheRedRacing/copypasta'} target='_blank'>
                         <span className="sr-only">Github</span>
                         <svg fill="currentColor" viewBox="0 0 24 24" className='size-6'>
                             <path

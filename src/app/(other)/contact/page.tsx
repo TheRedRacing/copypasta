@@ -1,4 +1,4 @@
-import { BugAntIcon, ChatBubbleLeftRightIcon, ComputerDesktopIcon } from "@heroicons/react/24/outline";
+import { BugAntIcon, ChatBubbleLeftRightIcon, GiftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 export default function Contact() {
@@ -22,7 +22,7 @@ export default function Contact() {
                 <div className="aspect-square"></div>
                 <div className="col-start-2 col-end-12 row-start-1 row-end-1 border-x border-zinc-300 dark:border-zinc-800 flex items-center justify-center">
                     <p className="text-zinc-600 dark:text-zinc-400">
-                        If you have any questions or feedback, feel free to reach out to me. 
+                        You can contact me for any questions, feedback, or support.
                     </p>
                 </div>
                 <div className="aspect-square"></div>
@@ -39,14 +39,17 @@ export default function Contact() {
                                 <h3 className="text-base/7 font-semibold text-zinc-800 dark:text-zinc-200">
                                     Send me a message
                                 </h3>
-                                <p className="mt-2 text-base/7 text-zinc-600 dark:text-zinc-400">
-
+                                <p className="text-base/7 text-zinc-600 dark:text-zinc-400">
+                                    If you have any questions or feedback, feel free to reach out to me directly via email or LinkedIn.
                                 </p>
-                                <p className="mt-4 text-sm/6 font-semibold">
-                                    <Link href="#" className="text-primary-600">
-                                        Contact us <span aria-hidden="true">&rarr;</span>
+                                <div className="mt-2 flex flex-col text-sm/6 font-semibold">
+                                    <Link href="mailto:info@copy-pasta.ch" className="text-primary-500 hover:underline">
+                                        Email <span aria-hidden="true">&rarr;</span>
                                     </Link>
-                                </p>
+                                    <Link href="https://www.linkedin.com/in/maxime-sickenberg/" target="_blank" rel="noopener noreferrer" className="text-primary-500 hover:underline">
+                                        Linkedin <span aria-hidden="true">&rarr;</span>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                         <div className="flex gap-x-6">
@@ -55,30 +58,36 @@ export default function Contact() {
                             </div>
                             <div>
                                 <h3 className="text-base/7 font-semibold text-zinc-800 dark:text-zinc-200">Bug reports</h3>
-                                <p className="mt-2 text-base/7 text-zinc-600 dark:text-zinc-400">
-                                    You can report any bugs or issues you encounter while using the site.
+                                <p className="text-base/7 text-zinc-600 dark:text-zinc-400">
+                                    You can report any bugs or issues you encounter while using the site by opening an issue on GitHub.
                                 </p>
-                                <p className="mt-4 text-sm/6 font-semibold">
-                                    <Link href="" className="text-primary-600">
+                                <div className="mt-2 flex flex-col text-sm/6 font-semibold">
+                                    <Link href="https://github.com/TheRedRacing/copypasta/issues" target="_blank" rel="noopener noreferrer" className="text-primary-500 hover:underline">
                                         Report a bug <span aria-hidden="true">&rarr;</span>
                                     </Link>
-                                </p>
+                                </div>
                             </div>
                         </div>
                         <div className="flex gap-x-6">
                             <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary-600">
-                                <ComputerDesktopIcon aria-hidden="true" className="size-6 text-white" />
+                                <GiftIcon aria-hidden="true" className="size-6 text-white" />
                             </div>
                             <div>
-                                <h3 className="text-base/7 font-semibold text-zinc-800 dark:text-zinc-200">Technical support</h3>
-                                <p className="mt-2 text-base/7 text-zinc-600 dark:text-zinc-400">
-                                    Sint aut modi porro consequatur architecto commodi qui consequatur. Dignissimos adipisci minima.
+                                <h3 className="text-base/7 font-semibold text-zinc-800 dark:text-zinc-200">
+                                    Support the project
+                                </h3>
+                                <p className="text-base/7 text-zinc-600 dark:text-zinc-400">
+                                    If you find this project useful, you can support me by buying me a coffee or sponsoring the project on GitHub.
+                                    <br />Your support helps keep this project going! 🚀
                                 </p>
-                                <p className="mt-4 text-sm/6 font-semibold">
-                                    <a href="#" className="text-primary-600">
-                                        Join our Discord <span aria-hidden="true">&rarr;</span>
-                                    </a>
-                                </p>
+                                <div className="mt-2 flex flex-col text-sm/6 font-semibold">
+                                    <Link href="https://github.com/TheRedRacing/copypasta" target="_blank" rel="noopener noreferrer" className="text-primary-500 hover:underline">
+                                        Github <span aria-hidden="true">&rarr;</span>
+                                    </Link>
+                                    <Link href="https://buymeacoffee.com/theredracing" target="_blank" rel="noopener noreferrer" className="text-primary-500 hover:underline">
+                                        Buy Me a Coffee <span aria-hidden="true">&rarr;</span>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -11,7 +11,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
 type ThemeMapping = Record<string, string>;
 
 export const themeMapping: ThemeMapping = {
-    default: "light-orange",
+    orange: "orange",
     red: "red",
     cyan: "cyan",
     yellow: "yellow",
@@ -20,7 +20,7 @@ export const themeMapping: ThemeMapping = {
     blue: "blue",
     indigo: "indigo",
     pink: "pink",
-    "dark-default": "dark-orange",
+    "dark-orange": "dark-orange",
     "dark-red": "dark-red",
     "dark-cyan": "dark-cyan",
     "dark-yellow": "dark-yellow",

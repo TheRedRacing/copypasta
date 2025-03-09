@@ -35,11 +35,13 @@ const ThemeOption: React.FC = () => {
             key = selectedColor;
         }
 
+        console.log(key);
+
         setTheme(themeMapping[key] ?? themeMapping.default);
     }
 
     function getDarkMode(): 'light' | 'dark'{
-        if (!theme) return "light"; // Fallback par défaut
+        if (!theme) return "dark"; // Fallback par défaut
 
         if (theme.startsWith("dark")) {
             return "dark";
@@ -49,7 +51,7 @@ const ThemeOption: React.FC = () => {
     }
 
     function getColor(): string {
-        if (!theme) return "orange"; // Fallback si `theme` est undefined
+        if (!theme) return "dark-orange"; // Fallback si `theme` est undefined
 
         if (theme === "orange" || theme === "dark-orange") {
             return "orange";
