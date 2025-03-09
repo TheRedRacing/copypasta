@@ -1,3 +1,4 @@
+import Cookies from "@/components/cookies";
 import { SmallFooter } from "@/components/footer";
 import { SmallHeader } from "@/components/header";
 import React from "react";
@@ -15,6 +16,7 @@ export default async function AppLayout({ children }: LayoutProps) {
                     {children}
                 </div>
             </main>
+            <Cookies />
             <SmallFooter />
         </>
     );

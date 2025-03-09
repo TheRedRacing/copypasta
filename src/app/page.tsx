@@ -11,6 +11,7 @@ import { type clipboardItem } from "@/lib/types";
 import { restrictToVerticalAxis, restrictToWindowEdges } from '@dnd-kit/modifiers';
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import Cookies from "@/components/cookies";
 
 export default function Home() {
 	const [clipboardData, setClipboardData] = useState<clipboardItem[]>([]);
@@ -54,6 +55,7 @@ export default function Home() {
 				<main className="flex-1 flex items-center justify-center mt-16 p-10 sm:p-20 md:p-32 lg:p-40">
 					<p className="text-lg font-semibold text-zinc-600">Chargement...</p>
 				</main>
+				<Cookies />
 				<Footer />
 			</>
 		);
@@ -66,6 +68,7 @@ export default function Home() {
 				<main className="flex-1 flex flex-col items-center justify-center mt-16 p-10 sm:p-20 md:px-32 lg:px-40">
 					<EmptyAdd />
 				</main>
+				<Cookies />
 				<Footer />
 			</>
 		);
@@ -81,6 +84,7 @@ export default function Home() {
 					</SortableContext>
 				</DndContext>
 			</main>
+			<Cookies />
 			<Footer />
 		</>
 	);
