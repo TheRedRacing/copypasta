@@ -12,9 +12,9 @@ import { Button } from "./ui/button";
 import { focusClassName } from "@/lib/focus";
 
 const colors = [
-    { name: "Default", value: "default", color: "bg-cyan-500" },
-    { name: "Red", value: "red", color: "bg-red-500" },
     { name: "Orange", value: "orange", color: "bg-orange-500" },
+    { name: "Cyan", value: "cyan", color: "bg-cyan-500" },
+    { name: "Red", value: "red", color: "bg-red-500" },
     { name: "Yellow", value: "yellow", color: "bg-yellow-500" },
     { name: "Green", value: "green", color: "bg-green-500" },
     { name: "Teal", value: "teal", color: "bg-teal-500" },
@@ -26,41 +26,37 @@ const colors = [
 const ThemeOption: React.FC = () => {
     const { theme, setTheme } = useTheme();
 
-    function getTheme(DarkMode: 'light' | 'dark' | 'system', selectedColor: string) {
+    function getTheme(DarkMode: 'light' | 'dark', selectedColor: string) {
         let key: string;
 
-        if (DarkMode === 'system') {
-            key = `system-${selectedColor}`;
-        } else if (DarkMode === 'dark') {
+        if (DarkMode === 'dark') {
             key = `dark-${selectedColor}`;
         } else {
             key = selectedColor;
         }
 
+        console.log(key);
+
         setTheme(themeMapping[key] ?? themeMapping.default);
     }
 
-    function getDarkMode(): 'light' | 'dark' | 'system' {
-        if (!theme) return "light"; // Fallback par défaut
+    function getDarkMode(): 'light' | 'dark'{
+        if (!theme) return "dark"; // Fallback par défaut
 
         if (theme.startsWith("dark")) {
             return "dark";
-        } else if (theme.startsWith("system")) {
-            return "system";
         } else {
             return "light";
         }
     }
 
     function getColor(): string {
-        if (!theme) return "default"; // Fallback si `theme` est undefined
+        if (!theme) return "dark-orange"; // Fallback si `theme` est undefined
 
-        if (theme === "light-default" || theme === "dark-default" || theme === "system-default") {
-            return "default";
+        if (theme === "orange" || theme === "dark-orange") {
+            return "orange";
         } else if (theme.startsWith("dark")) {
             return theme.replace("dark-", "");
-        } else if (theme.startsWith("system")) {
-            return theme.replace("system-", "");
         } else {
             return theme;
         }

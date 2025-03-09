@@ -129,7 +129,7 @@ function AddDialog({ children }: AddDialogProps) {
                                             Hide row ?
                                         </FormLabel>
                                         <FormDescription className="">
-                                            The row will be hide and you need to click on the eye to see it.
+                                            The row will be hidden and you need to click on the eye to see it.
                                         </FormDescription>
                                     </div>
                                     <FormControl>

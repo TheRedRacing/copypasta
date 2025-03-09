@@ -1,0 +1,55 @@
+{
+    "current_version": "1.1.0",
+    "date": "2025-03-09",
+    "changes": [
+        {
+            "version": "1.1.0",
+            "date": "2025-03-09",
+            "description": "This update introduces a brand new contact page and enhances the overall user experience with design improvements and bug fixes.",
+            "news": [
+                "Added a contact page, making it easier to reach out via email or LinkedIn, report issues on GitHub, and support the project."
+            ],
+            "updates": [
+                "Redesigned the footer to include useful links and a dedicated changelog section for better navigation."
+            ],
+            "fixes": [
+                "Fixed an issue where clicking on a copied item required selecting the text instead of the full card.",
+                "Improved the animation of copied items for a smoother visual experience."
+            ]
+        },
+        {
+            "version": "1.0.6",
+            "date": "2025-03-02",
+            "description": "This update brings a fresh new look with redesigned UI elements.",
+            "news": [],
+            "updates": [
+                "Revamped the header design for a cleaner and more modern look.",
+                "Updated the copied card design to enhance readability and usability."
+            ],
+            "fixes": []
+        },
+        {
+            "version": "1.0.4",
+            "date": "2025-02-27",
+            "description": "This update introduces new features and usability improvements.",
+            "news": [
+                "Implemented drag-and-drop functionality to easily sort copied cards.",
+                "Added a 'Page Not Found' error message to enhance the user experience."
+            ],
+            "updates": [
+                "Updated the delete button to a destructive action for clearer intent and better usability."
+            ],
+            "fixes": []
+        },
+        {
+            "version": "1.0.0",
+            "date": "2025-02-20",
+            "description": "🚀 Initial release – The first official version is live!",
+            "news": [
+                "The project is now officially launched with its core features."
+            ],
+            "updates": [],
+            "fixes": []
+        }
+    ]
+}
