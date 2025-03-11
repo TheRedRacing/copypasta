@@ -4,6 +4,7 @@ import { CheckIcon, EyeIcon, EyeSlashIcon, TrashIcon } from '@heroicons/react/24
 import { useState } from 'react';
 import { ButtonCard } from '../ui/button';
 import { track } from '@vercel/analytics';
+import { sendGAEvent } from '@next/third-parties/google';
 
 interface PrivateButtonProps {
     isBlur: boolean;
@@ -46,7 +47,7 @@ function TrashButton({ item }: TrashButtonProps) {
         setIsDeleted(true);
 
         // tracking
-        track("row deleted");
+        sendGAEvent('event', 'delete', 'row');
 
         // Rechargement de la page
         setTimeout(() => window.location.reload(), 500);

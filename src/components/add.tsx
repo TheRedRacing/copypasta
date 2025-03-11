@@ -15,6 +15,8 @@ import { useState } from "react"
 import { track } from '@vercel/analytics';
 import { focusClassName } from "@/lib/focus"
 
+import { sendGAEvent } from '@next/third-parties/google'
+
 export function HeaderAdd() {
     return (
         <AddDialog>
@@ -85,7 +87,7 @@ function AddDialog({ children }: AddDialogProps) {
         localStorage.setItem('clipboardOrder', JSON.stringify(clipboardOrder));
 
         // Track the event
-        track("new-row added");
+        sendGAEvent('event', 'add', 'row');
 
         // Reset the form and close the dialog.
         form.reset();

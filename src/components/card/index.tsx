@@ -10,6 +10,7 @@ import { track } from "@vercel/analytics";
 import { focusClassName } from "@/lib/focus";
 import { CSS } from "@dnd-kit/utilities";
 import { Bars3Icon } from "@heroicons/react/24/outline";
+import { sendGAEvent } from "@next/third-parties/google";
 
 interface CardProps {
     index: number;
@@ -25,7 +26,7 @@ export default function Card({ index, item, data }: CardProps) {
     const copyToClipboard = async () => {
         try {
             await navigator.clipboard.writeText(data.text);
-            track("row copied");
+            sendGAEvent('event', 'copy', 'row');
             setIsCopied(true);
             setTimeout(() => setIsCopied(false), 2000);
         } catch (err) {
