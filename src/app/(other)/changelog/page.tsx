@@ -1,4 +1,3 @@
-import Link from "next/link";
 import changelog from "@/changelog.json";
 
 export default function Changelog() {
