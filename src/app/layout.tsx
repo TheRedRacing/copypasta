@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/lib/themeProvider";
 
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { Analytics } from "@vercel/analytics/react"
+import { Toaster } from "@/components/ui/sonner";
 
 const roboto = Roboto({
 	weight: ["100", "300", "400", "500", "700", "900"],
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 				<ThemeProvider defaultTheme="dark-orange" disableTransitionOnChange enableColorScheme enableSystem themes={["cyan", "dark-cyan", "red", "dark-red", "orange", "dark-orange", "yellow", "dark-yellow", "green", "dark-green", "teal", "dark-teal", "blue", "dark-blue", "indigo", "dark-indigo", "pink", "dark-pink"]}>
 					{children}
 				</ThemeProvider>
+				<Toaster />
 				<GoogleAnalytics gaId="G-2CTM51HHDL" />
 				<Analytics />
 			</body>

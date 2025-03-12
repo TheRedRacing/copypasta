@@ -16,6 +16,7 @@ import { track } from '@vercel/analytics';
 import { focusClassName } from "@/lib/focus"
 
 import { sendGAEvent } from '@next/third-parties/google'
+import { toast } from "sonner"
 
 export function HeaderAdd() {
     return (
@@ -93,7 +94,8 @@ function AddDialog({ children }: AddDialogProps) {
         form.reset();
         setIsOpen(false);
         // Reload to the page / to update the clipboard.
-        window.location.replace("/");
+        toast("Row added with success");
+        setTimeout(() => window.location.reload(), 500);
     }
 
     return (

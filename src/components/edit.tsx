@@ -12,6 +12,7 @@ import { Button, ButtonCard } from "@/components/ui/button";
 import { Textarea } from "./ui/textarea"
 import { PencilIcon } from "@heroicons/react/24/outline"
 import { clipboardItem, itemClipboardItem } from "@/lib/types"
+import { toast } from "sonner"
 
 const formSchema = z.object({
     text: z.string().min(2, "You must enter at least 2 characters"),
@@ -42,7 +43,8 @@ export default function EditDialog({ item }: itemClipboardItem) {
         localStorage.setItem('clipboardTexts', JSON.stringify(clipboard));
         form.reset();
         setIsOpen(false);
-        window.location.reload();
+        toast("Row updated with success");
+        setTimeout(() => window.location.reload(), 500);
     }
 
     return (

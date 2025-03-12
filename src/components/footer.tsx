@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import Link from 'next/link';
 
@@ -5,6 +7,9 @@ import { ClipboardIcon } from '@heroicons/react/24/outline';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import changelog from "@/changelog.json";
+
+import { usePathname } from "next/navigation";
+import { cn } from '@/lib/utils';
 
 export default function Footer() {
     return (
@@ -41,15 +46,13 @@ function FooterContent() {
                     <ClipboardIcon className="size-4" />
                 </span>
                 <div className='flex items-center'>
-                    <Link href={"/"} className="px-4 py-2 text-sm text-zinc-600 hover:underline hover:text-primary-500 dark:text-zinc-400 dark:hover:text-primary-500">Home</Link>
+                    <NavLink href={"/"}>Home</NavLink>                    
                     <span className='size-1 bg-zinc-400 rounded-full'></span>
-                    <Link href={"/faq"} className="px-4 py-2 text-sm text-zinc-600 hover:underline hover:text-primary-500 dark:text-zinc-400 dark:hover:text-primary-500">F.A.Q</Link>
-                    {/* 
+                    <NavLink href={"/archive"}>Archive</NavLink>
                     <span className='size-1 bg-zinc-400 rounded-full'></span>
-                    <Legal /> 
-                    */}
+                    <NavLink href={"/faq"}>F.A.Q</NavLink>
                     <span className='size-1 bg-zinc-400 rounded-full'></span>
-                    <Link href={"/contact"} className="px-4 py-2 text-sm text-zinc-600 hover:underline hover:text-primary-500 dark:text-zinc-400 dark:hover:text-primary-500">Contact</Link>
+                    <NavLink href={"/contact"}>Contact</NavLink>
                 </div>
             </div>
             <div className='flex items-center gap-2'>
@@ -74,4 +77,15 @@ function FooterContent() {
             </div>
         </>
     )
+}
+
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+    const pathname = usePathname();
+    const isActive = pathname === href;
+
+    return (
+        <Link href={href} className={cn(isActive ? "text-primary-500 underline" : "text-zinc-600 dark:text-zinc-400", "px-4 py-2 text-sm hover:underline underline-offset-4 hover:text-primary-500  dark:hover:text-primary-500")}>
+            {children}
+        </Link>
+    );
 }

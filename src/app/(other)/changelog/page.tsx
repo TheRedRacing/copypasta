@@ -21,7 +21,7 @@ export default function Changelog() {
                 <div className="aspect-square"></div>
                 <div className="col-start-2 col-end-12 row-start-1 row-end-1 border-x border-zinc-300 dark:border-zinc-800 flex items-center justify-center">
                     <p className="text-zinc-600 dark:text-zinc-400">
-                        Last Updated {new Date(changelog.date).toLocaleString('default', { day: '2-digit' }) + ' ' + new Date(changelog.date).toLocaleString('default', { month: 'long' }) + ' ' + new Date(changelog.date).toLocaleString('default', { year: 'numeric' })}
+                        Last updated {new Date(changelog.date).toLocaleString('default', { day: '2-digit' })} <span className="capitalize">{new Date(changelog.date).toLocaleString('default', { month: 'long' })}</span> {new Date(changelog.date).toLocaleString('default', { year: 'numeric' })}
                     </p>
                 </div>
                 <div className="aspect-square"></div>
