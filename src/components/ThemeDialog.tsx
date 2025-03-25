@@ -51,7 +51,7 @@ const ThemeOption: React.FC = () => {
     }
 
     function getColor(): string {
-        if (!theme) return "dark-orange"; // Fallback si `theme` est undefined
+        if (!theme) return "orange"; // Fallback si `theme` est undefined
 
         if (theme === "orange" || theme === "dark-orange") {
             return "orange";

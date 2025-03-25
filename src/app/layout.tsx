@@ -29,7 +29,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 	return (
 		<html lang="en" className={cn(roboto.className, "")} suppressHydrationWarning>
 			<body className="flex flex-col min-h-[100svh] antialiased bg-zinc-50 dark:bg-dark-main text-zinc-900 dark:text-zinc-100">
-				<ThemeProvider defaultTheme="dark-orange" disableTransitionOnChange enableColorScheme enableSystem themes={["cyan", "dark-cyan", "red", "dark-red", "orange", "dark-orange", "yellow", "dark-yellow", "green", "dark-green", "teal", "dark-teal", "blue", "dark-blue", "indigo", "dark-indigo", "pink", "dark-pink"]}>
+				<ThemeProvider defaultTheme="orange" disableTransitionOnChange enableColorScheme enableSystem themes={["cyan", "dark-cyan", "red", "dark-red", "orange", "dark-orange", "yellow", "dark-yellow", "green", "dark-green", "teal", "dark-teal", "blue", "dark-blue", "indigo", "dark-indigo", "pink", "dark-pink"]}>
 					{children}
 				</ThemeProvider>
 				<Toaster />

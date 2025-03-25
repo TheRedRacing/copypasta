@@ -12,7 +12,6 @@ import { Textarea } from "./ui/textarea"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
 
-import { track } from '@vercel/analytics';
 import { focusClassName } from "@/lib/focus"
 
 import { sendGAEvent } from '@next/third-parties/google'
@@ -79,7 +78,7 @@ function AddDialog({ children }: AddDialogProps) {
 
         // Add the new row to the clipboard
         const clipboard = JSON.parse(clipboardText);
-        const nextId = clipboard.length;
+        const nextId = clipboard.length + 1;
         clipboard.unshift({ id: nextId, text: values.text, isPrivate: values.isPrivate });
         clipboardOrder.unshift(nextId);
 
