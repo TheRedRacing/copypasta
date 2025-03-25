@@ -3,6 +3,17 @@
     "date": "2025-03-12",
     "changes": [
         {
+            "version": "1.1.2",
+            "date": "2025-03-25",
+            "description": "This update includes minor bug fixes and performance improvements.",
+            "news": [],
+            "updates": [],
+            "fixes": [
+                "Fixed bug when you create a new item duplicate or replace an existing one.",
+                "Fixed bug when you tried to delete on archeved items."
+            ]
+        },
+        {
             "version": "1.1.1",
             "date": "2025-03-12",
             "description": "This update introduces new feature, you need to archive your copied items before deleting them",

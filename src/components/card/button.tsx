@@ -33,16 +33,16 @@ function TrashButton({ item }: TrashButtonProps) {
         const id = item.id;
 
         // Récupération des données sauvegardées
-        const savedData: clipboardItem[] = JSON.parse(localStorage.getItem("clipboardTexts") || "[]");
-        const savedOrder: number[] = JSON.parse(localStorage.getItem("clipboardOrder") || "[]");
+        const savedData: clipboardItem[] = JSON.parse(localStorage.getItem("clipboardArchive") || "[]");
+        const savedOrder: number[] = JSON.parse(localStorage.getItem("clipboardArchiveOrder") || "[]");
 
         // Suppression de l'élément dans le tableau
         const updatedTexts = savedData.filter((item) => item.id !== id);
         const updatedOrder = savedOrder.filter((order) => order !== id);
 
         // Mise à jour des données
-        localStorage.setItem('clipboardOrder', JSON.stringify(updatedOrder));
-        localStorage.setItem('clipboardTexts', JSON.stringify(updatedTexts));
+        localStorage.setItem('clipboardArchiveOrder', JSON.stringify(updatedOrder));
+        localStorage.setItem('clipboardArchive', JSON.stringify(updatedTexts));
 
         // Mise à jour de l'état
         setIsDeleted(true);
