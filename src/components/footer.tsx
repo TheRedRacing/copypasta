@@ -62,7 +62,7 @@ function FooterContent() {
                     </Link>
                 </Badge>
 
-                <Button size={'smicon'} variant={'outline'} asChild>
+                <Button size={'i8'} variant={'outline'} asChild>
                     <Link href={'https://github.com/TheRedRacing/copypasta'} target='_blank'>
                         <span className="sr-only">Github</span>
                         <svg fill="currentColor" viewBox="0 0 24 24" className='size-6'>

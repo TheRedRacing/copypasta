@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HeaderAdd } from "@/components/add";
+import { HeaderAdd } from "@/components/add/addItem";
 import ThemeOption from "./ThemeDialog";
 import { ClipboardIcon } from "@heroicons/react/24/outline";
 import { cn } from "@/lib/utils";

@@ -2,51 +2,45 @@
 
 import { useEffect, useState } from "react";
 
-import { EmptyAdd } from "@/components/add";
-import Card from "@/components/card";
-
-import { DndContext, closestCenter } from '@dnd-kit/core';
-import { arrayMove, SortableContext } from '@dnd-kit/sortable';
-import { type clipboardItem } from "@/lib/types";
-import { restrictToVerticalAxis, restrictToWindowEdges } from '@dnd-kit/modifiers';
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Cookies from "@/components/cookies";
+import AddGroup from "@/components/add/addGroup";
+import GroupCard from "@/components/card/groupCard";
+
+import { clipboardGroup, getClipboardGroups, moveGroupUp, moveGroupDown, deleteGroup, renameGroup } from "@/lib/clipboardStorage";
 
 export default function Home() {
-	const [clipboardData, setClipboardData] = useState<clipboardItem[]>([]);
-	const [clipboardOrder, setclipboardOrder] = useState<number[]>([]);
+	const [clipboardGroups, setClipboardGroups] = useState<clipboardGroup[]>([]);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const savedData: clipboardItem[] = JSON.parse(localStorage.getItem("clipboardTexts") || "[]");
-		const savedOrder: number[] = JSON.parse(localStorage.getItem("clipboardOrder") || "[]");
-
-		if (savedData.length > 0 && savedOrder.length > 0) {
-			setClipboardData(savedData);
-			setclipboardOrder(savedOrder);
-		}
+		const groups = getClipboardGroups();
+		setClipboardGroups(groups);
 		setLoading(false);
 	}, []);
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const onDragEnd = (event: { active: any; over: any; }) => {
-		const { active, over } = event;
-
-		if (active.id !== over.id) {
-			const oldIndex = clipboardOrder.indexOf(active.id);
-			const newIndex = clipboardOrder.indexOf(over.id);
-
-			if (oldIndex === -1 || newIndex === -1) return;
-
-			// Mise à jour de l'ordre des IDs
-			const newOrder = arrayMove(clipboardOrder, oldIndex, newIndex);
-			setclipboardOrder(newOrder);
-
-			// 🔥 Sauvegarde dans localStorage
-			localStorage.setItem("clipboardOrder", JSON.stringify(newOrder));
-		}
+	const handleMoveUp = (index: number) => {
+		moveGroupUp(index);
+		setClipboardGroups(getClipboardGroups());
 	};
+
+	const handleMoveDown = (index: number) => {
+		moveGroupDown(index);
+		setClipboardGroups(getClipboardGroups());
+	};
+
+	const handleDelete = (groupId: number) => {
+		deleteGroup(groupId);
+		setClipboardGroups(getClipboardGroups());
+	};
+
+	const handleRename = (groupId: number, newTitle: string) => {
+		renameGroup(groupId, newTitle);
+		setClipboardGroups(getClipboardGroups());
+	};
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 
 	if (loading) {
 		return (
@@ -61,12 +55,12 @@ export default function Home() {
 		);
 	}
 
-	if (clipboardData.length === 0) {
+	if (clipboardGroups.length === 0) {
 		return (
 			<>
 				<Header />
 				<main className="flex-1 flex flex-col items-center justify-center mt-16 p-10 sm:p-20 md:px-32 lg:px-40">
-					<EmptyAdd />
+					<AddGroup />
 				</main>
 				<Cookies />
 				<Footer />
@@ -77,31 +71,23 @@ export default function Home() {
 	return (
 		<>
 			<Header />
-			<main className="flex-1 px-4 pt-6 mt-16 overflow-hidden">
-				<DndContext modifiers={[restrictToVerticalAxis, restrictToWindowEdges]} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-					<SortableContext items={clipboardOrder}>
-						<ListItems clipboardOrder={clipboardOrder} clipboardData={clipboardData} />
-					</SortableContext>
-				</DndContext>
+			<main className="flex-1 flex flex-col gap-4 px-4 pt-6 mt-16 overflow-hidden">
+				{clipboardGroups.map((clipboardGroup, clipboardGroupIDX) => (
+					<GroupCard
+						key={clipboardGroup.id}
+						index={clipboardGroupIDX}
+						lastIndex={clipboardGroups.length - 1}
+						group={clipboardGroup}
+						onMoveUp={handleMoveUp}
+						onMoveDown={handleMoveDown}
+						onDelete={handleDelete}
+						onRename={handleRename}
+					/>
+				))}
+				<AddGroup />
 			</main>
 			<Cookies />
 			<Footer />
 		</>
 	);
-}
-
-interface listItemsProps {
-	clipboardOrder: number[];
-	clipboardData: clipboardItem[];
-}
-
-function ListItems({ clipboardOrder, clipboardData }: listItemsProps) {
-	return (
-		<ul>
-			{clipboardOrder.map((item, index) => {
-				const data = clipboardData.find((data) => data.id === item);
-				return data ? <Card key={item} index={index} item={item} data={data} /> : null;
-			})}
-		</ul>
-	)
 }

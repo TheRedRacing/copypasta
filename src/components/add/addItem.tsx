@@ -7,59 +7,19 @@ import { z } from "zod"
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Switch } from "@/components/ui/switch"
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Textarea } from "./ui/textarea"
-import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button";
+import { Textarea } from "../ui/textarea"
 import { useState } from "react"
-
-import { focusClassName } from "@/lib/focus"
 
 import { sendGAEvent } from '@next/third-parties/google'
 import { toast } from "sonner"
-
-export function HeaderAdd() {
-    return (
-        <AddDialog>
-            <Button size={'sm'}>Add new</Button>
-        </AddDialog>
-    )
-}
-
-export function EmptyAdd() {
-    return (
-        <AddDialog>
-            <button
-                type="button"
-                className={cn("relative flex-1 w-full h-full rounded-lg border-2 border-dashed border-zinc-300 p-24 text-center hover:border-zinc-400 focus:outline-none dark:border-zinc-700 dark:hover:border-zinc-600", focusClassName)}
-            >
-                <div className="text-center">
-                    <h3 className="mt-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                        No data available
-                    </h3>
-                    <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                        Click the button below to add a new row.
-                    </p>
-                    <div className="mt-4">
-                        <div className={cn(buttonVariants({ variant: "default", size: "default" }))}>
-                            Add new row
-                        </div>
-                    </div>
-                </div>
-            </button>
-        </AddDialog>
-    )
-}
-
-interface AddDialogProps {
-    children: React.ReactNode
-}
 
 const formSchema = z.object({
     text: z.string().min(2, "You must enter at least 2 characters"),
     isPrivate: z.boolean().optional(),
 })
 
-function AddDialog({ children }: AddDialogProps) {
+export function HeaderAdd() {
     const [isOpen, setIsOpen] = useState(false);
 
     // 1. Define your form.
@@ -100,7 +60,7 @@ function AddDialog({ children }: AddDialogProps) {
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                {children}
+                <Button size={'sm'}>Add new</Button>
             </DialogTrigger>
             <DialogContent>
                 <Form {...form}>

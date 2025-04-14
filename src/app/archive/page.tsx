@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { EmptyAdd } from "@/components/add";
+import { EmptyAdd } from "@/components/add/addItem";
 import Card, { ArchivedCard } from "@/components/card";
 
 import { DndContext, closestCenter } from '@dnd-kit/core';
@@ -79,7 +79,7 @@ export default function Home() {
 							</h3>
 							<p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
 								Return to the home page to add a new row.
-							</p>							
+							</p>
 						</div>
 					</Link>
 				</main>
