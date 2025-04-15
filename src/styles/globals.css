@@ -3,162 +3,162 @@
 @tailwind utilities;
 
 @layer base {
-	:root {
-		--primary-50: 255, 247, 237;
-		--primary-100: 255, 237, 213;
-		--primary-200: 254, 215, 170;
-		--primary-300: 253, 186, 116;
-		--primary-400: 251, 146, 60;
-		--primary-500: 249, 115, 22;
-		--primary-600: 234, 88, 12;
-		--primary-700: 194, 65, 12;
-		--primary-800: 154, 52, 18;
-		--primary-900: 124, 45, 18;
+    :root {
+        --primary-50: 255, 247, 237;
+        --primary-100: 255, 237, 213;
+        --primary-200: 254, 215, 170;
+        --primary-300: 253, 186, 116;
+        --primary-400: 251, 146, 60;
+        --primary-500: 249, 115, 22;
+        --primary-600: 234, 88, 12;
+        --primary-700: 194, 65, 12;
+        --primary-800: 154, 52, 18;
+        --primary-900: 124, 45, 18;
 
-		--dark-main: 14, 14, 16;
-		--dark-header: 24, 24, 27;
-		--dark-hover: 24, 24, 27;
-	}
+        --dark-main: 14, 14, 16;
+        --dark-header: 24, 24, 27;
+        --dark-hover: 24, 24, 27;
+    }
 
-	html[data-theme="red"],
-	html[data-theme="dark-red"] {
-		--primary-50: 254, 242, 242;
-		--primary-100: 254, 226, 226;
-		--primary-200: 254, 202, 202;
-		--primary-300: 252, 165, 165;
-		--primary-400: 248, 113, 113;
-		--primary-500: 239, 68, 68;
-		--primary-600: 220, 38, 38;
-		--primary-700: 185, 28, 28;
-		--primary-800: 153, 27, 27;
-		--primary-900: 127, 29, 29;
-	}
+    html[data-theme="red"],
+    html[data-theme="dark-red"] {
+        --primary-50: 254, 242, 242;
+        --primary-100: 254, 226, 226;
+        --primary-200: 254, 202, 202;
+        --primary-300: 252, 165, 165;
+        --primary-400: 248, 113, 113;
+        --primary-500: 239, 68, 68;
+        --primary-600: 220, 38, 38;
+        --primary-700: 185, 28, 28;
+        --primary-800: 153, 27, 27;
+        --primary-900: 127, 29, 29;
+    }
 
-	html[data-theme="cyan"],
-	html[data-theme="dark-cyan"] {
-		--primary-50: 236, 254, 255;
-		--primary-100: 207, 250, 254;
-		--primary-200: 165, 243, 252;
-		--primary-300: 103, 232, 249;
-		--primary-400: 34, 211, 238;
-		--primary-500: 6, 182, 212;
-		--primary-600: 8, 145, 178;
-		--primary-700: 14, 116, 144;
-		--primary-800: 21, 94, 117;
-		--primary-900: 22, 78, 99;
-	}
+    html[data-theme="cyan"],
+    html[data-theme="dark-cyan"] {
+        --primary-50: 236, 254, 255;
+        --primary-100: 207, 250, 254;
+        --primary-200: 165, 243, 252;
+        --primary-300: 103, 232, 249;
+        --primary-400: 34, 211, 238;
+        --primary-500: 6, 182, 212;
+        --primary-600: 8, 145, 178;
+        --primary-700: 14, 116, 144;
+        --primary-800: 21, 94, 117;
+        --primary-900: 22, 78, 99;
+    }
 
-	html[data-theme="yellow"],
-	html[data-theme="dark-yellow"] {
-		--primary-50: 254, 252, 232;
-		--primary-100: 254, 249, 195;
-		--primary-200: 254, 240, 138;
-		--primary-300: 253, 224, 71;
-		--primary-400: 250, 204, 21;
-		--primary-500: 234, 179, 8;
-		--primary-600: 202, 138, 4;
-		--primary-700: 161, 98, 7;
-		--primary-800: 133, 77, 14;
-		--primary-900: 113, 63, 18;
-	}
+    html[data-theme="yellow"],
+    html[data-theme="dark-yellow"] {
+        --primary-50: 254, 252, 232;
+        --primary-100: 254, 249, 195;
+        --primary-200: 254, 240, 138;
+        --primary-300: 253, 224, 71;
+        --primary-400: 250, 204, 21;
+        --primary-500: 234, 179, 8;
+        --primary-600: 202, 138, 4;
+        --primary-700: 161, 98, 7;
+        --primary-800: 133, 77, 14;
+        --primary-900: 113, 63, 18;
+    }
 
-	html[data-theme="green"],
-	html[data-theme="dark-green"] {
-		--primary-50: 240, 255, 244;
-		--primary-100: 198, 246, 213;
-		--primary-200: 154, 230, 180;
-		--primary-300: 104, 211, 145;
-		--primary-400: 72, 187, 120;
-		--primary-500: 16, 185, 129;
-		--primary-600: 5, 150, 105;
-		--primary-700: 4, 120, 87;
-		--primary-800: 6, 95, 70;
-		--primary-900: 6, 78, 59;
-	}
+    html[data-theme="green"],
+    html[data-theme="dark-green"] {
+        --primary-50: 240, 255, 244;
+        --primary-100: 198, 246, 213;
+        --primary-200: 154, 230, 180;
+        --primary-300: 104, 211, 145;
+        --primary-400: 72, 187, 120;
+        --primary-500: 16, 185, 129;
+        --primary-600: 5, 150, 105;
+        --primary-700: 4, 120, 87;
+        --primary-800: 6, 95, 70;
+        --primary-900: 6, 78, 59;
+    }
 
-	html[data-theme="emerald"],
-	html[data-theme="dark-emerald"] {
-		--primary-50: 236, 253, 245;
-		--primary-100: 209, 250, 229;
-		--primary-200: 167, 243, 208;
-		--primary-300: 110, 231, 183;
-		--primary-400: 52, 211, 153;
-		--primary-500: 16, 185, 129;
-		--primary-600: 5, 150, 105;
-		--primary-700: 4, 120, 87;
-		--primary-800: 6, 95, 70;
-		--primary-900: 6, 78, 59;
-	}
+    html[data-theme="emerald"],
+    html[data-theme="dark-emerald"] {
+        --primary-50: 236, 253, 245;
+        --primary-100: 209, 250, 229;
+        --primary-200: 167, 243, 208;
+        --primary-300: 110, 231, 183;
+        --primary-400: 52, 211, 153;
+        --primary-500: 16, 185, 129;
+        --primary-600: 5, 150, 105;
+        --primary-700: 4, 120, 87;
+        --primary-800: 6, 95, 70;
+        --primary-900: 6, 78, 59;
+    }
 
-	html[data-theme="teal"],
-	html[data-theme="dark-teal"] {
-		--primary-50: 240, 253, 250;
-		--primary-100: 204, 251, 241;
-		--primary-200: 153, 246, 228;
-		--primary-300: 94, 234, 212;
-		--primary-400: 45, 212, 191;
-		--primary-500: 20, 184, 166;
-		--primary-600: 13, 148, 136;
-		--primary-700: 15, 118, 110;
-		--primary-800: 17, 94, 89;
-		--primary-900: 19, 78, 74;
-	}
+    html[data-theme="teal"],
+    html[data-theme="dark-teal"] {
+        --primary-50: 240, 253, 250;
+        --primary-100: 204, 251, 241;
+        --primary-200: 153, 246, 228;
+        --primary-300: 94, 234, 212;
+        --primary-400: 45, 212, 191;
+        --primary-500: 20, 184, 166;
+        --primary-600: 13, 148, 136;
+        --primary-700: 15, 118, 110;
+        --primary-800: 17, 94, 89;
+        --primary-900: 19, 78, 74;
+    }
 
-	html[data-theme="blue"],
-	html[data-theme="dark-blue"] {
-		--primary-50: 239, 246, 255;
-		--primary-100: 219, 234, 254;
-		--primary-200: 191, 219, 254;
-		--primary-300: 147, 197, 253;
-		--primary-400: 96, 165, 250;
-		--primary-500: 59, 130, 246;
-		--primary-600: 37, 99, 235;
-		--primary-700: 29, 78, 216;
-		--primary-800: 30, 64, 175;
-		--primary-900: 30, 58, 138;
-	}
+    html[data-theme="blue"],
+    html[data-theme="dark-blue"] {
+        --primary-50: 239, 246, 255;
+        --primary-100: 219, 234, 254;
+        --primary-200: 191, 219, 254;
+        --primary-300: 147, 197, 253;
+        --primary-400: 96, 165, 250;
+        --primary-500: 59, 130, 246;
+        --primary-600: 37, 99, 235;
+        --primary-700: 29, 78, 216;
+        --primary-800: 30, 64, 175;
+        --primary-900: 30, 58, 138;
+    }
 
-	html[data-theme="indigo"],
-	html[data-theme="dark-indigo"] {
-		--primary-50: 238, 242, 255;
-		--primary-100: 224, 231, 255;
-		--primary-200: 199, 210, 254;
-		--primary-300: 165, 180, 252;
-		--primary-400: 129, 140, 248;
-		--primary-500: 99, 102, 241;
-		--primary-600: 79, 70, 229;
-		--primary-700: 67, 56, 202;
-		--primary-800: 55, 48, 163;
-		--primary-900: 49, 46, 129;
-	}
+    html[data-theme="indigo"],
+    html[data-theme="dark-indigo"] {
+        --primary-50: 238, 242, 255;
+        --primary-100: 224, 231, 255;
+        --primary-200: 199, 210, 254;
+        --primary-300: 165, 180, 252;
+        --primary-400: 129, 140, 248;
+        --primary-500: 99, 102, 241;
+        --primary-600: 79, 70, 229;
+        --primary-700: 67, 56, 202;
+        --primary-800: 55, 48, 163;
+        --primary-900: 49, 46, 129;
+    }
 
-	html[data-theme="purple"],
-	html[data-theme="dark-purple"] {
-		--primary-50: 245, 243, 255;
-		--primary-100: 237, 233, 254;
-		--primary-200: 221, 214, 254;
-		--primary-300: 196, 181, 253;
-		--primary-400: 167, 139, 250;
-		--primary-500: 139, 92, 246;
-		--primary-600: 124, 58, 237;
-		--primary-700: 109, 40, 217;
-		--primary-800: 91, 33, 182;
-		--primary-900: 76, 29, 149;
-	}
+    html[data-theme="purple"],
+    html[data-theme="dark-purple"] {
+        --primary-50: 245, 243, 255;
+        --primary-100: 237, 233, 254;
+        --primary-200: 221, 214, 254;
+        --primary-300: 196, 181, 253;
+        --primary-400: 167, 139, 250;
+        --primary-500: 139, 92, 246;
+        --primary-600: 124, 58, 237;
+        --primary-700: 109, 40, 217;
+        --primary-800: 91, 33, 182;
+        --primary-900: 76, 29, 149;
+    }
 
-	html[data-theme="pink"],
-	html[data-theme="dark-pink"] {
-		--primary-50: 253, 242, 248;
-		--primary-100: 252, 231, 243;
-		--primary-200: 251, 207, 232;
-		--primary-300: 249, 168, 212;
-		--primary-400: 244, 114, 182;
-		--primary-500: 236, 72, 153;
-		--primary-600: 219, 39, 119;
-		--primary-700: 190, 24, 93;
-		--primary-800: 157, 23, 77;
-		--primary-900: 131, 24, 67;
-	}
+    html[data-theme="pink"],
+    html[data-theme="dark-pink"] {
+        --primary-50: 253, 242, 248;
+        --primary-100: 252, 231, 243;
+        --primary-200: 251, 207, 232;
+        --primary-300: 249, 168, 212;
+        --primary-400: 244, 114, 182;
+        --primary-500: 236, 72, 153;
+        --primary-600: 219, 39, 119;
+        --primary-700: 190, 24, 93;
+        --primary-800: 157, 23, 77;
+        --primary-900: 131, 24, 67;
+    }
 }
 
 /* Add primary color on all element  */
@@ -172,6 +172,55 @@ select:focus,
 select:focus-visible,
 textarea:focus,
 textarea:focus-visible {
-	outline: var(--primary-500) auto 2px;
-	outline-offset: 2rem;
+    outline: var(--primary-500) auto 2px;
+    outline-offset: 2rem;
+}
+
+.loader {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: block;
+    margin: 15px auto;
+    position: relative;
+    box-sizing: border-box;
+    animation: animloader 2s linear infinite;
+}
+
+@keyframes animloader {
+    0% {
+        box-shadow:
+            14px 0 0 -2px,
+            38px 0 0 -2px,
+            -14px 0 0 -2px,
+            -38px 0 0 -2px;
+    }
+    25% {
+        box-shadow:
+            14px 0 0 -2px,
+            38px 0 0 -2px,
+            -14px 0 0 -2px,
+            -38px 0 0 2px;
+    }
+    50% {
+        box-shadow:
+            14px 0 0 -2px,
+            38px 0 0 -2px,
+            -14px 0 0 2px,
+            -38px 0 0 -2px;
+    }
+    75% {
+        box-shadow:
+            14px 0 0 2px,
+            38px 0 0 -2px,
+            -14px 0 0 -2px,
+            -38px 0 0 -2px;
+    }
+    100% {
+        box-shadow:
+            14px 0 0 -2px,
+            38px 0 0 2px,
+            -14px 0 0 -2px,
+            -38px 0 0 -2px;
+    }
 }

@@ -48,8 +48,6 @@ function FooterContent() {
                 <div className='flex items-center'>
                     <NavLink href={"/"}>Home</NavLink>                    
                     <span className='size-1 bg-zinc-400 rounded-full'></span>
-                    <NavLink href={"/archive"}>Archive</NavLink>
-                    <span className='size-1 bg-zinc-400 rounded-full'></span>
                     <NavLink href={"/faq"}>F.A.Q</NavLink>
                     <span className='size-1 bg-zinc-400 rounded-full'></span>
                     <NavLink href={"/contact"}>Contact</NavLink>

@@ -1,1 +1,1 @@
-export const focusClassName = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black";
+export const focusClassName = "transition-[color,box-shadow]  focus-visible:ring-ring/50 focus-visible:ring-[3px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black";

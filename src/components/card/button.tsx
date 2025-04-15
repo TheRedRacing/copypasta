@@ -1,11 +1,11 @@
-import { clipboardItem } from '@/lib/types';
 import { cn } from '@/lib/utils';
-import { ArchiveBoxIcon, CheckIcon, EyeIcon, EyeSlashIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { CheckIcon, EyeIcon, EyeSlashIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
-import { ButtonCard } from '../ui/button';
+import { Button } from '../ui/button';
 import { toast } from "sonner"
 
 import { sendGAEvent } from '@next/third-parties/google';
+import { clipboardItem } from '@/lib/clipboardStorage';
 
 interface PrivateButtonProps {
     isBlur: boolean;
@@ -13,13 +13,13 @@ interface PrivateButtonProps {
 }
 function PrivateButton({ isBlur, setIsBlur }: PrivateButtonProps) {
     return (
-        <ButtonCard onClick={() => setIsBlur(!isBlur)}>
+        <Button variant={'outline'} size={'i8'} onClick={() => setIsBlur(!isBlur)}>
             {isBlur ? (
-                <EyeSlashIcon className="size-5" />
+                <EyeSlashIcon className="size-4" />
             ) : (
-                <EyeIcon className="size-5" />
+                <EyeIcon className="size-4" />
             )}
-        </ButtonCard>
+        </Button>
     )
 }
 
@@ -56,111 +56,16 @@ function TrashButton({ item }: TrashButtonProps) {
     }
 
     return (
-        <ButtonCard variant={"destructive"} className={cn(isDeleted ? "" : "")} onClick={() => deleteItem()}>
+        <Button variant={'outline_destructive'} size={'i8'} className={cn(isDeleted ? "" : "")} onClick={() => deleteItem()}>
             {isDeleted ? (
-                <CheckIcon className="size-5" />
+                <CheckIcon className="size-4" />
             ) : (
-                <TrashIcon className="size-5" />
+                <TrashIcon className="size-4" />
             )}
-        </ButtonCard>
+        </Button>
     )
 }
 
-interface ArchiveButtonProps {
-    item: clipboardItem;
-}
-
-function ArchiveButton({ item }: ArchiveButtonProps) {
-    function archiveItem() {
-        const id = item.id;
-
-        // Retrieve saved data
-        const savedData: clipboardItem[] = JSON.parse(localStorage.getItem("clipboardTexts") || "[]");
-        const savedOrder: number[] = JSON.parse(localStorage.getItem("clipboardOrder") || "[]");
-
-        // Retrieve archive data
-        const archivedData: clipboardItem[] = JSON.parse(localStorage.getItem("clipboardArchive") || "[]");
-        const archivedOrder: number[] = JSON.parse(localStorage.getItem("clipboardArchiveOrder") || "[]");
-
-        // Find the item to archive
-        const itemToArchive = savedData.find((i) => i.id === id);
-        if (!itemToArchive) return;
-
-        // Update clipboard by removing the item
-        const updatedTexts = savedData.filter((i) => i.id !== id);
-        const updatedOrder = savedOrder.filter((order) => order !== id);
-
-        // Add item to archive
-        const updatedArchive = [...archivedData, itemToArchive];
-        const updatedArchiveOrder = [...archivedOrder, id];
-
-        // Update localStorage
-        localStorage.setItem("clipboardTexts", JSON.stringify(updatedTexts));
-        localStorage.setItem("clipboardOrder", JSON.stringify(updatedOrder));
-        localStorage.setItem("clipboardArchive", JSON.stringify(updatedArchive));
-        localStorage.setItem("clipboardArchiveOrder", JSON.stringify(updatedArchiveOrder));
-
-        // Tracking
-        sendGAEvent("event", "archive", "row");
-
-        // Reload page
-        toast("Archived with success");
-        setTimeout(() => window.location.reload(), 500);
-    }
-
-    return (
-        <ButtonCard onClick={archiveItem}>
-            <ArchiveBoxIcon className="size-5" />
-        </ButtonCard>
-    );
-}
-
-function UnArchiveButton({ item }: ArchiveButtonProps) {
-    function unArchiveItem() {
-        const id = item.id;
-
-        // Retrieve clipboard data
-        const savedData: clipboardItem[] = JSON.parse(localStorage.getItem("clipboardTexts") || "[]");
-        const savedOrder: number[] = JSON.parse(localStorage.getItem("clipboardOrder") || "[]");
-
-        // Retrieve archive data
-        const archivedData: clipboardItem[] = JSON.parse(localStorage.getItem("clipboardArchive") || "[]");
-        const archivedOrder: number[] = JSON.parse(localStorage.getItem("clipboardArchiveOrder") || "[]");
-
-        // Find the item to unarchive
-        const itemToUnarchive = archivedData.find((i) => i.id === id);
-        if (!itemToUnarchive) return;
-
-        // Remove from archive
-        const updatedArchive = archivedData.filter((i) => i.id !== id);
-        const updatedArchiveOrder = archivedOrder.filter((order) => order !== id);
-
-        // Add back to clipboard
-        const updatedTexts = [...savedData, itemToUnarchive];
-        const updatedOrder = [...savedOrder, id];
-
-        // Update localStorage
-        localStorage.setItem("clipboardTexts", JSON.stringify(updatedTexts));
-        localStorage.setItem("clipboardOrder", JSON.stringify(updatedOrder));
-        localStorage.setItem("clipboardArchive", JSON.stringify(updatedArchive));
-        localStorage.setItem("clipboardArchiveOrder", JSON.stringify(updatedArchiveOrder));
-
-        // Tracking
-        sendGAEvent("event", "unarchive", "row");
-
-        // Reload page
-        toast("Unarchived with success");
-        setTimeout(() => window.location.reload(), 500);
-    }
-
-    return (
-        <ButtonCard onClick={unArchiveItem}>
-            <ArchiveBoxIcon className="size-5" />
-        </ButtonCard>
-    );
-}
 
 
-
-
-export { PrivateButton, TrashButton, ArchiveButton, UnArchiveButton };
+export { PrivateButton, TrashButton };

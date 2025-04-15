@@ -11,7 +11,7 @@ export default function notFound() {
                 <p className="mt-6 text-base leading-7 text-zinc-600 dark:text-zinc-300">The page you are looking for no longer exists or has been moved.</p>
                 <p className="text-base leading-7 text-zinc-600 dark:text-zinc-300">You can return to the home page by clicking on the button below.</p>
                 <div className="mt-6 flex items-center justify-center gap-x-6">
-                    <Button size="lg" asChild>
+                    <Button asChild>
                         <Link href="/">Return to Home Page</Link>
                     </Button>
                 </div>
