@@ -8,17 +8,20 @@ import { AnimatePresence, motion } from "motion/react"
 
 import { Button } from "@/components/ui/button";
 import { Bars3Icon, ChevronDownIcon, ChevronUpIcon, PencilIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { toast } from "sonner";
 
 interface ClipboardGroupCardProps {
     current: clipboardGroup;
     moveGroupUp: (index: number) => void;
     moveGroupDown: (index: number) => void;
+    renameGroup: (id: string, newTitle: string) => void;
+    deleteGroup: (id: string) => void;
     children?: React.ReactNode;
     index: number;
     lastIndex: number;
 }
 
-export default function ClipboardGroupCard({ current, children, moveGroupUp, moveGroupDown, index, lastIndex }: ClipboardGroupCardProps) {
+export default function ClipboardGroupCard({ current, children, moveGroupUp, moveGroupDown, renameGroup, deleteGroup, index, lastIndex }: ClipboardGroupCardProps) {
     const [isEditing, setIsEditing] = useState(false);
     const [title, setTitle] = useState(current.title);
 
@@ -27,7 +30,8 @@ export default function ClipboardGroupCard({ current, children, moveGroupUp, mov
     const handleRename = () => {
         const trimmed = title.trim();
         if (trimmed && trimmed !== current.title) {
-
+            renameGroup(current.id, trimmed);
+            toast.success("Groupe renommé avec succès");
         }
         setIsEditing(false);
     };
@@ -59,6 +63,8 @@ export default function ClipboardGroupCard({ current, children, moveGroupUp, mov
                     index={index}
                     lastIndex={lastIndex}
                     isDefault={isDefault}
+                    onEdit={() => setIsEditing(!isEditing)}
+                    onDelete={() => deleteGroup(current.id)}
                     moveUp={() => moveGroupUp(index)}
                     moveDown={() => moveGroupDown(index)}
                 />
@@ -73,8 +79,8 @@ interface GroupInlineMenuProps {
     index: number
     lastIndex: number
     isDefault: boolean
-    onEdit?: () => void
-    onDelete?: () => void
+    onEdit: () => void
+    onDelete: () => void
     moveUp: () => void
     moveDown: () => void
 }

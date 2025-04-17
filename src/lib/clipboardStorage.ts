@@ -18,3 +18,9 @@ export function addClipboardGroup(group: clipboardGroup): void {
     groups.push(group);
     setClipboardGroups(groups);
 }
+
+export function removeClipboardGroup(id: string): void {
+    const groups = getClipboardGroups();
+    const newGroups = groups.filter((group) => group.id !== id);
+    setClipboardGroups(newGroups);
+}
