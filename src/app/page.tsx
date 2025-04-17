@@ -6,48 +6,45 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Cookies from "@/components/cookies";
 import AddGroup from "@/components/add/addGroup";
-import GroupCard from "@/components/card/groupCard";
-
-import { clipboardGroup, getClipboardGroups, moveGroupUp, moveGroupDown, deleteGroup, renameGroup } from "@/lib/clipboardStorage";
+import ClipboardGroupCard from "@/components/clipboard/group";
+import { clipboardGroup } from "@/type/clipboard";
+import { getClipboardGroups, setClipboardGroups } from "@/lib/clipboardStorage";
 
 export default function Home() {
-	const [clipboardGroups, setClipboardGroups] = useState<clipboardGroup[]>([]);
+	const [clipboardGroups, setClipboardGroup] = useState<clipboardGroup[]>([]);
 	const [loading, setLoading] = useState(true);
 
+	// Récupérer les groupes du stockage local
 	useEffect(() => {
-		const groups = getClipboardGroups();
-		setClipboardGroups(groups);
-		setLoading(false);
+		setClipboardGroup(getClipboardGroups());
+		setTimeout(() => { setLoading(false) }, 500);
 	}, []);
 
-	const handleMoveUp = (index: number) => {
-		moveGroupUp(index);
-		setClipboardGroups(getClipboardGroups());
+	const moveGroupUp = (index: number) => {
+		if (index == 0) return;
+		const newGroups = [...clipboardGroups];
+		[newGroups[index - 1], newGroups[index]] = [newGroups[index], newGroups[index - 1]];
+		setClipboardGroup(newGroups);
+		setClipboardGroups(newGroups);
 	};
 
-	const handleMoveDown = (index: number) => {
-		moveGroupDown(index);
-		setClipboardGroups(getClipboardGroups());
+	const moveGroupDown = (index: number) => {
+		if (index === clipboardGroups.length - 1) return;
+		const newGroups = [...clipboardGroups];
+		[newGroups[index], newGroups[index + 1]] = [newGroups[index + 1], newGroups[index]];
+		setClipboardGroup(newGroups);
+		setClipboardGroups(newGroups);
 	};
 
-	const handleDelete = (groupId: number) => {
-		deleteGroup(groupId);
-		setClipboardGroups(getClipboardGroups());
-	};
-
-	const handleRename = (groupId: number, newTitle: string) => {
-		renameGroup(groupId, newTitle);
-		setClipboardGroups(getClipboardGroups());
-	};
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-
+	// État de chargement
 	if (loading) {
 		return (
 			<>
 				<Header />
-				<main className="flex-1 flex items-center justify-center mt-16 p-10 sm:p-20 md:p-32 lg:p-40">
-					<p className="text-lg font-semibold text-zinc-600">Chargement...</p>
+				<main className="flex-1 flex flex-col gap-4 px-4 py-4 mt-16 overflow-hidden">
+					<div className="flex justify-center items-center flex-1">
+						<span className="loader text-zinc-300"></span>
+					</div>
 				</main>
 				<Cookies />
 				<Footer />
@@ -55,12 +52,13 @@ export default function Home() {
 		);
 	}
 
+	// Aucun groupe
 	if (clipboardGroups.length === 0) {
 		return (
 			<>
 				<Header />
-				<main className="flex-1 flex flex-col items-center justify-center mt-16 p-10 sm:p-20 md:px-32 lg:px-40">
-					<AddGroup />
+				<main className="flex-1 flex flex-col gap-4 px-4 py-4 mt-16 overflow-hidden">
+					<AddGroup set={setClipboardGroup} />
 				</main>
 				<Cookies />
 				<Footer />
@@ -68,26 +66,23 @@ export default function Home() {
 		);
 	}
 
+	// Affichage normal
 	return (
 		<>
 			<Header />
-			<main className="flex-1 flex flex-col gap-4 px-4 pt-6 mt-16 overflow-hidden">
-				{clipboardGroups.map((clipboardGroup, clipboardGroupIDX) => (
-					<GroupCard
-						key={clipboardGroup.id}
-						index={clipboardGroupIDX}
-						lastIndex={clipboardGroups.length - 1}
-						group={clipboardGroup}
-						onMoveUp={handleMoveUp}
-						onMoveDown={handleMoveDown}
-						onDelete={handleDelete}
-						onRename={handleRename}
-					/>
-				))}
-				<AddGroup />
+			<main className="flex-1 flex flex-col gap-4 px-4 py-4 mt-16 overflow-hidden">
+				<div className="grid grid-cols-1 gap-4">
+					{clipboardGroups.map((clipboardGroup, clipboardGroupIDX) => (
+						<ClipboardGroupCard key={clipboardGroup.id} current={clipboardGroup} moveGroupUp={moveGroupUp} moveGroupDown={moveGroupDown} index={clipboardGroupIDX} lastIndex={clipboardGroups.length - 1}>
+							
+						</ClipboardGroupCard>
+					))}
+				</div>
+				<AddGroup set={setClipboardGroup} />
 			</main>
 			<Cookies />
 			<Footer />
 		</>
 	);
+
 }

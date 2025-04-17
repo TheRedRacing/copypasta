@@ -22,19 +22,14 @@ import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 
-import {
-    addClipboardToGroup,
-    updateClipboardItem,
-    clipboardGroup,
-} from "@/lib/clipboardStorage"
 import { toast } from "sonner"
+import { clipboardGroup } from "@/type/clipboard"
 
 interface ItemFormProps {
     id?: string
     text?: string
     isPrivate?: boolean
     groupId?: string
-    clipboardGroups?: clipboardGroup[]
     isOpen: boolean
     setIsOpen: (open: boolean) => void
 }
@@ -46,7 +41,9 @@ const formSchema = z.object({
     groupId: z.string().optional(),
 })
 
-export default function ItemForm({ id, text, isPrivate, groupId, clipboardGroups, isOpen, setIsOpen }: ItemFormProps) {
+export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOpen }: ItemFormProps) {
+    const clipboardGroups: clipboardGroup[] = []
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -66,11 +63,11 @@ export default function ItemForm({ id, text, isPrivate, groupId, clipboardGroups
 
         if (values.id) {
             // ✏️ Édition
-            updateClipboardItem(values.groupId!, clipboardItem)
+
             toast.success("Clipboard edited with success")
         } else {
             // ➕ Ajout
-            addClipboardToGroup(values.groupId!, clipboardItem)
+
             toast.success("Clipboard added with success")
         }
 

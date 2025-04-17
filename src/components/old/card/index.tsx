@@ -1,23 +1,23 @@
 import { cn } from "@/lib/utils";
 import { PrivateButton, TrashButton } from "./button";
 import { useState } from "react";
-import EditDialog from "../edit";
 
 import { useSortable } from '@dnd-kit/sortable';
-import { ButtonCard } from "../ui/button";
 import { focusClassName } from "@/lib/focus";
 import { CSS } from "@dnd-kit/utilities";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { sendGAEvent } from "@next/third-parties/google";
-import { clipboardItem } from "@/lib/clipboardStorage";
+import { Button } from "@/components/ui/button";
+import EditButton from "@/components/old/edit";
+import { clipboardItem } from "@/type/clipboard";
 
 interface CardProps {
-    index: number;
-    item: clipboardItem;
-    groupId: number;
+    item: clipboardItem
+    index: number
+    groupId: string
 }
 
-export default function Card({ index, item, groupId }: CardProps) {
+export default function Card({ item, index, groupId }: CardProps) {
     const [isBlur, setIsBlur] = useState(item.isPrivate);
 
     const [isCopied, setIsCopied] = useState(false);
@@ -44,16 +44,16 @@ export default function Card({ index, item, groupId }: CardProps) {
     attributes.tabIndex = -1;
 
     return (
-        <li key={index} ref={setNodeRef} className={cn("relative flex-1 flex items-stretch justify-between border border-zinc-200 -my-px pr-4 bg-white hover:bg-zinc-50 dark:bg-dark-main dark:border-zinc-800 dark:hover:bg-dark-hover first:rounded-t-lg last:rounded-b-lg overflow-hidden", focusClassName)} style={style} {...attributes}>
-            <ButtonCard {...listeners} ref={setActivatorNodeRef} className="flex items-center justify-center w-8 h-8 p-1 m-2 hover:bg-zinc-100 dark:hover:bg-dark-hover rounded-lg cursor-ns-resize">
+        <li key={index} ref={setNodeRef} className={cn("relative flex-1 flex items-stretch justify-between pr-4 bg-white hover:bg-zinc-50 dark:bg-dark-main dark:border-zinc-800 dark:hover:bg-dark-hover last:rounded-b-lg", focusClassName)} style={style} {...attributes}>
+            <Button variant={'outline'} size={'i8'} {...listeners} ref={setActivatorNodeRef} className="flex items-center justify-center w-8 h-8 p-1 m-2 hover:bg-zinc-100 dark:hover:bg-dark-hover rounded-lg cursor-ns-resize">
                 <Bars3Icon className="size-5" />
-            </ButtonCard>
+            </Button>
             <div className="flex-1 truncate flex items-center justify-start pl-4 sm:pl-0 py-2" onClick={copyToClipboard}>
                 <span className={cn(isBlur && "blur-sm", "text-left text-sm")}>{item.text}</span>
             </div>
             <div className="flex shrink-0 items-center gap-2 pl-2 py-2">
                 <PrivateButton isBlur={isBlur} setIsBlur={setIsBlur} />
-                <EditDialog item={item} />
+                <EditButton item={item} groupId={groupId} />
                 <TrashButton item={item} />
             </div>
 

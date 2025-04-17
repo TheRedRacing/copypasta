@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { focusClassName } from "@/lib/focus";
 import { Button } from "./ui/button";
 import AddButton from "@/components/add/addItem";
+import Debug from "@/components/debug";
 
 export default function Header() {
     return (
@@ -21,6 +22,7 @@ export default function Header() {
             <div className="flex items-end gap-2">
                 <AddButton />
                 <ThemeOption />
+                <Debug />
             </div>
         </header>
     );

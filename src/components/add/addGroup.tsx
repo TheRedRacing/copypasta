@@ -1,16 +1,25 @@
 "use client";
 
+import { addClipboardGroup } from "@/lib/clipboardStorage";
+import generateId from "@/lib/uuid";
+import { clipboardGroup } from "@/type/clipboard";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { toast } from "sonner";
-import { addGroup } from "@/lib/clipboardStorage";
-import { useClipboard } from "@/context/ClipboardContext";
 
-export default function AddGroup() {
-    const { refreshGroups } = useClipboard();
+interface AddGroupProps {
+    set: React.Dispatch<React.SetStateAction<clipboardGroup[]>>;
+}
 
+export default function AddGroup({ set }: AddGroupProps) {
     const handleAddGroup = () => {
-        addGroup("Untitled"); 
-        refreshGroups();
+        const uuid = generateId();
+        const newGroup: clipboardGroup = {
+            id: uuid,
+            title: "Untitled",
+            items: [],
+        };
+        addClipboardGroup(newGroup);
+        set((prev) => [...prev, newGroup]);
         toast.success("Group added with success");
     };
 
