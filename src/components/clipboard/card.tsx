@@ -4,11 +4,11 @@ import { useState } from "react";
 import { useSortable } from '@dnd-kit/sortable';
 import { focusClassName } from "@/lib/focus";
 import { CSS } from "@dnd-kit/utilities";
-import { Bars3Icon } from "@heroicons/react/24/outline";
 import { sendGAEvent } from "@next/third-parties/google";
 import { Button } from "@/components/ui/button";
 import EditButton from "@/components/clipboard/edit";
 import { clipboardItem } from "@/type/clipboard";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
 interface ClipboardCardProps {
     item: clipboardItem
@@ -48,12 +48,13 @@ export default function ClipboardCard({ item, index, groupId }: ClipboardCardPro
                 <span className="text-lg">⠿</span>
             </Button>
             <div className="flex-1 truncate flex items-center justify-start pl-4 sm:pl-0 py-2" onClick={copyToClipboard}>
-                <span className={cn(isBlur && "blur-sm", "text-left text-sm")}>{item.text}</span>
+                <span className={cn(isBlur && "blur-sm", "text-left text-sm")}>{item.text} - {item.id}</span>
             </div>
             <div className="flex shrink-0 items-center gap-2 pl-2 py-2">
-
+                <Button variant="outline" size="i8" onClick={() => setIsBlur(!isBlur)}>
+                    {isBlur ? <EyeSlashIcon className="w-4 h-4" /> : <EyeIcon className="w-4 h-4" />}
+                </Button>
                 <EditButton item={item} groupId={groupId} />
-
             </div>
 
             <div className={cn(isCopied ? "opacity-100 h-full" : "opacity-0 h-0", "absolute inset-x-0 top-1/2 -translate-y-1/2 select-none flex items-center justify-center text-sm bg-green-50 text-green-700 dark:bg-[#142118] dark:text-green-400 transition-all duration-500 ease-in-out")}>

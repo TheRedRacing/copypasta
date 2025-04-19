@@ -23,9 +23,9 @@ import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 
 import { toast } from "sonner"
-import { clipboardGroup } from "@/type/clipboard"
-import { getClipboardGroups } from "@/lib/clipboardStorage"
 import generateId from "@/lib/uuid"
+import { useClipboard } from "@/context/ClipboardContext"
+import { useEffect } from "react"
 
 interface ItemFormProps {
     id?: string
@@ -40,11 +40,11 @@ const formSchema = z.object({
     id: z.string().optional(),
     text: z.string().min(2, "You must enter at least 2 characters"),
     isPrivate: z.boolean().default(false),
-    groupId: z.string().optional(),
+    groupId: z.string().min(1, "You must select a group"),
 })
 
 export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOpen }: ItemFormProps) {
-    const clipboardGroups: clipboardGroup[] = getClipboardGroups();
+    const { clipboardGroups, addItemToGroup, updateItem } = useClipboard();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -56,24 +56,45 @@ export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOp
         },
     })
 
+    useEffect(() => {
+        if (isOpen) {
+            form.reset({
+                id,
+                text: text ?? "",
+                isPrivate: isPrivate ?? false,
+                groupId: groupId ?? "",
+            });
+        }
+    }, [isOpen, id, text, isPrivate, groupId, form]);
+
+
     function onSubmit(values: z.infer<typeof formSchema>) {
-        const clipboardItem = {
-            id: values.id ?? generateId(),
-            text: values.text,
-            isPrivate: values.isPrivate,
-        }
+        console.log("Submitted values:", values);
 
-        if (values.id) {
-            // ✏️ Édition
-
-            toast.success("Clipboard edited with success")
+        if (values.id && groupId) {
+            // 🛠 On est en mode édition
+            updateItem(
+                groupId,            // originalGroupId
+                values.groupId,     // updatedGroupId
+                {
+                    id: values.id,
+                    text: values.text,
+                    isPrivate: values.isPrivate,
+                }
+            );
+            toast.success("Clipboard edited with success");
         } else {
-            // ➕ Ajout
-            
-            toast.success("Clipboard added with success")
+            addItemToGroup(values.groupId, {
+                id: generateId(),
+                text: values.text,
+                isPrivate: values.isPrivate,
+            });
+            toast.success("Clipboard added with success");
         }
 
-        setIsOpen(false) // Ferme le dialog
+
+        setIsOpen(false)
+        form.reset()
     }
 
     return (
@@ -102,13 +123,11 @@ export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOp
                                                     No groups available
                                                 </SelectItem>
                                             ) : (
-                                                <>
-                                                    {clipboardGroups?.map((group) => (
-                                                        <SelectItem key={group.id} value={group.id}>
-                                                            {group.title} <span className="text-xs">({group.id})</span>
-                                                        </SelectItem>
-                                                    ))}
-                                                </>
+                                                clipboardGroups?.map((group) => (
+                                                    <SelectItem key={group.id} value={group.id}>
+                                                        {group.title}
+                                                    </SelectItem>
+                                                ))
                                             )}
                                         </SelectContent>
                                     </Select>

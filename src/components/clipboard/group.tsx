@@ -10,19 +10,17 @@ import { Button } from "@/components/ui/button";
 import { Bars3Icon, ChevronDownIcon, ChevronUpIcon, EyeIcon, PencilIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { useClipboard } from "@/context/ClipboardContext";
 
 interface ClipboardGroupCardProps {
     current: clipboardGroup;
-    moveGroupUp: (index: number) => void;
-    moveGroupDown: (index: number) => void;
-    renameGroup: (id: string, newTitle: string) => void;
-    deleteGroup: (id: string) => void;
     children?: React.ReactNode;
     index: number;
     lastIndex: number;
 }
 
-export default function ClipboardGroupCard({ current, children, moveGroupUp, moveGroupDown, renameGroup, deleteGroup, index, lastIndex }: ClipboardGroupCardProps) {
+export default function ClipboardGroupCard({ current, children, index, lastIndex }: ClipboardGroupCardProps) {
+    const { renameGroup } = useClipboard();
     const [isEditing, setIsEditing] = useState(false);
     const [hideItems, setHideItems] = useState(false);
     const [title, setTitle] = useState(current.title);
@@ -66,14 +64,12 @@ export default function ClipboardGroupCard({ current, children, moveGroupUp, mov
                 )}
 
                 <InlineMenu
+                    id={current.id}
                     index={index}
                     lastIndex={lastIndex}
                     isDefault={isDefault}
                     toggleHide={toggleHide}
                     onEdit={() => setIsEditing(!isEditing)}
-                    onDelete={() => deleteGroup(current.id)}
-                    moveUp={() => moveGroupUp(index)}
-                    moveDown={() => moveGroupDown(index)}
                 />
             </div>
 
@@ -95,17 +91,16 @@ export default function ClipboardGroupCard({ current, children, moveGroupUp, mov
 }
 
 interface GroupInlineMenuProps {
+    id: string
     index: number
     lastIndex: number
     isDefault: boolean
     toggleHide: () => void
     onEdit: () => void
-    onDelete: () => void
-    moveUp: () => void
-    moveDown: () => void
 }
 
-function InlineMenu({ index, lastIndex, isDefault, toggleHide, onEdit, onDelete, moveUp, moveDown }: GroupInlineMenuProps) {
+function InlineMenu({ id, index, lastIndex, isDefault, toggleHide, onEdit }: GroupInlineMenuProps) {
+    const { moveGroupUp, moveGroupDown, deleteGroup } = useClipboard();
     const [open, setOpen] = useState(false)
 
     return (
@@ -123,10 +118,10 @@ function InlineMenu({ index, lastIndex, isDefault, toggleHide, onEdit, onDelete,
                         <Button variant="outline" size="g" onClick={toggleHide}>
                             <EyeIcon className="size-3" />
                         </Button>
-                        <Button variant="outline" size="g" onClick={moveUp} disabled={index === 0}>
+                        <Button variant="outline" size="g" onClick={() => moveGroupUp(index)} disabled={index === 0}>
                             <ChevronUpIcon className="size-3" />
                         </Button>
-                        <Button variant="outline" size="g" onClick={moveDown} disabled={index === lastIndex}>
+                        <Button variant="outline" size="g" onClick={() => moveGroupDown(index)} disabled={index === lastIndex}>
                             <ChevronDownIcon className="size-3" />
                         </Button>
 
@@ -135,7 +130,7 @@ function InlineMenu({ index, lastIndex, isDefault, toggleHide, onEdit, onDelete,
                                 <Button variant="outline" size="g" onClick={onEdit}>
                                     <PencilIcon className="size-3" />
                                 </Button>
-                                <Button variant="outline_destructive" size="g" onClick={onDelete}>
+                                <Button variant="outline_destructive" size="g" onClick={() => deleteGroup(id)}>
                                     <TrashIcon className="size-3" />
                                 </Button>
                             </>

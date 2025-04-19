@@ -1,63 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import { DndContext, closestCenter } from '@dnd-kit/core';
-import { arrayMove, SortableContext } from '@dnd-kit/sortable';
+import { SortableContext } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis, restrictToWindowEdges } from '@dnd-kit/modifiers';
 
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Cookies from "@/components/cookies";
 import AddGroup from "@/components/add/addGroup";
-import { clipboardGroup } from "@/type/clipboard";
-import { getClipboardGroups, setClipboardGroups } from "@/lib/clipboardStorage";
+
 import { ClipboardCard, ClipboardGroupCard } from "@/components/clipboard";
-import { migrateToV2, shouldMigrateToV2 } from "@/lib/migrations/V1ToV2";
+import { useClipboard } from "@/context/ClipboardContext";
 
 export default function Home() {
-	const [clipboardGroups, setClipboardGroup] = useState<clipboardGroup[]>([]);
-	const [loading, setLoading] = useState(true);
-
-	// Récupérer les groupes du stockage local
-	useEffect(() => {
-		if (shouldMigrateToV2()) migrateToV2();
-		setClipboardGroup(getClipboardGroups());
-		setTimeout(() => { setLoading(false) }, 500);
-	}, []);
-
-	const moveGroupUp = (index: number) => {
-		if (index == 0) return;
-		const newGroups = [...clipboardGroups];
-		[newGroups[index - 1], newGroups[index]] = [newGroups[index], newGroups[index - 1]];
-		setClipboardGroup(newGroups);
-		setClipboardGroups(newGroups);
-	};
-
-	const moveGroupDown = (index: number) => {
-		if (index === clipboardGroups.length - 1) return;
-		const newGroups = [...clipboardGroups];
-		[newGroups[index], newGroups[index + 1]] = [newGroups[index + 1], newGroups[index]];
-		setClipboardGroup(newGroups);
-		setClipboardGroups(newGroups);
-	};
-
-	const deleteGroup = (id: string) => {
-		const newGroups = clipboardGroups.filter((group) => group.id !== id);
-		setClipboardGroup(newGroups);
-		setClipboardGroups(newGroups);
-	}
-
-	const renameGroup = (id: string, newTitle: string) => {
-		const newGroups = clipboardGroups.map((group) => {
-			if (group.id === id) {
-				return { ...group, title: newTitle };
-			}
-			return group;
-		});
-		setClipboardGroup(newGroups);
-		setClipboardGroups(newGroups);
-	};
+	const { clipboardGroups, loading } = useClipboard()
 
 	// État de chargement
 	if (loading) {
@@ -81,7 +37,7 @@ export default function Home() {
 			<>
 				<Header />
 				<main className="flex-1 flex flex-col gap-4 px-4 py-4 mt-16 overflow-hidden">
-					<AddGroup set={setClipboardGroup} />
+					<AddGroup />
 				</main>
 				<Cookies />
 				<Footer />
@@ -97,10 +53,10 @@ export default function Home() {
 				<div className="grid grid-cols-1 gap-4">
 					<DndContext modifiers={[restrictToVerticalAxis, restrictToWindowEdges]} collisionDetection={closestCenter}>
 						{clipboardGroups.map((clipboardGroup, clipboardGroupIDX) => (
-							<ClipboardGroupCard key={clipboardGroup.id} current={clipboardGroup} moveGroupUp={moveGroupUp} moveGroupDown={moveGroupDown} renameGroup={renameGroup} deleteGroup={deleteGroup} index={clipboardGroupIDX} lastIndex={clipboardGroups.length - 1}>
+							<ClipboardGroupCard key={clipboardGroup.id} current={clipboardGroup} index={clipboardGroupIDX} lastIndex={clipboardGroups.length - 1}>
 
 								<SortableContext items={clipboardGroup.items}>
-									<ul className="min-h-10">
+									<ul className="min-h-12">
 										{clipboardGroup.items.map((item, index) => (
 											<ClipboardCard key={item.id} item={item} groupId={clipboardGroup.id} index={index} />
 										))}
@@ -110,7 +66,7 @@ export default function Home() {
 						))}
 					</DndContext>
 				</div>
-				<AddGroup set={setClipboardGroup} />
+				<AddGroup />
 			</main>
 			<Cookies />
 			<Footer />
