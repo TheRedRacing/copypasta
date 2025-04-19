@@ -24,6 +24,8 @@ import { Textarea } from "@/components/ui/textarea"
 
 import { toast } from "sonner"
 import { clipboardGroup } from "@/type/clipboard"
+import { getClipboardGroups } from "@/lib/clipboardStorage"
+import generateId from "@/lib/uuid"
 
 interface ItemFormProps {
     id?: string
@@ -42,7 +44,7 @@ const formSchema = z.object({
 })
 
 export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOpen }: ItemFormProps) {
-    const clipboardGroups: clipboardGroup[] = []
+    const clipboardGroups: clipboardGroup[] = getClipboardGroups();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -56,7 +58,7 @@ export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOp
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         const clipboardItem = {
-            id: values.id ?? Date.now().toString(),
+            id: values.id ?? generateId(),
             text: values.text,
             isPrivate: values.isPrivate,
         }
@@ -67,7 +69,7 @@ export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOp
             toast.success("Clipboard edited with success")
         } else {
             // ➕ Ajout
-
+            
             toast.success("Clipboard added with success")
         }
 
@@ -103,7 +105,7 @@ export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOp
                                                 <>
                                                     {clipboardGroups?.map((group) => (
                                                         <SelectItem key={group.id} value={group.id}>
-                                                            {group.title}
+                                                            {group.title} <span className="text-xs">({group.id})</span>
                                                         </SelectItem>
                                                     ))}
                                                 </>

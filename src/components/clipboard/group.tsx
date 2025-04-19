@@ -4,11 +4,12 @@ import { useState } from "react";
 
 import { clipboardGroup } from "@/type/clipboard";
 
-import { AnimatePresence, motion } from "motion/react"
+import { AnimatePresence, motion } from "framer-motion"
 
 import { Button } from "@/components/ui/button";
-import { Bars3Icon, ChevronDownIcon, ChevronUpIcon, PencilIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, ChevronDownIcon, ChevronUpIcon, EyeIcon, PencilIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 interface ClipboardGroupCardProps {
     current: clipboardGroup;
@@ -23,6 +24,7 @@ interface ClipboardGroupCardProps {
 
 export default function ClipboardGroupCard({ current, children, moveGroupUp, moveGroupDown, renameGroup, deleteGroup, index, lastIndex }: ClipboardGroupCardProps) {
     const [isEditing, setIsEditing] = useState(false);
+    const [hideItems, setHideItems] = useState(false);
     const [title, setTitle] = useState(current.title);
 
     const isDefault = current.title === "Default";
@@ -36,13 +38,17 @@ export default function ClipboardGroupCard({ current, children, moveGroupUp, mov
         setIsEditing(false);
     };
 
+    const toggleHide = () => {
+        setHideItems((prev) => !prev);
+    };
+
     return (
         <motion.div
             layout
             transition={{ type: "spring", stiffness: 300, damping: 40 }}
             className="border border-zinc-200 bg-zinc-50 dark:bg-dark-main dark:border-zinc-800 rounded-lg"
         >
-            <div className="flex items-center justify-between px-4 py-1.5 bg-white rounded-t-lg border-b border-zinc-200 dark:bg-dark-header dark:border-zinc-800">
+            <div className={cn("flex items-center justify-between px-4 py-1.5 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-dark-header rounded-t-lg", hideItems && "rounded-b-lg border-b-0")}>
                 {isEditing ? (
                     <input
                         className="text-xs text-zinc-600 dark:text-zinc-100 bg-transparent border-b border-zinc-300 focus:outline-none focus:border-black dark:focus:border-white"
@@ -63,6 +69,7 @@ export default function ClipboardGroupCard({ current, children, moveGroupUp, mov
                     index={index}
                     lastIndex={lastIndex}
                     isDefault={isDefault}
+                    toggleHide={toggleHide}
                     onEdit={() => setIsEditing(!isEditing)}
                     onDelete={() => deleteGroup(current.id)}
                     moveUp={() => moveGroupUp(index)}
@@ -70,7 +77,19 @@ export default function ClipboardGroupCard({ current, children, moveGroupUp, mov
                 />
             </div>
 
-            <div className="min-h-10">{children}</div>
+            <AnimatePresence initial={false}>
+                {!hideItems && (
+                    <motion.div
+                        key="items"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.25, ease: "easeInOut" }}
+                    >
+                        {children}
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </motion.div>
     )
 }
@@ -79,13 +98,14 @@ interface GroupInlineMenuProps {
     index: number
     lastIndex: number
     isDefault: boolean
+    toggleHide: () => void
     onEdit: () => void
     onDelete: () => void
     moveUp: () => void
     moveDown: () => void
 }
 
-function InlineMenu({ index, lastIndex, isDefault, onEdit, onDelete, moveUp, moveDown }: GroupInlineMenuProps) {
+function InlineMenu({ index, lastIndex, isDefault, toggleHide, onEdit, onDelete, moveUp, moveDown }: GroupInlineMenuProps) {
     const [open, setOpen] = useState(false)
 
     return (
@@ -100,6 +120,9 @@ function InlineMenu({ index, lastIndex, isDefault, onEdit, onDelete, moveUp, mov
                         transition={{ duration: 0.2 }}
                         className="flex items-center gap-1"
                     >
+                        <Button variant="outline" size="g" onClick={toggleHide}>
+                            <EyeIcon className="size-3" />
+                        </Button>
                         <Button variant="outline" size="g" onClick={moveUp} disabled={index === 0}>
                             <ChevronUpIcon className="size-3" />
                         </Button>

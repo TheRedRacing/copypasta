@@ -1,6 +1,6 @@
 'use client';
 
-import ItemForm from "@/components/old/form/itemForm";
+import ItemForm from "@/components/form/itemForm";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 

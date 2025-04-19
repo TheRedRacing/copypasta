@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-import ItemForm from "@/components/old/form/itemForm"
+import ItemForm from "@/components/form/itemForm"
 import { Button } from "@/components/ui/button"
 import { PencilIcon } from "@heroicons/react/24/outline"
 import { clipboardItem } from "@/type/clipboard"

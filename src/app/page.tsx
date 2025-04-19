@@ -2,13 +2,18 @@
 
 import { useEffect, useState } from "react";
 
+import { DndContext, closestCenter } from '@dnd-kit/core';
+import { arrayMove, SortableContext } from '@dnd-kit/sortable';
+import { restrictToVerticalAxis, restrictToWindowEdges } from '@dnd-kit/modifiers';
+
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Cookies from "@/components/cookies";
 import AddGroup from "@/components/add/addGroup";
-import ClipboardGroupCard from "@/components/clipboard/group";
 import { clipboardGroup } from "@/type/clipboard";
 import { getClipboardGroups, setClipboardGroups } from "@/lib/clipboardStorage";
+import { ClipboardCard, ClipboardGroupCard } from "@/components/clipboard";
+import { migrateToV2, shouldMigrateToV2 } from "@/lib/migrations/V1ToV2";
 
 export default function Home() {
 	const [clipboardGroups, setClipboardGroup] = useState<clipboardGroup[]>([]);
@@ -16,6 +21,7 @@ export default function Home() {
 
 	// Récupérer les groupes du stockage local
 	useEffect(() => {
+		if (shouldMigrateToV2()) migrateToV2();
 		setClipboardGroup(getClipboardGroups());
 		setTimeout(() => { setLoading(false) }, 500);
 	}, []);
@@ -89,11 +95,20 @@ export default function Home() {
 			<Header />
 			<main className="flex-1 flex flex-col gap-4 px-4 py-4 mt-16 overflow-hidden">
 				<div className="grid grid-cols-1 gap-4">
-					{clipboardGroups.map((clipboardGroup, clipboardGroupIDX) => (
-						<ClipboardGroupCard key={clipboardGroup.id} current={clipboardGroup} moveGroupUp={moveGroupUp} moveGroupDown={moveGroupDown} renameGroup={renameGroup} deleteGroup={deleteGroup} index={clipboardGroupIDX} lastIndex={clipboardGroups.length - 1}>
-							
-						</ClipboardGroupCard>
-					))}
+					<DndContext modifiers={[restrictToVerticalAxis, restrictToWindowEdges]} collisionDetection={closestCenter}>
+						{clipboardGroups.map((clipboardGroup, clipboardGroupIDX) => (
+							<ClipboardGroupCard key={clipboardGroup.id} current={clipboardGroup} moveGroupUp={moveGroupUp} moveGroupDown={moveGroupDown} renameGroup={renameGroup} deleteGroup={deleteGroup} index={clipboardGroupIDX} lastIndex={clipboardGroups.length - 1}>
+
+								<SortableContext items={clipboardGroup.items}>
+									<ul className="min-h-10">
+										{clipboardGroup.items.map((item, index) => (
+											<ClipboardCard key={item.id} item={item} groupId={clipboardGroup.id} index={index} />
+										))}
+									</ul>
+								</SortableContext>
+							</ClipboardGroupCard>
+						))}
+					</DndContext>
 				</div>
 				<AddGroup set={setClipboardGroup} />
 			</main>

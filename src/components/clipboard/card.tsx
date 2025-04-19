@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { PrivateButton, TrashButton } from "./button";
 import { useState } from "react";
 
 import { useSortable } from '@dnd-kit/sortable';
@@ -8,16 +7,16 @@ import { CSS } from "@dnd-kit/utilities";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { sendGAEvent } from "@next/third-parties/google";
 import { Button } from "@/components/ui/button";
-import EditButton from "@/components/old/edit";
+import EditButton from "@/components/clipboard/edit";
 import { clipboardItem } from "@/type/clipboard";
 
-interface CardProps {
+interface ClipboardCardProps {
     item: clipboardItem
     index: number
     groupId: string
 }
 
-export default function Card({ item, index, groupId }: CardProps) {
+export default function ClipboardCard({ item, index, groupId }: ClipboardCardProps) {
     const [isBlur, setIsBlur] = useState(item.isPrivate);
 
     const [isCopied, setIsCopied] = useState(false);
@@ -52,9 +51,9 @@ export default function Card({ item, index, groupId }: CardProps) {
                 <span className={cn(isBlur && "blur-sm", "text-left text-sm")}>{item.text}</span>
             </div>
             <div className="flex shrink-0 items-center gap-2 pl-2 py-2">
-                <PrivateButton isBlur={isBlur} setIsBlur={setIsBlur} />
+
                 <EditButton item={item} groupId={groupId} />
-                <TrashButton item={item} />
+
             </div>
 
             <div className={cn(isCopied ? "opacity-100 h-full" : "opacity-0 h-0", "absolute inset-x-0 top-1/2 -translate-y-1/2 select-none flex items-center justify-center text-sm bg-green-50 text-green-700 dark:bg-[#142118] dark:text-green-400 transition-all duration-500 ease-in-out")}>
