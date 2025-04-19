@@ -44,8 +44,8 @@ export default function ClipboardCard({ item, index, groupId }: ClipboardCardPro
 
     return (
         <li key={index} ref={setNodeRef} className={cn("relative flex-1 flex items-stretch justify-between pr-4 bg-white hover:bg-zinc-50 dark:bg-dark-main dark:border-zinc-800 dark:hover:bg-dark-hover last:rounded-b-lg", focusClassName)} style={style} {...attributes}>
-            <Button variant={'outline'} size={'i8'} {...listeners} ref={setActivatorNodeRef} className="flex items-center justify-center w-8 h-8 p-1 m-2 hover:bg-zinc-100 dark:hover:bg-dark-hover rounded-lg cursor-ns-resize">
-                <Bars3Icon className="size-5" />
+            <Button variant={'outline'} size={'i8'} {...listeners} ref={setActivatorNodeRef} className="flex items-center justify-center w-8 h-8 p-1 m-2 hover:bg-zinc-100 dark:hover:bg-dark-hover rounded-lg cursor-grab active:cursor-grabbing">
+                <span className="text-lg">⠿</span>
             </Button>
             <div className="flex-1 truncate flex items-center justify-start pl-4 sm:pl-0 py-2" onClick={copyToClipboard}>
                 <span className={cn(isBlur && "blur-sm", "text-left text-sm")}>{item.text}</span>
