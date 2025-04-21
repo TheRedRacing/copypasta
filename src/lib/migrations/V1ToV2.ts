@@ -28,7 +28,7 @@ export function migrateToV2(): void {
 
         const defaultGroup: clipboardGroup = {
             id: generateId(),
-            title: "Default",
+            title: "V1.5",
             items: orderedItems.map<clipboardItem>((item) => ({
                 id: generateId(),
                 text: item.text,
@@ -38,7 +38,7 @@ export function migrateToV2(): void {
 
         const archivedGroup: clipboardGroup = {
             id: generateId(),
-            title: "Archived",
+            title: "Archived Items",
             items: archive.map<clipboardItem>((item) => ({
                 id: generateId(),
                 text: item.text,

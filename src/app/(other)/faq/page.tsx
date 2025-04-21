@@ -16,7 +16,7 @@ export default function FAQ() {
         },
         {
             question: "Can I reset my data?",
-            answer: "Yes. You can clear your browser's local storage or use the reset option in the settings to remove all saved data.",
+            answer: "Yes. You can clear your browser's local storage, which will remove all data associated with this site. This action is irreversible.",
         },
         {
             question: "How can I support the project?",

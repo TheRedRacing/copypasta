@@ -11,6 +11,7 @@ import { Bars3Icon, ChevronDownIcon, ChevronUpIcon, EyeIcon, PencilIcon, TrashIc
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useClipboard } from "@/context/ClipboardContext";
+import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface ClipboardGroupCardProps {
     current: clipboardGroup;
@@ -24,8 +25,6 @@ export default function ClipboardGroupCard({ current, children, index, lastIndex
     const [isEditing, setIsEditing] = useState(false);
     const [hideItems, setHideItems] = useState(false);
     const [title, setTitle] = useState(current.title);
-
-    const isDefault = current.title === "Default";
 
     const handleRename = () => {
         const trimmed = title.trim();
@@ -44,9 +43,9 @@ export default function ClipboardGroupCard({ current, children, index, lastIndex
         <motion.div
             layout
             transition={{ type: "spring", stiffness: 300, damping: 40 }}
-            className="border border-zinc-200 bg-zinc-50 dark:bg-dark-main dark:border-zinc-800 rounded-lg"
+            className="border border-zinc-200 bg-zinc-50 dark:bg-dark-main dark:border-zinc-800 rounded-lg overflow-hidden"
         >
-            <div className={cn("flex items-center justify-between px-4 py-1.5 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-dark-header rounded-t-lg", hideItems && "rounded-b-lg border-b-0")}>
+            <div className={cn("flex items-center justify-between px-4 py-1.5 h-10 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-dark-header rounded-t-lg", hideItems && "rounded-b-lg border-b-0")}>
                 {isEditing ? (
                     <input
                         className="text-xs text-zinc-600 dark:text-zinc-100 bg-transparent border-b border-zinc-300 focus:outline-none focus:border-black dark:focus:border-white"
@@ -58,16 +57,15 @@ export default function ClipboardGroupCard({ current, children, index, lastIndex
                         autoFocus
                     />
                 ) : (
-                    <h2 className="text-xs text-zinc-600 dark:text-zinc-100">
-                        {current.title + " - " + current.id || "Untitled"}
+                    <h2 className="text-xs text-zinc-600 dark:text-zinc-100 leading-5">
+                        {current.title}
                     </h2>
                 )}
 
                 <InlineMenu
-                    id={current.id}
+                    current={current}
                     index={index}
                     lastIndex={lastIndex}
-                    isDefault={isDefault}
                     toggleHide={toggleHide}
                     onEdit={() => setIsEditing(!isEditing)}
                 />
@@ -91,16 +89,15 @@ export default function ClipboardGroupCard({ current, children, index, lastIndex
 }
 
 interface GroupInlineMenuProps {
-    id: string
+    current: clipboardGroup;
     index: number
     lastIndex: number
-    isDefault: boolean
     toggleHide: () => void
     onEdit: () => void
 }
 
-function InlineMenu({ id, index, lastIndex, isDefault, toggleHide, onEdit }: GroupInlineMenuProps) {
-    const { moveGroupUp, moveGroupDown, deleteGroup } = useClipboard();
+function InlineMenu({ current, index, lastIndex, toggleHide, onEdit }: GroupInlineMenuProps) {
+    const { moveGroupUp, moveGroupDown } = useClipboard();
     const [open, setOpen] = useState(false)
 
     return (
@@ -124,17 +121,10 @@ function InlineMenu({ id, index, lastIndex, isDefault, toggleHide, onEdit }: Gro
                         <Button variant="outline" size="g" onClick={() => moveGroupDown(index)} disabled={index === lastIndex}>
                             <ChevronDownIcon className="size-3" />
                         </Button>
-
-                        {!isDefault && (
-                            <>
-                                <Button variant="outline" size="g" onClick={onEdit}>
-                                    <PencilIcon className="size-3" />
-                                </Button>
-                                <Button variant="outline_destructive" size="g" onClick={() => deleteGroup(id)}>
-                                    <TrashIcon className="size-3" />
-                                </Button>
-                            </>
-                        )}
+                        <Button variant="outline" size="g" onClick={onEdit}>
+                            <PencilIcon className="size-3" />
+                        </Button>
+                        <DeleteGroupButton current={current} />
                         <span className="mx-1 h-3 w-px bg-zinc-200 dark:bg-zinc-700" />
                     </motion.div>
                 )}
@@ -151,5 +141,64 @@ function InlineMenu({ id, index, lastIndex, isDefault, toggleHide, onEdit }: Gro
                 </motion.div>
             </AnimatePresence>
         </div>
+    )
+}
+
+interface DeleteGroupButtonProps {
+    current: clipboardGroup;
+}
+
+function DeleteGroupButton({ current }: DeleteGroupButtonProps) {
+    const { deleteGroup } = useClipboard();
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleDelete = () => {
+        deleteGroup(current.id);
+        setIsOpen(false);
+        toast.success("Group deleted with success");
+    };
+
+    return (
+        <>
+            <Button variant="outline_destructive" size="g" onClick={() => setIsOpen(true)}>
+                <TrashIcon className="size-3" />
+            </Button>
+            <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                <DialogContent className="sm:max-w-[500px]">
+                    <DialogHeader>
+                        <DialogTitle></DialogTitle>
+                    </DialogHeader>
+                    <div className="flex flex-col items-center justify-center">
+                        <TrashIcon className="size-10 text-red-500" />
+                        <p className="mt-4 text-md font-semibold text-center">Are you sure you want to delete this group ?</p>
+                        <p className="mt-2 text-sm text-center text-muted-foreground">{`"${current.title}"`}</p>
+                        <div className="mt-2 w-full bg-red-50 border-l-4 border-red-400 text-red-700 text-sm p-4">
+                            <ul className="list-disc list-inside">
+                                <li>
+                                    This action cannot be undone ! 
+                                </li>
+                                <li>
+                                    All items in this group will be permanently deleted !
+                                </li>
+                                <li>
+                                    Make sure to backup any important data before proceeding !
+                                </li>
+                            </ul>
+                        </div>
+                        <p className="mt-4 text-sm text-center text-muted-foreground">
+                            You will lost {" " + current.items.length} items if you proceed.
+                        </p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                        <DialogClose asChild>
+                            <Button variant="secondary">No, Cancel</Button>
+                        </DialogClose>
+                        <Button variant="destructive" type="submit" onClick={handleDelete}>
+                            {"Yes, I'm sure"}
+                        </Button>
+                    </div>
+                </DialogContent >
+            </Dialog >
+        </>
     )
 }

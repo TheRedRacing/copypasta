@@ -23,7 +23,7 @@ const buttonVariants = cva(
         sm: "h-8 px-6 rounded-lg",
         i8: "h-8 w-8 rounded-lg",
         i10: "h-10 w-10 rounded-lg",
-        g: "h-5 w-6 rounded-md"
+        g: "h-6 w-6 rounded-md"
       },
     },
     defaultVariants: {

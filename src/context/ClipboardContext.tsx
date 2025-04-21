@@ -16,6 +16,7 @@ type ClipboardContextType = {
     deleteGroup: (id: string) => void;
     addItemToGroup: (groupId: string, item: clipboardItem) => void;
     updateItem: (originalGroupId: string, updatedGroupId: string, updatedItem: clipboardItem) => void;
+    deleteItem: (groupId: string, itemId: string) => void;
 };
 
 const ClipboardContext = createContext<ClipboardContextType | undefined>(undefined);
@@ -28,7 +29,7 @@ export const ClipboardProvider = ({ children }: { children: React.ReactNode }) =
         if (shouldMigrateToV2()) migrateToV2();
         const stored = getClipboardGroups();
         setClipboardGroupState(stored);
-        setTimeout(() => setLoading(false), 500); // même délai que ton code original
+        setTimeout(() => setLoading(false), 500);
     }, []);
 
     const persistGroups = (groups: clipboardGroup[]) => {
@@ -123,7 +124,17 @@ export const ClipboardProvider = ({ children }: { children: React.ReactNode }) =
         }
     };
 
+    const deleteItem = (groupId: string, itemId: string) => {
+        const updatedGroups = clipboardGroups.map(group => {
+            if (group.id !== groupId) return group;
 
+            const filteredItems = group.items.filter(item => item.id !== itemId);
+            return { ...group, items: filteredItems };
+        });
+
+        persistGroups(updatedGroups);
+    };
+        
 
     return (
         <ClipboardContext.Provider
@@ -138,6 +149,7 @@ export const ClipboardProvider = ({ children }: { children: React.ReactNode }) =
                 deleteGroup,
                 addItemToGroup,
                 updateItem,
+                deleteItem,
             }}
         >
             {children}

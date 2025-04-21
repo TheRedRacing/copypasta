@@ -16,8 +16,8 @@ export default function EditButton({ item, groupId }: EditButtonProps) {
     const [isOpen, setIsOpen] = useState(false)
     return (
         <>
-            <Button variant={'outline'} size={'i8'} onClick={() => setIsOpen(!isOpen)}>
-                <PencilIcon className="size-4" />
+            <Button variant={'outline'} size="g" onClick={() => setIsOpen(!isOpen)}>
+                <PencilIcon className="size-3" />
             </Button>
             <ItemForm id={item.id} text={item.text} isPrivate={item.isPrivate} groupId={groupId} isOpen={isOpen} setIsOpen={setIsOpen} />
         </>
