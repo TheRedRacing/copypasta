@@ -1,6 +1,7 @@
 "use client";
-import { Button } from "@/components/ui/button";
+
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function notFound() {
     return (
@@ -11,14 +12,16 @@ export default function notFound() {
                 <p className="mt-6 text-base leading-7 text-zinc-600 dark:text-zinc-300">The page you are looking for no longer exists or has been moved.</p>
                 <p className="text-base leading-7 text-zinc-600 dark:text-zinc-300">You can return to the home page by clicking on the button below.</p>
                 <div className="mt-6 flex items-center justify-center gap-x-6">
-                    <Button size="lg" asChild>
+                    <Button asChild>
                         <Link href="/">Return to Home Page</Link>
                     </Button>
                 </div>
                 <hr className="mb-4 mt-6 border-zinc-300 dark:border-zinc-700" />
                 <p className="text-sm text-zinc-600 dark:text-zinc-300">If you think this is a mistake,</p>
                 <p className="text-sm text-zinc-600 dark:text-zinc-300">please contact us at the following address</p>
-                <Link href="mailto:info@copy-pasta.ch" className="text-primary-500 hover:underline hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500">info@copy-pasta.ch</Link>
+                <Link href="mailto:info@copy-pasta.ch" className="text-primary-500 hover:underline hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500">
+                    info@copy-pasta.ch
+                </Link>
             </div>
         </main>
     );

@@ -1,107 +1,119 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-import { EmptyAdd } from "@/components/add";
-import Card from "@/components/card";
-
-import { DndContext, closestCenter } from '@dnd-kit/core';
-import { arrayMove, SortableContext } from '@dnd-kit/sortable';
-import { type clipboardItem } from "@/lib/types";
-import { restrictToVerticalAxis, restrictToWindowEdges } from '@dnd-kit/modifiers';
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import { useClipboard } from "@/context/ClipboardContext";
+import { closestCenter, DndContext } from "@dnd-kit/core";
+import { restrictToVerticalAxis, restrictToWindowEdges } from "@dnd-kit/modifiers";
+import { arrayMove, SortableContext } from "@dnd-kit/sortable";
+import { motion } from "framer-motion";
+import AddGroup from "@/components/add/addGroup";
+import { ClipboardCard, ClipboardGroupCard } from "@/components/clipboard";
 import Cookies from "@/components/cookies";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
 
 export default function Home() {
-	const [clipboardData, setClipboardData] = useState<clipboardItem[]>([]);
-	const [clipboardOrder, setclipboardOrder] = useState<number[]>([]);
-	const [loading, setLoading] = useState(true);
+    const { clipboardGroups, setClipboardGroups, loading } = useClipboard();
 
-	useEffect(() => {
-		const savedData: clipboardItem[] = JSON.parse(localStorage.getItem("clipboardTexts") || "[]");
-		const savedOrder: number[] = JSON.parse(localStorage.getItem("clipboardOrder") || "[]");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const onDragEnd = (event: { active: any; over: any }) => {
+        const { active, over } = event;
 
-		if (savedData.length > 0 && savedOrder.length > 0) {
-			setClipboardData(savedData);
-			setclipboardOrder(savedOrder);
-		}
-		setLoading(false);
-	}, []);
+        if (!over || active.id === over.id) return;
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const onDragEnd = (event: { active: any; over: any; }) => {
-		const { active, over } = event;
+        // Trouver le groupe contenant l'item déplacé
+        const groupWithItem = clipboardGroups.find((group) => group.items.find((item) => item.id === active.id));
 
-		if (active.id !== over.id) {
-			const oldIndex = clipboardOrder.indexOf(active.id);
-			const newIndex = clipboardOrder.indexOf(over.id);
+        if (!groupWithItem) return;
 
-			if (oldIndex === -1 || newIndex === -1) return;
+        const groupId = groupWithItem.id;
+        const groupItems = groupWithItem.items;
 
-			// Mise à jour de l'ordre des IDs
-			const newOrder = arrayMove(clipboardOrder, oldIndex, newIndex);
-			setclipboardOrder(newOrder);
+        const oldIndex = groupItems.findIndex((item) => item.id === active.id);
+        const newIndex = groupItems.findIndex((item) => item.id === over.id);
 
-			// 🔥 Sauvegarde dans localStorage
-			localStorage.setItem("clipboardOrder", JSON.stringify(newOrder));
-		}
-	};
+        if (oldIndex === -1 || newIndex === -1) return;
 
-	if (loading) {
-		return (
-			<>
-				<Header />
-				<main className="flex-1 flex items-center justify-center mt-16 p-10 sm:p-20 md:p-32 lg:p-40">
-					<p className="text-lg font-semibold text-zinc-600">Chargement...</p>
-				</main>
-				<Cookies />
-				<Footer />
-			</>
-		);
-	}
+        const reorderedItems = arrayMove(groupItems, oldIndex, newIndex);
 
-	if (clipboardData.length === 0) {
-		return (
-			<>
-				<Header />
-				<main className="flex-1 flex flex-col items-center justify-center mt-16 p-10 sm:p-20 md:px-32 lg:px-40">
-					<EmptyAdd />
-				</main>
-				<Cookies />
-				<Footer />
-			</>
-		);
-	}
+        const newGroups = clipboardGroups.map((group) => (group.id === groupId ? { ...group, items: reorderedItems } : group));
 
-	return (
-		<>
-			<Header />
-			<main className="flex-1 px-4 pt-6 mt-16 overflow-hidden">
-				<DndContext modifiers={[restrictToVerticalAxis, restrictToWindowEdges]} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-					<SortableContext items={clipboardOrder}>
-						<ListItems clipboardOrder={clipboardOrder} clipboardData={clipboardData} />
-					</SortableContext>
-				</DndContext>
-			</main>
-			<Cookies />
-			<Footer />
-		</>
-	);
-}
+        setClipboardGroups(newGroups);
+    };
 
-interface listItemsProps {
-	clipboardOrder: number[];
-	clipboardData: clipboardItem[];
-}
+    // État de chargement
+    if (loading) {
+        return (
+            <>
+                <Header />
+                <main className="flex-1 flex flex-col gap-4 px-4 py-4 mt-16 overflow-hidden">
+                    <div className="grid grid-cols-1 gap-4">
+                        <div className="border border-zinc-200 bg-zinc-50 dark:bg-dark-main dark:border-zinc-800 rounded-lg">
+                            <div className="flex items-center justify-between px-4 py-1.5 h-10 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-dark-header rounded-t-lg">
+                                <div className="h-2.5 w-20 bg-zinc-200 animate-pulse rounded-full" />
+                                <div className="h-6 w-6 border border-zinc-200 dark:border-zinc-800 animate-pulse rounded-lg" />
+                            </div>
+                            <div className="w-full bg-zinc-50 dark:bg-zinc-800 rounded-b-lg">
+                                <div className="h-12 border-y -my-px border-zinc-200 dark:border-zinc-800" />
+                                <div className="h-12 border-y -my-px border-zinc-200 dark:border-zinc-800 last:rounded-b-lg" />
+                            </div>
+                        </div>
+                        <div className="border border-zinc-200 bg-zinc-50 dark:bg-dark-main dark:border-zinc-800 rounded-lg">
+                            <div className="flex items-center justify-between px-4 py-1.5 h-10 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-dark-header rounded-t-lg">
+                                <div className="h-2.5 w-20 bg-zinc-200 animate-pulse rounded-full" />
+                                <div className="h-6 w-6 border border-zinc-200 dark:border-zinc-800 animate-pulse rounded-lg" />
+                            </div>
+                            <div className="w-full bg-zinc-50 dark:bg-zinc-800 rounded-b-lg">
+                                <div className="h-12 border-y -my-px border-zinc-200 dark:border-zinc-800" />
+                                <div className="h-12 border-y -my-px border-zinc-200 dark:border-zinc-800 last:rounded-b-lg" />
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-center gap-2 border border-dashed border-zinc-300 w-full h-14 rounded-lg dark:border-zinc-700"></div>
+                    </div>
+                </main>
+                <Cookies />
+                <Footer />
+            </>
+        );
+    }
 
-function ListItems({ clipboardOrder, clipboardData }: listItemsProps) {
-	return (
-		<ul>
-			{clipboardOrder.map((item, index) => {
-				const data = clipboardData.find((data) => data.id === item);
-				return data ? <Card key={item} index={index} item={item} data={data} /> : null;
-			})}
-		</ul>
-	)
+    // Aucun groupe
+    if (clipboardGroups.length === 0) {
+        return (
+            <>
+                <Header />
+                <main className="flex-1 flex flex-col gap-4 px-4 py-4 mt-16 overflow-hidden">
+                    <AddGroup />
+                </main>
+                <Cookies />
+                <Footer />
+            </>
+        );
+    }
+
+    // Affichage normal
+    return (
+        <>
+            <Header />
+            <motion.main layout className="flex-1 flex flex-col gap-4 px-4 py-4 mt-16 overflow-hidden">
+                <div className="grid grid-cols-1 gap-4">
+                    <DndContext modifiers={[restrictToVerticalAxis, restrictToWindowEdges]} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+                        {clipboardGroups.map((clipboardGroup, clipboardGroupIDX) => (
+                            <ClipboardGroupCard key={clipboardGroup.id} current={clipboardGroup} index={clipboardGroupIDX} lastIndex={clipboardGroups.length - 1}>
+                                <SortableContext items={clipboardGroup.items}>
+                                    <ul className="min-h-12 overflow-hidden">
+                                        {clipboardGroup.items.map((item, index) => (
+                                            <ClipboardCard key={item.id} item={item} groupId={clipboardGroup.id} index={index} />
+                                        ))}
+                                    </ul>
+                                </SortableContext>
+                            </ClipboardGroupCard>
+                        ))}
+                    </DndContext>
+                    <AddGroup />
+                </div>
+            </motion.main>
+            <Cookies />
+            <Footer />
+        </>
+    );
 }

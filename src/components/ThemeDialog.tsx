@@ -1,15 +1,12 @@
 "use client";
 
 import { useTheme } from "next-themes";
-
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-
-import { cn } from "@/lib/utils";
-import { themeMapping } from "@/lib/themeProvider";
-
 import { SwatchIcon } from "@heroicons/react/24/outline";
-import { Button } from "./ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { focusClassName } from "@/lib/focus";
+import { themeMapping } from "@/lib/themeProvider";
+import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
 
 const colors = [
     { name: "Orange", value: "orange", color: "bg-orange-500" },
@@ -26,10 +23,10 @@ const colors = [
 const ThemeOption: React.FC = () => {
     const { theme, setTheme } = useTheme();
 
-    function getTheme(DarkMode: 'light' | 'dark', selectedColor: string) {
+    function getTheme(DarkMode: "light" | "dark", selectedColor: string) {
         let key: string;
 
-        if (DarkMode === 'dark') {
+        if (DarkMode === "dark") {
             key = `dark-${selectedColor}`;
         } else {
             key = selectedColor;
@@ -40,7 +37,7 @@ const ThemeOption: React.FC = () => {
         setTheme(themeMapping[key] ?? themeMapping.default);
     }
 
-    function getDarkMode(): 'light' | 'dark'{
+    function getDarkMode(): "light" | "dark" {
         if (!theme) return "dark"; // Fallback par défaut
 
         if (theme.startsWith("dark")) {
@@ -62,12 +59,11 @@ const ThemeOption: React.FC = () => {
         }
     }
 
-
     return (
         <>
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button size={'sm'} variant={'outline'} className={focusClassName}>
+                    <Button size={"sm"} variant={"outline"} className={focusClassName}>
                         <SwatchIcon className="size-5" />
                     </Button>
                 </DialogTrigger>
@@ -80,11 +76,7 @@ const ThemeOption: React.FC = () => {
                     <div className="">
                         <p className="mb-2 text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-100">Choose the primary color of your application.</p>
                         <div className="grid grid-cols-2 gap-4">
-                            <button
-                                type="button"
-                                className="flex flex-col items-center justify-center gap-2"
-                                onClick={() => getTheme('light', getColor())}
-                            >
+                            <button type="button" className="flex flex-col items-center justify-center gap-2" onClick={() => getTheme("light", getColor())}>
                                 <div className={cn("relative h-24 rounded-lg p-1 bg-zinc-50 border border-zinc-200 w-full overflow-hidden", getDarkMode() === "light" && "ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-zinc-950")}>
                                     <div className="rounded-lg h-4 border border-zinc-300 p-1 flex items-center justify-between">
                                         <div className="w-6 h-2 bg-zinc-200 rounded-full"></div>
@@ -101,11 +93,7 @@ const ThemeOption: React.FC = () => {
                                 </div>
                                 <div className="text-sm">Light</div>
                             </button>
-                            <button
-                                type="button"
-                                className="flex flex-col items-center justify-center gap-2"
-                                onClick={() => getTheme('dark', getColor())}
-                            >
+                            <button type="button" className="flex flex-col items-center justify-center gap-2" onClick={() => getTheme("dark", getColor())}>
                                 <div className={cn("relative h-24 rounded-lg p-1 bg-black w-full overflow-hidden", getDarkMode() === "dark" && "ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-zinc-950")}>
                                     <div className="rounded-lg h-4 bg-white/20 p-1 flex items-center justify-between">
                                         <div className="w-6 h-2 bg-[#595959] rounded-full"></div>
@@ -136,12 +124,13 @@ const ThemeOption: React.FC = () => {
                                         getTheme(getDarkMode(), color.value);
                                     }}
                                 >
-
                                     <span className={cn(color.color, "absolute inset-0 rounded-full")}></span>
                                 </button>
                             ))}
                         </div>
-                        <p className="mt-6 text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-100">Your color theme is : <span className="capitalize">{getColor()}</span></p>
+                        <p className="mt-6 text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-100">
+                            Your color theme is : <span className="capitalize">{getColor()}</span>
+                        </p>
                     </div>
                 </DialogContent>
             </Dialog>

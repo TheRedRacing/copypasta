@@ -1,0 +1,7 @@
+{
+    "trailingComma": "all",
+    "tabWidth": 4,
+    "printWidth": 2000,
+    "plugins": ["prettier-plugin-tailwindcss", "@ianvs/prettier-plugin-sort-imports"],
+    "importOrder": ["^react", "^next", "^@?\\w", "^@/components/(.*)$", "^@/lib/(.*)$", "^@/utils/(.*)$", "^@/styles/(.*)$", "^[./]"]
+}
