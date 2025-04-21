@@ -1,39 +1,26 @@
-"use client"
+"use client";
 
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-
-import {
-    Dialog, DialogClose, DialogContent, DialogFooter,
-    DialogHeader, DialogTitle,
-} from "@/components/ui/dialog"
-
-import {
-    Form, FormControl, FormDescription, FormField,
-    FormItem, FormLabel, FormMessage,
-} from "@/components/ui/form"
-
-import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from "@/components/ui/select"
-
-import { Switch } from "@/components/ui/switch"
-import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
-
-import { toast } from "sonner"
-import generateId from "@/lib/uuid"
-import { useClipboard } from "@/context/ClipboardContext"
-import { useEffect } from "react"
+import { useClipboard } from "@/context/ClipboardContext";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
+import generateId from "@/lib/uuid";
 
 interface ItemFormProps {
-    id?: string
-    text?: string
-    isPrivate?: boolean
-    groupId?: string
-    isOpen: boolean
-    setIsOpen: (open: boolean) => void
+    id?: string;
+    text?: string;
+    isPrivate?: boolean;
+    groupId?: string;
+    isOpen: boolean;
+    setIsOpen: (open: boolean) => void;
 }
 
 const formSchema = z.object({
@@ -41,7 +28,7 @@ const formSchema = z.object({
     text: z.string().min(2, "You must enter at least 2 characters"),
     isPrivate: z.boolean().default(false),
     groupId: z.string().min(1, "You must select a group"),
-})
+});
 
 export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOpen }: ItemFormProps) {
     const { clipboardGroups, addItemToGroup, updateItem } = useClipboard();
@@ -54,7 +41,7 @@ export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOp
             isPrivate: isPrivate ?? false,
             groupId: groupId ?? "",
         },
-    })
+    });
 
     useEffect(() => {
         if (isOpen) {
@@ -67,20 +54,19 @@ export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOp
         }
     }, [isOpen, id, text, isPrivate, groupId, form]);
 
-
     function onSubmit(values: z.infer<typeof formSchema>) {
         console.log("Submitted values:", values);
 
         if (values.id && groupId) {
             // 🛠 On est en mode édition
             updateItem(
-                groupId,            // originalGroupId
-                values.groupId,     // updatedGroupId
+                groupId, // originalGroupId
+                values.groupId, // updatedGroupId
                 {
                     id: values.id,
                     text: values.text,
                     isPrivate: values.isPrivate,
-                }
+                },
             );
             toast.success("Clipboard edited with success");
         } else {
@@ -92,9 +78,8 @@ export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOp
             toast.success("Clipboard added with success");
         }
 
-
-        setIsOpen(false)
-        form.reset()
+        setIsOpen(false);
+        form.reset();
     }
 
     return (
@@ -155,18 +140,11 @@ export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOp
                             render={({ field }) => (
                                 <FormItem className="flex flex-row items-center justify-between gap-10 rounded-lg border border-zinc-300 p-4">
                                     <div className="space-y-0.5">
-                                        <FormLabel className="text-base font-medium">
-                                            Hide row?
-                                        </FormLabel>
-                                        <FormDescription>
-                                            The row will be hidden. You’ll need to click the eye icon to view it.
-                                        </FormDescription>
+                                        <FormLabel className="text-base font-medium">Hide row?</FormLabel>
+                                        <FormDescription>The row will be hidden. You’ll need to click the eye icon to view it.</FormDescription>
                                     </div>
                                     <FormControl>
-                                        <Switch
-                                            checked={field.value}
-                                            onCheckedChange={field.onChange}
-                                        />
+                                        <Switch checked={field.value} onCheckedChange={field.onChange} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -179,13 +157,11 @@ export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOp
                                     Close
                                 </Button>
                             </DialogClose>
-                            <Button type="submit">
-                                Save
-                            </Button>
+                            <Button type="submit">Save</Button>
                         </DialogFooter>
                     </form>
                 </Form>
             </DialogContent>
         </Dialog>
-    )
+    );
 }

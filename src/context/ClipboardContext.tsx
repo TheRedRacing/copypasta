@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
+import { clipboardGroup, clipboardItem } from "@/type/clipboard";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { getClipboardGroups, setClipboardGroups } from "@/lib/clipboardStorage";
 import { migrateToV2, shouldMigrateToV2 } from "@/lib/migrations/V1ToV2";
-import { clipboardGroup, clipboardItem } from "@/type/clipboard";
-import React, { createContext, useContext, useState, useEffect } from "react";
 
 type ClipboardContextType = {
     clipboardGroups: clipboardGroup[];
@@ -45,27 +45,19 @@ export const ClipboardProvider = ({ children }: { children: React.ReactNode }) =
     const moveGroupUp = (index: number) => {
         if (index === 0) return;
         const newGroups = [...clipboardGroups];
-        [newGroups[index - 1], newGroups[index]] = [
-            newGroups[index],
-            newGroups[index - 1],
-        ];
+        [newGroups[index - 1], newGroups[index]] = [newGroups[index], newGroups[index - 1]];
         persistGroups(newGroups);
     };
 
     const moveGroupDown = (index: number) => {
         if (index === clipboardGroups.length - 1) return;
         const newGroups = [...clipboardGroups];
-        [newGroups[index + 1], newGroups[index]] = [
-            newGroups[index],
-            newGroups[index + 1],
-        ];
+        [newGroups[index + 1], newGroups[index]] = [newGroups[index], newGroups[index + 1]];
         persistGroups(newGroups);
     };
 
     const renameGroup = (id: string, newTitle: string) => {
-        const newGroups = clipboardGroups.map((group) =>
-            group.id === id ? { ...group, title: newTitle } : group
-        );
+        const newGroups = clipboardGroups.map((group) => (group.id === id ? { ...group, title: newTitle } : group));
         persistGroups(newGroups);
     };
 
@@ -75,23 +67,17 @@ export const ClipboardProvider = ({ children }: { children: React.ReactNode }) =
     };
 
     const addItemToGroup = (groupId: string, item: clipboardItem) => {
-        const newGroups = clipboardGroups.map((group) =>
-            group.id === groupId
-                ? { ...group, items: [...group.items, item] }
-                : group
-        );
+        const newGroups = clipboardGroups.map((group) => (group.id === groupId ? { ...group, items: [...group.items, item] } : group));
         persistGroups(newGroups);
     };
 
     const updateItem = (originalGroupId: string, updatedGroupId: string, updatedItem: clipboardItem) => {
         // Si même groupe → édition simple
         if (originalGroupId === updatedGroupId) {
-            const updatedGroups = clipboardGroups.map(group => {
+            const updatedGroups = clipboardGroups.map((group) => {
                 if (group.id !== originalGroupId) return group;
 
-                const newItems = group.items.map(item =>
-                    item.id === updatedItem.id ? updatedItem : item
-                );
+                const newItems = group.items.map((item) => (item.id === updatedItem.id ? updatedItem : item));
 
                 return { ...group, items: newItems };
             });
@@ -101,40 +87,41 @@ export const ClipboardProvider = ({ children }: { children: React.ReactNode }) =
             // Sinon, déplacer l’item dans un autre groupe
             let movedItem: clipboardItem | undefined;
 
-            const newGroups = clipboardGroups.map(group => {
-                if (group.id === originalGroupId) {
-                    const remainingItems = group.items.filter(item => {
-                        if (item.id === updatedItem.id) {
-                            movedItem = { ...item, ...updatedItem }; // merge les infos
-                            return false;
-                        }
-                        return true;
-                    });
-                    return { ...group, items: remainingItems };
-                }
-                return group;
-            }).map(group => {
-                if (group.id === updatedGroupId && movedItem) {
-                    return { ...group, items: [...group.items, movedItem] };
-                }
-                return group;
-            });
+            const newGroups = clipboardGroups
+                .map((group) => {
+                    if (group.id === originalGroupId) {
+                        const remainingItems = group.items.filter((item) => {
+                            if (item.id === updatedItem.id) {
+                                movedItem = { ...item, ...updatedItem }; // merge les infos
+                                return false;
+                            }
+                            return true;
+                        });
+                        return { ...group, items: remainingItems };
+                    }
+                    return group;
+                })
+                .map((group) => {
+                    if (group.id === updatedGroupId && movedItem) {
+                        return { ...group, items: [...group.items, movedItem] };
+                    }
+                    return group;
+                });
 
             persistGroups(newGroups);
         }
     };
 
     const deleteItem = (groupId: string, itemId: string) => {
-        const updatedGroups = clipboardGroups.map(group => {
+        const updatedGroups = clipboardGroups.map((group) => {
             if (group.id !== groupId) return group;
 
-            const filteredItems = group.items.filter(item => item.id !== itemId);
+            const filteredItems = group.items.filter((item) => item.id !== itemId);
             return { ...group, items: filteredItems };
         });
 
         persistGroups(updatedGroups);
     };
-        
 
     return (
         <ClipboardContext.Provider
@@ -155,14 +142,12 @@ export const ClipboardProvider = ({ children }: { children: React.ReactNode }) =
             {children}
         </ClipboardContext.Provider>
     );
-}
+};
 
 export function useClipboard() {
     const context = useContext(ClipboardContext);
     if (!context) {
-        throw new Error(
-            "useClipboard must be used within a ClipboardProvider"
-        );
+        throw new Error("useClipboard must be used within a ClipboardProvider");
     }
     return context;
 }

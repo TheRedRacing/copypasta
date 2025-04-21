@@ -34,18 +34,14 @@ export default function FAQ() {
             <div className="grid grid-cols-12 grid-rows-1 border border-zinc-300 dark:border-zinc-800">
                 <div className=""></div>
                 <div className="col-start-2 col-end-12 row-start-1 row-end-1 border-x border-zinc-300 dark:border-zinc-800 py-10">
-                    <h2 className="text-5xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 text-center">
-                        Frequently asked questions
-                    </h2>
+                    <h2 className="text-5xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 text-center">Frequently asked questions</h2>
                 </div>
                 <div className=""></div>
             </div>
             <div className="grid grid-cols-12 grid-rows-1 border border-zinc-300 dark:border-zinc-800">
                 <div className="aspect-square"></div>
                 <div className="col-start-2 col-end-12 row-start-1 row-end-1 border-x border-zinc-300 dark:border-zinc-800 flex items-center justify-center">
-                    <p className="text-zinc-600 dark:text-zinc-400">
-                        Last Updated March 03, 2025
-                    </p>
+                    <p className="text-zinc-600 dark:text-zinc-400">Last Updated March 03, 2025</p>
                 </div>
                 <div className="aspect-square"></div>
             </div>
@@ -59,15 +55,11 @@ export default function FAQ() {
                             </div>
                         ))}
                         <div className="flex flex-col pb-6 border-b border-zinc-300 dark:border-zinc-800 last:border-b-0 last:pb-0">
-                            <h1 className="text-xl font-semibold text-primary-500">
-                                Do you have a question that is not listed here?
-                            </h1>
-                            <p className="mt-2 text-sm text-zinc-800 dark:text-zinc-200">
-                                You can find all information on how to support the project on the contact page. If you have any other questions, feel free to reach out to us.
-                            </p>
+                            <h1 className="text-xl font-semibold text-primary-500">Do you have a question that is not listed here?</h1>
+                            <p className="mt-2 text-sm text-zinc-800 dark:text-zinc-200">You can find all information on how to support the project on the contact page. If you have any other questions, feel free to reach out to us.</p>
                             <Link href="/contact" rel="noopener noreferrer" className="text-primary-500 hover:underline">
                                 Ask your question <span aria-hidden="true">&rarr;</span>
-                            </Link>  
+                            </Link>
                         </div>
                     </div>
                 </div>

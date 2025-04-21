@@ -1,6 +1,7 @@
 "use client";
-import { Button } from "@/components/ui/button";
+
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function notFound() {
     return (
@@ -18,7 +19,9 @@ export default function notFound() {
                 <hr className="mb-4 mt-6 border-zinc-300 dark:border-zinc-700" />
                 <p className="text-sm text-zinc-600 dark:text-zinc-300">If you think this is a mistake,</p>
                 <p className="text-sm text-zinc-600 dark:text-zinc-300">please contact us at the following address</p>
-                <Link href="mailto:info@copy-pasta.ch" className="text-primary-500 hover:underline hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500">info@copy-pasta.ch</Link>
+                <Link href="mailto:info@copy-pasta.ch" className="text-primary-500 hover:underline hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500">
+                    info@copy-pasta.ch
+                </Link>
             </div>
         </main>
     );

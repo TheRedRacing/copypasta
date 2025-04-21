@@ -1,6 +1,5 @@
 import { clipboardGroup, clipboardItem } from "@/type/clipboard";
 
-
 const STORAGE_KEY = "clipboardGroups";
 const VERSION_KEY = "clipboardGroupsVersion";
 const VERSION = "V2.0.0";
@@ -40,10 +39,4 @@ function addClipboardGroupItem(groupId: string, item: clipboardItem): void {
     }
 }
 
-export {
-    getClipboardGroups,
-    setClipboardGroups,
-    addClipboardGroup,
-    removeClipboardGroup,
-    addClipboardGroupItem,
-}
+export { getClipboardGroups, setClipboardGroups, addClipboardGroup, removeClipboardGroup, addClipboardGroupItem };

@@ -2,7 +2,6 @@ import { clipboardGroup, clipboardItem } from "@/type/clipboard";
 import { setClipboardGroups } from "@/lib/clipboardStorage";
 import generateId from "@/lib/uuid";
 
-
 // Ancienne structure de données (V1.0 à V1.4)
 type clipboardItemOld = {
     id: number;

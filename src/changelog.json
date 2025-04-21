@@ -6,18 +6,9 @@
             "version": "2.0.0",
             "date": "2025-04-21",
             "description": "On this update, I added a new feature to allow users to create groups of copied items, making it easier to manage and organize them. Additionally, I made some minor bug fixes and performance improvements.",
-            "news": [
-                "Added a new feature to create groups of copied items for better organization.",
-                "Implemented system to order groups of copied items.",
-                "Improved the performance of the app for a smoother user experience."
-            ],
-            "updates": [
-                "Confirmation dialog when deleting a group of copied items."
-            ],
-            "fixes": [
-                "Fixed a bug that caused multiple rows when you create a duplicated item.",
-                "Resolved an issue where the copied items were not displaying correctly in certain cases."
-            ]
+            "news": ["Added a new feature to create groups of copied items for better organization.", "Implemented system to order groups of copied items.", "Improved the performance of the app for a smoother user experience."],
+            "updates": ["Confirmation dialog when deleting a group of copied items."],
+            "fixes": ["Fixed a bug that caused multiple rows when you create a duplicated item.", "Resolved an issue where the copied items were not displaying correctly in certain cases."]
         },
         {
             "version": "1.1.2",
@@ -25,73 +16,45 @@
             "description": "This update includes minor bug fixes and performance improvements.",
             "news": [],
             "updates": [],
-            "fixes": [
-                "Fixed bug when you create a new item duplicate or replace an existing one.",
-                "Fixed bug when you tried to delete on archeved items."
-            ]
+            "fixes": ["Fixed bug when you create a new item duplicate or replace an existing one.", "Fixed bug when you tried to delete on archeved items."]
         },
         {
             "version": "1.1.1",
             "date": "2025-03-12",
             "description": "This update introduces new feature, you need to archive your copied items before deleting them",
-            "news": [
-                "Added success message when an item is created, updated, archived, or deleted.",
-                "Added an archive feature to store copied items before deleting them permanently.",
-                "Added google analytics to track user interactions and improve the user experience."
-            ],
-            "updates": [
-                "Link in footer to the archive page."
-            ],
-            "fixes": [
-                "Missing active state for the link in the footer."
-            ]
+            "news": ["Added success message when an item is created, updated, archived, or deleted.", "Added an archive feature to store copied items before deleting them permanently.", "Added google analytics to track user interactions and improve the user experience."],
+            "updates": ["Link in footer to the archive page."],
+            "fixes": ["Missing active state for the link in the footer."]
         },
         {
             "version": "1.1.0",
             "date": "2025-03-09",
             "description": "This update introduces a brand new contact page and enhances the overall user experience with design improvements and bug fixes.",
-            "news": [
-                "Added a contact page, making it easier to reach out via email or LinkedIn, report issues on GitHub, and support the project."
-            ],
-            "updates": [
-                "Redesigned the footer to include useful links and a dedicated changelog section for better navigation."
-            ],
-            "fixes": [
-                "Fixed an issue where clicking on a copied item required selecting the text instead of the full card.",
-                "Improved the animation of copied items for a smoother visual experience."
-            ]
+            "news": ["Added a contact page, making it easier to reach out via email or LinkedIn, report issues on GitHub, and support the project."],
+            "updates": ["Redesigned the footer to include useful links and a dedicated changelog section for better navigation."],
+            "fixes": ["Fixed an issue where clicking on a copied item required selecting the text instead of the full card.", "Improved the animation of copied items for a smoother visual experience."]
         },
         {
             "version": "1.0.6",
             "date": "2025-03-02",
             "description": "This update brings a fresh new look with redesigned UI elements.",
             "news": [],
-            "updates": [
-                "Revamped the header design for a cleaner and more modern look.",
-                "Updated the copied card design to enhance readability and usability."
-            ],
+            "updates": ["Revamped the header design for a cleaner and more modern look.", "Updated the copied card design to enhance readability and usability."],
             "fixes": []
         },
         {
             "version": "1.0.4",
             "date": "2025-02-27",
             "description": "This update introduces new features and usability improvements.",
-            "news": [
-                "Implemented drag-and-drop functionality to easily sort copied cards.",
-                "Added a 'Page Not Found' error message to enhance the user experience."
-            ],
-            "updates": [
-                "Updated the delete button to a destructive action for clearer intent and better usability."
-            ],
+            "news": ["Implemented drag-and-drop functionality to easily sort copied cards.", "Added a 'Page Not Found' error message to enhance the user experience."],
+            "updates": ["Updated the delete button to a destructive action for clearer intent and better usability."],
             "fixes": []
         },
         {
             "version": "1.0.0",
             "date": "2025-02-20",
             "description": "Initial release – The first official version is live!",
-            "news": [
-                "The project is now officially launched with its core features."
-            ],
+            "news": ["The project is now officially launched with its core features."],
             "updates": [],
             "fixes": []
         }

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
+import { useState } from "react";
 import ItemForm from "@/components/form/itemForm";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
 
 export default function AddButton() {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,10 +12,7 @@ export default function AddButton() {
             <Button size="sm" onClick={() => setIsOpen(true)}>
                 Add clipboard
             </Button>
-            <ItemForm
-                isOpen={isOpen}
-                setIsOpen={setIsOpen}
-            />
+            <ItemForm isOpen={isOpen} setIsOpen={setIsOpen} />
         </>
     );
 }
