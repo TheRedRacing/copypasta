@@ -1,7 +1,24 @@
 {
-    "current_version": "1.1.2",
-    "date": "2025-03-25",
+    "current_version": "2.0.0",
+    "date": "2025-04-19",
     "changes": [
+        {
+            "version": "2.0.0",
+            "date": "2025-04-21",
+            "description": "On this update, I added a new feature to allow users to create groups of copied items, making it easier to manage and organize them. Additionally, I made some minor bug fixes and performance improvements.",
+            "news": [
+                "Added a new feature to create groups of copied items for better organization.",
+                "Implemented system to order groups of copied items.",
+                "Improved the performance of the app for a smoother user experience."
+            ],
+            "updates": [
+                "Confirmation dialog when deleting a group of copied items."
+            ],
+            "fixes": [
+                "Fixed a bug that caused multiple rows when you create a duplicated item.",
+                "Resolved an issue where the copied items were not displaying correctly in certain cases."
+            ]
+        },
         {
             "version": "1.1.2",
             "date": "2025-03-25",
