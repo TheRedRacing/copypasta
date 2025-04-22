@@ -37,6 +37,8 @@ export function SmallFooter() {
 // <Link href={"https://msickenberg.ch"} target='_blank' className='hover:text-red-500 hover:underline'>Maxime Sickenberg</Link>
 
 function FooterContent() {
+    const lastUpdate = changelog.changes[0]
+
     return (
         <>
             <div className="flex items-center">
@@ -53,7 +55,7 @@ function FooterContent() {
             </div>
             <div className="flex items-center gap-2">
                 <Badge variant={"green"} className="hover:opacity-90">
-                    <Link href="/changelog">Changelog {changelog.current_version}</Link>
+                    <Link href="/changelog">Changelog {lastUpdate.version}</Link>
                 </Badge>
 
                 <Button size={"i8"} variant={"outline"} asChild>

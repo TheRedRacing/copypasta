@@ -17,6 +17,7 @@ type ClipboardContextType = {
     deleteGroup: (id: string) => void;
     addItemToGroup: (groupId: string, item: clipboardItem) => void;
     updateItem: (originalGroupId: string, updatedGroupId: string, updatedItem: clipboardItem) => void;
+    hideItem: (groupId: string, itemId: string) => void;
     deleteItem: (groupId: string, itemId: string) => void;
 };
 
@@ -118,6 +119,21 @@ export const ClipboardProvider = ({ children }: { children: React.ReactNode }) =
         }
     };
 
+    const hideItem = (groupId: string, itemId: string) => {
+        const updatedGroups = clipboardGroups.map((group) => {
+            if (group.id !== groupId) return group;
+            const updatedItems = group.items.map((item) => {
+                if (item.id === itemId) {
+                    return { ...item, isPrivate: !item.isPrivate };
+                }
+                return item;
+            }
+            );
+            return { ...group, items: updatedItems };
+        });
+        persistGroups(updatedGroups);
+    }
+
     const deleteItem = (groupId: string, itemId: string) => {
         const updatedGroups = clipboardGroups.map((group) => {
             if (group.id !== groupId) return group;
@@ -143,6 +159,7 @@ export const ClipboardProvider = ({ children }: { children: React.ReactNode }) =
                 deleteGroup,
                 addItemToGroup,
                 updateItem,
+                hideItem,
                 deleteItem,
             }}
         >

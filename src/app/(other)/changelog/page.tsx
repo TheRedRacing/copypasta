@@ -1,6 +1,9 @@
 import changelog from "@/changelog.json";
 
 export default function Changelog() {
+
+    const lastUpdate = changelog.changes[0]
+
     return (
         <div className="w-full flex-1 flex flex-col py-24 -space-y-px">
             <div className="grid grid-cols-12 grid-rows-1 border border-zinc-300 dark:border-zinc-800 rounded-t-xl">
@@ -11,7 +14,7 @@ export default function Changelog() {
             <div className="grid grid-cols-12 grid-rows-1 border border-zinc-300 dark:border-zinc-800">
                 <div className=""></div>
                 <div className="col-start-2 col-end-12 row-start-1 row-end-1 border-x border-zinc-300 dark:border-zinc-800 py-10">
-                    <h2 className="text-5xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 text-center">Changelog {changelog.current_version}</h2>
+                    <h2 className="text-5xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 text-center">Changelog {lastUpdate.version}</h2>
                 </div>
                 <div className=""></div>
             </div>
@@ -19,7 +22,7 @@ export default function Changelog() {
                 <div className="aspect-square"></div>
                 <div className="col-start-2 col-end-12 row-start-1 row-end-1 border-x border-zinc-300 dark:border-zinc-800 flex items-center justify-center">
                     <p className="text-zinc-600 dark:text-zinc-400">
-                        Last updated {new Date(changelog.date).toLocaleString("default", { day: "2-digit" })} <span className="capitalize">{new Date(changelog.date).toLocaleString("default", { month: "long" })}</span> {new Date(changelog.date).toLocaleString("default", { year: "numeric" })}
+                        Last updated {new Date(lastUpdate.date).toLocaleString("default", { day: "2-digit" })} <span className="capitalize">{new Date(lastUpdate.date).toLocaleString("default", { month: "long" })}</span> {new Date(lastUpdate.date).toLocaleString("default", { year: "numeric" })}
                     </p>
                 </div>
                 <div className="aspect-square"></div>

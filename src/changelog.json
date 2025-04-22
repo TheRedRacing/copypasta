@@ -1,7 +1,18 @@
 {
-    "current_version": "2.0.0",
-    "date": "2025-04-19",
     "changes": [
+        {
+            "version": "2.0.1",
+            "date": "2025-04-22",
+            "description": "This update includes minor bug fixes and performance improvements.",
+            "news": [
+                "Added an additional button to copy all items in the group."
+            ],
+            "updates": [],
+            "fixes": [
+                "Changed the size of all buttons on the copied card.",
+                "Groups now remember if they were open or closed, even after a refresh."
+            ]
+        },
         {
             "version": "2.0.0",
             "date": "2025-04-21",

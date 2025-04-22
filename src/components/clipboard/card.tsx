@@ -18,7 +18,7 @@ interface ClipboardCardProps {
 }
 
 export default function ClipboardCard({ item, index, groupId }: ClipboardCardProps) {
-    const [showPrivate, setShowPrivate] = useState(false);
+    const { hideItem } = useClipboard();
     const [isCopied, setIsCopied] = useState(false);
 
     const copyToClipboard = async () => {
@@ -32,6 +32,10 @@ export default function ClipboardCard({ item, index, groupId }: ClipboardCardPro
             console.error("Erreur de copie :", err);
         }
     };
+
+    const handleHide = () => {
+        hideItem(groupId, item.id);
+    }
 
     const { attributes, listeners, setNodeRef, transform, transition, setActivatorNodeRef, isDragging } = useSortable({ id: item.id });
     const style: React.CSSProperties = {
@@ -49,14 +53,12 @@ export default function ClipboardCard({ item, index, groupId }: ClipboardCardPro
                 <span className="text-lg">⠿</span>
             </Button>
             <div className="flex-1 truncate flex items-center justify-start pl-4 sm:pl-0 py-2" onClick={copyToClipboard}>
-                <span className={cn(item.isPrivate && !showPrivate && "blur-sm", "text-left text-sm")}>{item.text}</span>
+                <span className={cn(item.isPrivate && "blur-sm", "text-left text-sm")}>{item.text}</span>
             </div>
             <div className="flex shrink-0 items-center gap-1 pl-2 py-2">
-                {item.isPrivate && (
-                    <Button variant="outline" size="g" onClick={() => setShowPrivate((prev) => !prev)}>
-                        {showPrivate ? <EyeSlashIcon className="size-3" /> : <EyeIcon className="size-3" />}
-                    </Button>
-                )}
+                <Button variant="outline" size="i8" onClick={handleHide}>
+                    {item.isPrivate ? <EyeSlashIcon className="size-4" /> : <EyeIcon className="size-4" />}
+                </Button>
                 <EditButton item={item} groupId={groupId} />
                 <DeleteGroupButton item={item} groupId={groupId} />
             </div>
@@ -83,8 +85,8 @@ function DeleteGroupButton({ item, groupId }: DeleteButtonProps) {
 
     return (
         <>
-            <Button variant="outline_destructive" size="g" onClick={() => setIsOpen(true)}>
-                <TrashIcon className="size-3" />
+            <Button variant="outline_destructive" size="i8" onClick={() => setIsOpen(true)}>
+                <TrashIcon className="size-4" />
             </Button>
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
                 <DialogContent className="sm:max-w-[500px]">

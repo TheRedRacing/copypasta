@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { ClipboardProvider } from "@/context/ClipboardContext";
 import { Roboto } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/lib/themeProvider";
@@ -32,7 +31,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                     <ClipboardProvider>{children}</ClipboardProvider>
                 </ThemeProvider>
                 <Toaster />
-                <GoogleAnalytics gaId="G-2CTM51HHDL" />
                 <Analytics />
             </body>
         </html>
