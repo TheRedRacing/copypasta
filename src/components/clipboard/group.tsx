@@ -31,8 +31,8 @@ export default function ClipboardGroupCard({ current, children, index, lastIndex
         setIsEditing(false);
     };
 
-    const handleCopy = () => {
-        navigator.clipboard.writeText(current.items.map((item) => item.text).join("\n"));
+    const handleCopy = async () => {
+        await navigator.clipboard.writeText(current.items.map((item) => item.text).join("\n"));
         toast.success("Group copied to clipboard");
     };
 
