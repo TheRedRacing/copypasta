@@ -14,6 +14,7 @@ export default function AddGroup() {
         const newGroup: clipboardGroup = {
             id: uuid,
             title: "Untitled",
+            opened: true,
             items: [],
         };
         addGroup(newGroup);
