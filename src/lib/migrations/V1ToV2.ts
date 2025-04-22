@@ -2,7 +2,7 @@ import { clipboardGroup, clipboardItem } from "@/type/clipboard";
 import { setClipboardGroups } from "@/lib/clipboardStorage";
 import generateId from "@/lib/uuid";
 
-// Ancienne structure de données (V1.0 à V1.4)
+// Ancienne structure de données (V1.0 à V1.9)
 type clipboardItemOld = {
     id: number;
     text: string;
@@ -27,7 +27,8 @@ export function migrateToV2(): void {
 
         const defaultGroup: clipboardGroup = {
             id: generateId(),
-            title: "V1.5",
+            title: "V2",
+            opened: true,
             items: orderedItems.map<clipboardItem>((item) => ({
                 id: generateId(),
                 text: item.text,
@@ -38,6 +39,7 @@ export function migrateToV2(): void {
         const archivedGroup: clipboardGroup = {
             id: generateId(),
             title: "Archived Items",
+            opened: true,
             items: archive.map<clipboardItem>((item) => ({
                 id: generateId(),
                 text: item.text,
@@ -54,8 +56,8 @@ export function migrateToV2(): void {
         localStorage.removeItem("clipboardArchive");
         localStorage.removeItem("clipboardArchiveOrder");
 
-        console.log("✅ Migration vers V1.5 terminée avec succès !");
+        console.log("✅ Migration vers V2 terminée avec succès !");
     } catch (error) {
-        console.error("❌ Erreur durant la migration vers V1.5 :", error);
+        console.error("❌ Erreur durant la migration vers V2 :", error);
     }
 }

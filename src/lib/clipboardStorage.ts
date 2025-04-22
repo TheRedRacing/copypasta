@@ -2,7 +2,7 @@ import { clipboardGroup, clipboardItem } from "@/type/clipboard";
 
 const STORAGE_KEY = "clipboardGroups";
 const VERSION_KEY = "clipboardGroupsVersion";
-const VERSION = "V2.0.0";
+const VERSION = "V2.0.1";
 
 function getClipboardGroups(): clipboardGroup[] {
     if (typeof window === "undefined") return [];

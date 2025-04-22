@@ -3,7 +3,7 @@
 import { useClipboard } from "@/context/ClipboardContext";
 import { clipboardGroup } from "@/type/clipboard";
 import { useState } from "react";
-import { Bars3Icon, ChevronDownIcon, ChevronUpIcon, EyeIcon, PencilIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, ChevronDownIcon, ChevronUpIcon, ClipboardIcon, EyeIcon, PencilIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from "framer-motion";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -18,34 +18,37 @@ interface ClipboardGroupCardProps {
 }
 
 export default function ClipboardGroupCard({ current, children, index, lastIndex }: ClipboardGroupCardProps) {
-    const { renameGroup } = useClipboard();
+    const { renameGroup, toogleGroup } = useClipboard();
     const [isEditing, setIsEditing] = useState(false);
-    const [hideItems, setHideItems] = useState(false);
     const [title, setTitle] = useState(current.title);
 
     const handleRename = () => {
         const trimmed = title.trim();
         if (trimmed && trimmed !== current.title) {
             renameGroup(current.id, trimmed);
-            toast.success("Groupe renommé avec succès");
+            toast.success("Groupe renamed with success");
         }
         setIsEditing(false);
     };
 
+    const handleCopy = () => {
+        navigator.clipboard.writeText(current.items.map((item) => item.text).join("\n"));
+        toast.success("Group copied to clipboard");
+    };
+
     const toggleHide = () => {
-        setHideItems((prev) => !prev);
+        toogleGroup(current.id);
     };
 
     return (
         <motion.div layout transition={{ type: "spring", stiffness: 300, damping: 40 }} className="border border-zinc-200 bg-zinc-50 dark:bg-dark-main dark:border-zinc-800 rounded-lg overflow-hidden">
-            <div className={cn("flex items-center justify-between px-4 py-1.5 h-10 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-dark-header rounded-t-lg", hideItems && "rounded-b-lg border-b-0")}>
+            <div className={cn("flex items-center justify-between px-4 py-1.5 h-10 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-dark-header rounded-t-lg", current.opened && "rounded-b-lg border-b-0")}>
                 {isEditing ? <input className="text-xs text-zinc-600 dark:text-zinc-100 bg-transparent border-b border-zinc-300 focus:outline-none focus:border-black dark:focus:border-white" value={title} title="Renommer le groupe" onChange={(e) => setTitle(e.target.value)} onBlur={handleRename} onKeyDown={(e) => e.key === "Enter" && handleRename()} autoFocus /> : <h2 className="text-xs text-zinc-600 dark:text-zinc-100 leading-5">{current.title}</h2>}
-
-                <InlineMenu current={current} index={index} lastIndex={lastIndex} toggleHide={toggleHide} onEdit={() => setIsEditing(!isEditing)} />
+                <InlineMenu current={current} index={index} lastIndex={lastIndex} handleCopy={handleCopy} toggleHide={toggleHide} onEdit={() => setIsEditing(!isEditing)} />
             </div>
 
             <AnimatePresence initial={false}>
-                {!hideItems && (
+                {!current.opened && (
                     <motion.div key="items" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.25, ease: "easeInOut" }}>
                         {children}
                     </motion.div>
@@ -59,11 +62,12 @@ interface GroupInlineMenuProps {
     current: clipboardGroup;
     index: number;
     lastIndex: number;
+    handleCopy: () => void;
     toggleHide: () => void;
     onEdit: () => void;
 }
 
-function InlineMenu({ current, index, lastIndex, toggleHide, onEdit }: GroupInlineMenuProps) {
+function InlineMenu({ current, index, lastIndex, handleCopy, toggleHide, onEdit }: GroupInlineMenuProps) {
     const { moveGroupUp, moveGroupDown } = useClipboard();
     const [open, setOpen] = useState(false);
 
@@ -72,6 +76,9 @@ function InlineMenu({ current, index, lastIndex, toggleHide, onEdit }: GroupInli
             <AnimatePresence initial={false}>
                 {open && (
                     <motion.div key="menu" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.2 }} className="flex items-center gap-1">
+                        <Button variant="outline" size="g" onClick={handleCopy}>
+                            <ClipboardIcon className="size-3" />
+                        </Button>
                         <Button variant="outline" size="g" onClick={toggleHide}>
                             <EyeIcon className="size-3" />
                         </Button>

@@ -7,5 +7,6 @@ export type clipboardItem = {
 export type clipboardGroup = {
     id: string;
     title: string;
+    opened?: boolean;
     items: clipboardItem[];
 };
