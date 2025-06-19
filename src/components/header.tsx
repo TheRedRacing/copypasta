@@ -41,7 +41,7 @@ export function SmallHeader() {
 
                 <div className="flex items-end gap-2">
                     <Button size={"sm"} asChild>
-                        <Link href="/">Dashboard</Link>
+                        <Link href="/">Home page</Link>
                     </Button>
                     <Button size={"sm"} variant={"outline"} asChild>
                         <Link href="/contact">Contact</Link>
