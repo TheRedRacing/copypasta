@@ -1,9 +1,24 @@
 {
     "changes": [
         {
+            "version": "2.0.5",
+            "date": "2026-02-07",
+            "description": "Yes I know, I didn't update this project for a long time ^^\n\nI added a new feature to allow users to export their copied items as a JSON file, making it easier to back up and transfer data.\nAdditionally, I made some minor bug fixes and performance improvements :",
+            "news": [
+                "Added an additional link to export and import your data as a JSON file.\n(You can find this link in the footer)."
+            ],
+            "updates": [
+                "Changed the focus-visible state on all elements to a more visible one.\nYou can try using the Tab key to navigate through the app and see the new focus-visible state in action.",
+                "Add the possibility to make the description of a change multiline, so I can write more details about the changes if needed.\nNow I can provide more comprehensive descriptions for each change, making it easier for users to understand the updates and fixes included in each version.\n\nLike this one for example :)\n\nOr even this one :D\n\nCool right ?\n\nOk I will stop now."
+            ],
+            "fixes": [
+                "Fixed border color in dark mode on the new item form."
+            ]
+        },
+        {
             "version": "2.0.1",
             "date": "2025-04-22",
-            "description": "This update includes minor bug fixes and performance improvements.",
+            "description": "This update includes minor bug fixes and performance improvements :",
             "news": [
                 "Added an additional button to copy all items in the group."
             ],
@@ -16,7 +31,7 @@
         {
             "version": "2.0.0",
             "date": "2025-04-21",
-            "description": "On this update, I added a new feature to allow users to create groups of copied items, making it easier to manage and organize them. Additionally, I made some minor bug fixes and performance improvements.",
+            "description": "On this update, I added a new feature to allow users to create groups of copied items, making it easier to manage and organize them.\nAdditionally, I made some minor bug fixes and performance improvements :",
             "news": ["Added a new feature to create groups of copied items for better organization.", "Implemented system to order groups of copied items.", "Improved the performance of the app for a smoother user experience."],
             "updates": ["Confirmation dialog when deleting a group of copied items."],
             "fixes": ["Fixed a bug that caused multiple rows when you create a duplicated item.", "Resolved an issue where the copied items were not displaying correctly in certain cases."]
@@ -24,7 +39,7 @@
         {
             "version": "1.1.2",
             "date": "2025-03-25",
-            "description": "This update includes minor bug fixes and performance improvements.",
+            "description": "This update includes minor bug fixes and performance improvements :",
             "news": [],
             "updates": [],
             "fixes": ["Fixed bug when you create a new item duplicate or replace an existing one.", "Fixed bug when you tried to delete on archeved items."]
@@ -32,7 +47,7 @@
         {
             "version": "1.1.1",
             "date": "2025-03-12",
-            "description": "This update introduces new feature, you need to archive your copied items before deleting them",
+            "description": "This update introduces new feature, you need to archive your copied items before deleting them :",
             "news": ["Added success message when an item is created, updated, archived, or deleted.", "Added an archive feature to store copied items before deleting them permanently.", "Added google analytics to track user interactions and improve the user experience."],
             "updates": ["Link in footer to the archive page."],
             "fixes": ["Missing active state for the link in the footer."]

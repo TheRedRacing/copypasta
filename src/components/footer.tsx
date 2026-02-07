@@ -15,7 +15,14 @@ export default function Footer() {
             <div className="flex items-center justify-between gap-4">
                 <FooterContent />
             </div>
-            <p className="text-xs text-zinc-500">&copy; {new Date().getFullYear()}, Maxime Sickenberg.</p>
+            <div className="flex items-center justify-between">
+                <p className="text-xs text-zinc-500">&copy; {new Date().getFullYear()}, Maxime Sickenberg.</p>
+                <div className="flex items-center gap-2">
+                    <Link href={"/export"} className='text-xs text-zinc-500 hover:text-primary-500 hover:underline'>Export</Link>
+                    <span className="text-xs text-zinc-500">/</span>
+                    <Link href={"/import"} className='text-xs text-zinc-500 hover:text-primary-500 hover:underline'>Import</Link>
+                </div>
+            </div>
         </footer>
     );
 }

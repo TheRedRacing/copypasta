@@ -36,13 +36,13 @@ export default function Changelog() {
                                     <h1 className="text-xl font-semibold text-primary-500">Version {change.version}</h1>
                                     <span className="text-xs text-zinc-600 dark:text-zinc-400">{change.date}</span>
                                 </div>
-                                {change.description && <p className="mt-2 text-sm text-zinc-800 dark:text-zinc-200">{change.description}</p>}
+                                {change.description && <p className="mt-2 text-sm text-zinc-800 dark:text-zinc-200 whitespace-pre-line">{change.description}</p>}
                                 {change.news.length > 0 && (
                                     <>
                                         <p className="mt-2 text-sm text-primary-500">News:</p>
                                         <ul role="list" className="mt-1 text-sm list-disc marker:text-primary-500 space-y-1">
                                             {change.news.map((n, index) => (
-                                                <li key={index} className="ml-4">
+                                                <li key={index} className="ml-4 whitespace-pre-line">
                                                     {n}
                                                 </li>
                                             ))}
@@ -54,7 +54,7 @@ export default function Changelog() {
                                         <p className="mt-2 text-sm text-primary-500">Updates:</p>
                                         <ul role="list" className="mt-1 text-sm list-disc marker:text-primary-500 space-y-1">
                                             {change.updates.map((n, index) => (
-                                                <li key={index} className="ml-4">
+                                                <li key={index} className="ml-4 whitespace-pre-line">
                                                     {n}
                                                 </li>
                                             ))}
@@ -66,7 +66,7 @@ export default function Changelog() {
                                         <p className="mt-2 text-sm text-primary-500">Fixes:</p>
                                         <ul role="list" className="mt-1 text-sm list-disc marker:text-primary-500 space-y-1">
                                             {change.fixes.map((n, index) => (
-                                                <li key={index} className="ml-4">
+                                                <li key={index} className="ml-4 whitespace-pre-line">
                                                     {n}
                                                 </li>
                                             ))}
