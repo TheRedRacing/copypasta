@@ -138,7 +138,7 @@ export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOp
                             control={form.control}
                             name="isPrivate"
                             render={({ field }) => (
-                                <FormItem className="flex flex-row items-center justify-between gap-10 rounded-lg border border-zinc-300 p-4">
+                                <FormItem className="flex flex-row items-center justify-between gap-10 rounded-lg border border-zinc-300 dark:border-zinc-700 p-4">
                                     <div className="space-y-0.5">
                                         <FormLabel className="text-base font-medium">Hide row?</FormLabel>
                                         <FormDescription>The row will be hidden. You’ll need to click the eye icon to view it.</FormDescription>
