@@ -25,7 +25,7 @@ Instructions on how to use your project.
 
 ```bash
 # Run the project
-npm start
+pnpm dev
 ```
 
 ## Contributing
