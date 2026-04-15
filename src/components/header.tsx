@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { ClipboardIcon } from "@heroicons/react/24/outline";
 import AddButton from "@/components/add/addItem";
 import { focusClassName } from "@/lib/focus";
 import { cn } from "@/lib/utils";
 import ThemeOption from "./ThemeDialog";
 import { Button } from "./ui/button";
+import { Clipboard } from "lucide-react";
 
 export default function Header() {
     return (
@@ -12,7 +12,7 @@ export default function Header() {
             <div className="flex items-center gap-2">
                 <div className="text-xl font-bold flex items-center gap-2 -m-1 p-1 rounded-lg">
                     <span className="size-8 text-white flex items-center justify-center bg-primary-500 rounded-lg">
-                        <ClipboardIcon className="size-4" />
+                        <Clipboard className="size-4" />
                     </span>
                     <span>CopyPasta</span>
                 </div>
@@ -33,7 +33,7 @@ export function SmallHeader() {
                 <div className="flex items-center gap-2">
                     <Link href="/" className={cn("text-xl font-bold flex items-center gap-2 -m-1 p-1 rounded-lg", focusClassName)}>
                         <span className="size-8 text-white flex items-center justify-center bg-primary-500 rounded-lg">
-                            <ClipboardIcon className="size-4" />
+                            <Clipboard className="size-4" />
                         </span>
                         <span>CopyPasta</span>
                     </Link>

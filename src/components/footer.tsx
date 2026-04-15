@@ -4,10 +4,10 @@ import changelog from "@/changelog.json";
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ClipboardIcon } from "@heroicons/react/24/outline";
 import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
+import { Clipboard } from "lucide-react";
 
 export default function Footer() {
     return (
@@ -50,7 +50,7 @@ function FooterContent() {
         <>
             <div className="flex items-center">
                 <span className="size-6 text-white flex items-center justify-center bg-primary-500 rounded">
-                    <ClipboardIcon className="size-4" />
+                    <Clipboard className="size-4" />
                 </span>
                 <div className="flex items-center">
                     <NavLink href={"/"}>Home</NavLink>

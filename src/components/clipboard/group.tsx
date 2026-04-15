@@ -3,12 +3,12 @@
 import { useClipboard } from "@/context/ClipboardContext";
 import { clipboardGroup } from "@/type/clipboard";
 import { useState } from "react";
-import { Bars3Icon, ChevronDownIcon, ChevronUpIcon, ClipboardIcon, EyeIcon, PencilIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from "framer-motion";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { ChevronDown, ChevronUp, Clipboard, Eye, Menu, Pencil, Trash, X } from "lucide-react";
 
 interface ClipboardGroupCardProps {
     current: clipboardGroup;
@@ -77,19 +77,19 @@ function InlineMenu({ current, index, lastIndex, handleCopy, toggleHide, onEdit 
                 {open && (
                     <motion.div key="menu" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.2 }} className="flex items-center gap-1">
                         <Button variant="outline" size="i6" onClick={handleCopy}>
-                            <ClipboardIcon className="size-3" />
+                            <Clipboard className="size-3" />
                         </Button>
                         <Button variant="outline" size="i6" onClick={toggleHide}>
-                            <EyeIcon className="size-3" />
+                            <Eye className="size-3" />
                         </Button>
                         <Button variant="outline" size="i6" onClick={() => moveGroupUp(index)} disabled={index === 0}>
-                            <ChevronUpIcon className="size-3" />
+                            <ChevronUp className="size-3" />
                         </Button>
                         <Button variant="outline" size="i6" onClick={() => moveGroupDown(index)} disabled={index === lastIndex}>
-                            <ChevronDownIcon className="size-3" />
+                            <ChevronDown className="size-3" />
                         </Button>
                         <Button variant="outline" size="i6" onClick={onEdit}>
-                            <PencilIcon className="size-3" />
+                            <Pencil className="size-3" />
                         </Button>
                         <DeleteGroupButton current={current} />
                         <span className="mx-1 h-3 w-px bg-zinc-200 dark:bg-zinc-700" />
@@ -97,7 +97,7 @@ function InlineMenu({ current, index, lastIndex, handleCopy, toggleHide, onEdit 
                 )}
                 <motion.div key="trigger" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.2 }}>
                     <Button variant="outline" size="i6" onClick={() => setOpen(!open)}>
-                        {open ? <XMarkIcon className="size-3" /> : <Bars3Icon className="size-3" />}
+                        {open ? <X className="size-3" /> : <Menu className="size-3" />}
                     </Button>
                 </motion.div>
             </AnimatePresence>
@@ -122,7 +122,7 @@ function DeleteGroupButton({ current }: DeleteGroupButtonProps) {
     return (
         <>
             <Button variant="outline_destructive" size="i6" onClick={() => setIsOpen(true)}>
-                <TrashIcon className="size-3" />
+                <Trash className="size-3" />
             </Button>
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
                 <DialogContent className="sm:max-w-[500px]">
@@ -130,7 +130,7 @@ function DeleteGroupButton({ current }: DeleteGroupButtonProps) {
                         <DialogTitle></DialogTitle>
                     </DialogHeader>
                     <div className="flex flex-col items-center justify-center">
-                        <TrashIcon className="size-10 text-red-500" />
+                        <Trash className="size-10 text-red-500" />
                         <p className="mt-4 text-md font-semibold text-center">Are you sure you want to delete this group ?</p>
                         <p className="mt-2 text-sm text-center text-muted-foreground">{`"${current.title}"`}</p>
                         <div className="mt-2 w-full bg-red-50 border-l-4 border-red-400 text-red-700 text-sm p-4">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BugAntIcon, ChatBubbleLeftRightIcon, GiftIcon } from "@heroicons/react/24/outline";
+import { Bug, Gift, MessageCircle } from "lucide-react";
 
 export default function Contact() {
     return (
@@ -29,7 +29,7 @@ export default function Contact() {
                     <div className="p-10 space-y-12">
                         <div className="flex gap-x-6">
                             <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary-600">
-                                <ChatBubbleLeftRightIcon aria-hidden="true" className="size-6 text-white" />
+                                <MessageCircle aria-hidden="true" className="size-6 text-white" />
                             </div>
                             <div>
                                 <h3 className="text-base/7 font-semibold text-zinc-800 dark:text-zinc-200">Send me a message</h3>
@@ -46,7 +46,7 @@ export default function Contact() {
                         </div>
                         <div className="flex gap-x-6">
                             <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary-600">
-                                <BugAntIcon aria-hidden="true" className="size-6 text-white" />
+                                <Bug aria-hidden="true" className="size-6 text-white" />
                             </div>
                             <div>
                                 <h3 className="text-base/7 font-semibold text-zinc-800 dark:text-zinc-200">Bug reports</h3>
@@ -60,7 +60,7 @@ export default function Contact() {
                         </div>
                         <div className="flex gap-x-6">
                             <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary-600">
-                                <GiftIcon aria-hidden="true" className="size-6 text-white" />
+                                <Gift aria-hidden="true" className="size-6 text-white" />
                             </div>
                             <div>
                                 <h3 className="text-base/7 font-semibold text-zinc-800 dark:text-zinc-200">Support the project</h3>

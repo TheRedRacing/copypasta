@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useClipboard } from "@/context/ClipboardContext";
 import { buildExportPayload, downloadJson } from "@/lib/exportImport";
-import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { CheckedState } from "@radix-ui/react-checkbox";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { Info } from "lucide-react";
 
 type Id = string | number;
 
@@ -60,7 +60,7 @@ export default function Export() {
                 <div className="px-12 py-8 col-start-2 col-end-12 row-start-1 row-end-1 border-x border-zinc-300 dark:border-zinc-800">
                     <div className="flex flex-col space-y-6">
                         <div className="text-blue-600 dark:text-blue-400 bg-blue-100 p-4 border-l-4 border-blue-300 text-sm dark:bg-blue-900/50 dark:border-blue-700 flex items-center gap-4">
-                            <InformationCircleIcon className="size-6 stroke-2" />
+                            <Info className="size-6 stroke-2" />
                             <span>Please note that this will export all your data in a JSON format, which can be imported back clicking <Link href="/import" className="underline">on this link</Link>.</span>
                         </div>
 

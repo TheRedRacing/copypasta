@@ -1,12 +1,12 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { SwatchIcon } from "@heroicons/react/24/outline";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { focusClassName } from "@/lib/focus";
 import { themeMapping } from "@/lib/themeProvider";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
+import { SwatchBook } from "lucide-react";
 
 const colors = [
     { name: "Orange", value: "orange", color: "bg-orange-500" },
@@ -64,7 +64,7 @@ const ThemeOption: React.FC = () => {
             <Dialog>
                 <DialogTrigger asChild>
                     <Button size={"sm"} variant={"outline"} className={focusClassName}>
-                        <SwatchIcon className="size-5" />
+                        <SwatchBook className="size-5" />
                     </Button>
                 </DialogTrigger>
                 <DialogContent>

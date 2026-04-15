@@ -11,8 +11,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CheckedState } from "@radix-ui/react-checkbox";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { toast } from "sonner";
+import { TriangleAlert } from "lucide-react";
 
 export default function Import() {
     const { clipboardGroups, setClipboardGroups, loading } = useClipboard();
@@ -67,7 +67,7 @@ export default function Import() {
                 <div className="px-12 py-8 col-start-2 col-end-12 row-start-1 row-end-1 border-x border-zinc-300 dark:border-zinc-800">
                     <div className="flex flex-col space-y-6">
                         <div className="text-yellow-700 bg-yellow-100 p-4 border-l-4 border-yellow-400 text-sm dark:bg-yellow-900/30 dark:text-yellow-300 dark:border-yellow-700 flex items-center gap-4">
-                            <ExclamationTriangleIcon className="size-8 stroke-2" />
+                            <TriangleAlert className="size-8 stroke-2" />
                             Please be careful when importing data, especially if you have a lot of important clippings. It is highly recommended to create a backup by exporting your data before proceeding.
                         </div>
 

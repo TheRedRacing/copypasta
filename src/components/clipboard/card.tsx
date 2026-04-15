@@ -3,13 +3,13 @@ import { clipboardItem } from "@/type/clipboard";
 import { useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { EyeIcon, EyeSlashIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { sendGAEvent } from "@next/third-parties/google";
 import { toast } from "sonner";
 import EditButton from "@/components/clipboard/edit";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { Eye, EyeClosed, EyeOff, GripVertical, Trash } from "lucide-react";
 
 interface ClipboardCardProps {
     item: clipboardItem;
@@ -48,16 +48,19 @@ export default function ClipboardCard({ item, index, groupId }: ClipboardCardPro
     attributes.tabIndex = -1;
 
     return (
-        <li key={index} ref={setNodeRef} className={cn("relative flex-1 flex items-stretch justify-between pr-4 bg-white border-y border-zinc-200 -my-px hover:bg-zinc-50 dark:bg-dark-main dark:border-zinc-800 dark:hover:bg-dark-hover")} style={style} {...attributes}>
-            <Button variant={"outline"} size={"i8"} {...listeners} ref={setActivatorNodeRef} className="flex items-center justify-center w-8 h-8 p-1 m-2 hover:bg-zinc-100 dark:hover:bg-dark-hover rounded-lg cursor-grab active:cursor-grabbing">
-                <span className="text-lg">⠿</span>
+        <li key={index} ref={setNodeRef} className={cn("relative flex-1 flex items-stretch justify-between px-4 py-2 bg-white border-y border-zinc-200 -my-px hover:bg-zinc-50 dark:bg-dark-main dark:border-zinc-800 dark:hover:bg-dark-hover")} style={style} {...attributes}>
+            <Button variant={"outline"} size={"i8"} {...listeners} ref={setActivatorNodeRef} className="flex items-center justify-center w-8 h-8 p-1 hover:bg-zinc-100 dark:hover:bg-dark-hover rounded-lg cursor-grab active:cursor-grabbing">
+                <GripVertical className="size-4" />
             </Button>
-            <div className="flex-1 truncate flex items-center justify-start pl-4 sm:pl-0 py-2" onClick={copyToClipboard}>
+            <div className="flex-1 truncate flex items-center justify-start px-4" onClick={copyToClipboard}>
                 <span className={cn(item.isPrivate && "blur-sm", "text-left text-sm")}>{item.text}</span>
             </div>
-            <div className="flex shrink-0 items-center gap-1 pl-2 py-2">
+            <div className="flex shrink-0 items-center gap-1">
+                <Button variant="outline" size="i8">
+
+                </Button>
                 <Button variant="outline" size="i8" onClick={handleHide}>
-                    {item.isPrivate ? <EyeSlashIcon className="size-4" /> : <EyeIcon className="size-4" />}
+                    {item.isPrivate ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
                 </Button>
                 <EditButton item={item} groupId={groupId} />
                 <DeleteGroupButton item={item} groupId={groupId} />
@@ -86,7 +89,7 @@ function DeleteGroupButton({ item, groupId }: DeleteButtonProps) {
     return (
         <>
             <Button variant="outline_destructive" size="i8" onClick={() => setIsOpen(true)}>
-                <TrashIcon className="size-4" />
+                <Trash className="size-4" />
             </Button>
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
                 <DialogContent className="sm:max-w-[500px]">
@@ -94,7 +97,7 @@ function DeleteGroupButton({ item, groupId }: DeleteButtonProps) {
                         <DialogTitle></DialogTitle>
                     </DialogHeader>
                     <div className="flex flex-col items-center justify-center">
-                        <TrashIcon className="size-10 text-red-500" />
+                        <Trash className="size-10 text-red-500" />
                         <p className="mt-4 text-md font-semibold text-center">Are you sure you want to delete this item ?</p>
                         <p className="mt-2 text-sm text-center text-muted-foreground">{`"${item.text}"`}</p>
                         <div className="mt-2 w-full bg-red-50 border-l-4 border-red-400 text-red-700 text-sm p-4">
