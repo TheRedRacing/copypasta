@@ -2,9 +2,9 @@
 
 import { useClipboard } from "@/context/ClipboardContext";
 import { clipboardGroup } from "@/type/clipboard";
+import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import generateId from "@/lib/uuid";
-import { Plus } from "lucide-react";
 
 export default function AddGroup() {
     const { addGroup } = useClipboard();

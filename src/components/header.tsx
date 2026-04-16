@@ -1,10 +1,10 @@
 import Link from "next/link";
+import { Clipboard } from "lucide-react";
 import AddButton from "@/components/add/addItem";
 import { focusClassName } from "@/lib/focus";
 import { cn } from "@/lib/utils";
 import ThemeOption from "./ThemeDialog";
 import { Button } from "./ui/button";
-import { Clipboard } from "lucide-react";
 
 export default function Header() {
     return (

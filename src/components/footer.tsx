@@ -4,10 +4,10 @@ import changelog from "@/changelog.json";
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Clipboard } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { Clipboard } from "lucide-react";
 
 export default function Footer() {
     return (
@@ -18,9 +18,13 @@ export default function Footer() {
             <div className="flex items-center justify-between">
                 <p className="text-xs text-zinc-500">&copy; {new Date().getFullYear()}, Maxime Sickenberg.</p>
                 <div className="flex items-center gap-2">
-                    <Link href={"/export"} className='text-xs text-zinc-500 hover:text-primary-500 hover:underline'>Export</Link>
+                    <Link href={"/export"} className="text-xs text-zinc-500 hover:text-primary-500 hover:underline">
+                        Export
+                    </Link>
                     <span className="text-xs text-zinc-500">/</span>
-                    <Link href={"/import"} className='text-xs text-zinc-500 hover:text-primary-500 hover:underline'>Import</Link>
+                    <Link href={"/import"} className="text-xs text-zinc-500 hover:text-primary-500 hover:underline">
+                        Import
+                    </Link>
                 </div>
             </div>
         </footer>
@@ -44,7 +48,7 @@ export function SmallFooter() {
 // <Link href={"https://msickenberg.ch"} target='_blank' className='hover:text-red-500 hover:underline'>Maxime Sickenberg</Link>
 
 function FooterContent() {
-    const lastUpdate = changelog.changes[0]
+    const lastUpdate = changelog.changes[0];
 
     return (
         <>

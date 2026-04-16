@@ -1,13 +1,13 @@
 "use client";
 
+import { useClipboard } from "@/context/ClipboardContext";
+import { useMemo, useState } from "react";
+import Link from "next/link";
+import { CheckedState } from "@radix-ui/react-checkbox";
+import { Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useClipboard } from "@/context/ClipboardContext";
 import { buildExportPayload, downloadJson } from "@/lib/exportImport";
-import { CheckedState } from "@radix-ui/react-checkbox";
-import Link from "next/link";
-import { useMemo, useState } from "react";
-import { Info } from "lucide-react";
 
 type Id = string | number;
 
@@ -17,11 +17,13 @@ function idToKey(id: Id): string {
 
 export default function Export() {
     const { clipboardGroups, loading } = useClipboard();
-    const [selected, setSelected] = useState<Record<string, boolean>>({});;
+    const [selected, setSelected] = useState<Record<string, boolean>>({});
 
     const selectedGroups = useMemo(() => {
         const keys = new Set(
-            Object.entries(selected).filter(([, v]) => v).map(([k]) => k)
+            Object.entries(selected)
+                .filter(([, v]) => v)
+                .map(([k]) => k),
         );
         return clipboardGroups.filter((g) => keys.has(idToKey(g.id)));
     }, [clipboardGroups, selected]);
@@ -61,12 +63,16 @@ export default function Export() {
                     <div className="flex flex-col space-y-6">
                         <div className="text-blue-600 dark:text-blue-400 bg-blue-100 p-4 border-l-4 border-blue-300 text-sm dark:bg-blue-900/50 dark:border-blue-700 flex items-center gap-4">
                             <Info className="size-6 stroke-2" />
-                            <span>Please note that this will export all your data in a JSON format, which can be imported back clicking <Link href="/import" className="underline">on this link</Link>.</span>
+                            <span>
+                                Please note that this will export all your data in a JSON format, which can be imported back clicking{" "}
+                                <Link href="/import" className="underline">
+                                    on this link
+                                </Link>
+                                .
+                            </span>
                         </div>
 
-                        <p className="text-zinc-600 dark:text-zinc-400">
-                            Select the groups you want to export, or export all your data.
-                        </p>
+                        <p className="text-zinc-600 dark:text-zinc-400">Select the groups you want to export, or export all your data.</p>
 
                         <ul className="divide-y border rounded-lg border-zinc-300 dark:border-zinc-800 divide-zinc-300 dark:divide-zinc-800">
                             {clipboardGroups.map((group) => {
@@ -78,30 +84,21 @@ export default function Export() {
                                             onCheckedChange={(value: CheckedState) => {
                                                 const next = value === true;
                                                 setSelected((s) => ({ ...s, [key]: next }));
-                                            }} />
+                                            }}
+                                        />
                                         <span className="flex-1 truncate">{group.title}</span>
-                                        <span className="text-xs text-zinc-500">
-                                            {group.items.length} items
-                                        </span>
+                                        <span className="text-xs text-zinc-500">{group.items.length} items</span>
                                     </li>
                                 );
                             })}
                         </ul>
 
                         <div className="grid grid-cols-4 gap-4">
-                            <Button
-                                variant={'secondary'}
-                                onClick={exportSelected}
-                                disabled={selectedGroups.length === 0}
-                                className="col-start-3"
-                            >
+                            <Button variant={"secondary"} onClick={exportSelected} disabled={selectedGroups.length === 0} className="col-start-3">
                                 Export selected
                             </Button>
 
-                            <Button
-                                onClick={exportAll}
-                                disabled={loading}
-                            >
+                            <Button onClick={exportAll} disabled={loading}>
                                 Export all
                             </Button>
                         </div>

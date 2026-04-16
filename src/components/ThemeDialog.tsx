@@ -1,12 +1,12 @@
 "use client";
 
 import { useTheme } from "next-themes";
+import { SwatchBook } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { focusClassName } from "@/lib/focus";
 import { themeMapping } from "@/lib/themeProvider";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
-import { SwatchBook } from "lucide-react";
 
 const colors = [
     { name: "Orange", value: "orange", color: "bg-orange-500" },

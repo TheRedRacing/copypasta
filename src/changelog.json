@@ -5,38 +5,24 @@
             "date": "2026-03-24",
             "description": "",
             "news": [],
-            "updates": [
-                "Compatibility and security updates to ensure the app continues to run smoothly and securely for everyone."
-            ],
+            "updates": ["Compatibility and security updates to ensure the app continues to run smoothly and securely for everyone."],
             "fixes": []
         },
         {
             "version": "2.0.5",
             "date": "2026-02-07",
             "description": "Yes I know, I didn't update this project for a long time ^^\n\nI added a new feature to allow users to export their copied items as a JSON file, making it easier to back up and transfer data.\nAdditionally, I made some minor bug fixes and performance improvements :",
-            "news": [
-                "Added an additional link to export and import your data as a JSON file.\n(You can find this link in the footer)."
-            ],
-            "updates": [
-                "Changed the focus-visible state on all elements to a more visible one.\nYou can try using the Tab key to navigate through the app and see the new focus-visible state in action.",
-                "Add the possibility to make the description of a change multiline, so I can write more details about the changes if needed.\nNow I can provide more comprehensive descriptions for each change, making it easier for users to understand the updates and fixes included in each version.\n\nLike this one for example :)\n\nOr even this one :D\n\nCool right ?\n\nOk I will stop now."
-            ],
-            "fixes": [
-                "Fixed border color in dark mode on the new item form."
-            ]
+            "news": ["Added an additional link to export and import your data as a JSON file.\n(You can find this link in the footer)."],
+            "updates": ["Changed the focus-visible state on all elements to a more visible one.\nYou can try using the Tab key to navigate through the app and see the new focus-visible state in action.", "Add the possibility to make the description of a change multiline, so I can write more details about the changes if needed.\nNow I can provide more comprehensive descriptions for each change, making it easier for users to understand the updates and fixes included in each version.\n\nLike this one for example :)\n\nOr even this one :D\n\nCool right ?\n\nOk I will stop now."],
+            "fixes": ["Fixed border color in dark mode on the new item form."]
         },
         {
             "version": "2.0.1",
             "date": "2025-04-22",
             "description": "This update includes minor bug fixes and performance improvements :",
-            "news": [
-                "Added an additional button to copy all items in the group."
-            ],
+            "news": ["Added an additional button to copy all items in the group."],
             "updates": [],
-            "fixes": [
-                "Changed the size of all buttons on the copied card.",
-                "Groups now remember if they were open or closed, even after a refresh."
-            ]
+            "fixes": ["Changed the size of all buttons on the copied card.", "Groups now remember if they were open or closed, even after a refresh."]
         },
         {
             "version": "2.0.0",

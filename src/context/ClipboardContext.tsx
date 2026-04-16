@@ -127,12 +127,11 @@ export const ClipboardProvider = ({ children }: { children: React.ReactNode }) =
                     return { ...item, isPrivate: !item.isPrivate };
                 }
                 return item;
-            }
-            );
+            });
             return { ...group, items: updatedItems };
         });
         persistGroups(updatedGroups);
-    }
+    };
 
     const deleteItem = (groupId: string, itemId: string) => {
         const updatedGroups = clipboardGroups.map((group) => {

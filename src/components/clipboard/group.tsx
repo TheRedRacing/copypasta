@@ -4,23 +4,11 @@ import { useClipboard } from "@/context/ClipboardContext";
 import { clipboardGroup } from "@/type/clipboard";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown, ChevronUp, Clipboard, Folder, FolderOpen, Link, Menu, Pencil, Share, Trash, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import {
-    ChevronDown,
-    ChevronUp,
-    Clipboard,
-    Folder,
-    FolderOpen,
-    Link,
-    Menu,
-    Pencil,
-    Share,
-    Trash,
-    X,
-} from "lucide-react";
 
 interface ClipboardGroupCardProps {
     current: clipboardGroup;

@@ -1,18 +1,13 @@
 "use client";
 
-import { useState } from "react";
 import { useClipboard } from "@/context/ClipboardContext";
-import {
-    ImportMode,
-    mergeGroups,
-    parseImportPayload,
-    readFileAsText,
-} from "@/lib/exportImport";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
+import { useState } from "react";
 import { CheckedState } from "@radix-ui/react-checkbox";
-import { toast } from "sonner";
 import { TriangleAlert } from "lucide-react";
+import { toast } from "sonner";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { ImportMode, mergeGroups, parseImportPayload, readFileAsText } from "@/lib/exportImport";
 
 export default function Import() {
     const { clipboardGroups, setClipboardGroups, loading } = useClipboard();
@@ -50,9 +45,7 @@ export default function Import() {
             <div className="grid grid-cols-12 grid-rows-1 border border-zinc-300 dark:border-zinc-800">
                 <div />
                 <div className="col-start-2 col-end-12 row-start-1 row-end-1 border-x border-zinc-300 dark:border-zinc-800 py-10">
-                    <h2 className="text-5xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 text-center">
-                        Import Data
-                    </h2>
+                    <h2 className="text-5xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 text-center">Import Data</h2>
                 </div>
                 <div />
             </div>
@@ -109,9 +102,7 @@ export default function Import() {
                             }}
                         />
 
-                        {error && (
-                            <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
-                        )}
+                        {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
                     </div>
                 </div>
             </div>

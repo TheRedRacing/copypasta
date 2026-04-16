@@ -1,8 +1,7 @@
 import changelog from "@/changelog.json";
 
 export default function Changelog() {
-
-    const lastUpdate = changelog.changes[0]
+    const lastUpdate = changelog.changes[0];
 
     return (
         <div className="w-full flex-1 flex flex-col py-24 -space-y-px">
