@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { EllipsisVertical, Eye, EyeOff, GripVertical, Share, Trash, X } from "lucide-react";
 import { toast } from "sonner";
 import EditButton from "@/components/clipboard/edit";
+import { InvisibleInk } from "@/components/invisibleInk";
 import { StreamDeckButton } from "@/components/streamdeck";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -57,11 +58,11 @@ export default function ClipboardCard({ item, index, groupId }: ClipboardCardPro
                 <GripVertical className="size-4" />
             </Button>
             <div className="flex-1 truncate flex items-center justify-start px-4" onClick={copyToClipboard}>
-                <span className={cn(item.isPrivate && "blur-sm", "text-left text-sm")}>{item.text}</span>
+                <InvisibleInk text={item.text} isPrivate={item.isPrivate} />
             </div>
             <AnimatePresence initial={false}>
                 {isMenuOpen && (
-                    <motion.div key="menu" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.2 }} className="flex shrink-0 items-center gap-1">
+                    <motion.div key="menu" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.2 }} className="flex shrink-0 items-center gap-1 pr-1">
                         <StreamDeckButton itemId={item.id} itemLabel={item.text} />
                         <Button variant="outline" size="i8">
                             <Share className="size-4" />
