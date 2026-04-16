@@ -9,7 +9,8 @@ import EditButton from "@/components/clipboard/edit";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import { Eye, EyeClosed, EyeOff, GripVertical, Trash } from "lucide-react";
+import { Eye, EyeOff, GripVertical, Share, Trash, Link, X, EllipsisVertical } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface ClipboardCardProps {
     item: clipboardItem;
@@ -20,6 +21,7 @@ interface ClipboardCardProps {
 export default function ClipboardCard({ item, index, groupId }: ClipboardCardProps) {
     const { hideItem } = useClipboard();
     const [isCopied, setIsCopied] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const copyToClipboard = async () => {
         try {
@@ -35,9 +37,17 @@ export default function ClipboardCard({ item, index, groupId }: ClipboardCardPro
 
     const handleHide = () => {
         hideItem(groupId, item.id);
-    }
+    };
 
-    const { attributes, listeners, setNodeRef, transform, transition, setActivatorNodeRef, isDragging } = useSortable({ id: item.id });
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+        setActivatorNodeRef,
+        isDragging,
+    } = useSortable({ id: item.id });
     const style: React.CSSProperties = {
         transform: CSS.Transform.toString(transform),
         transition,
@@ -48,25 +58,46 @@ export default function ClipboardCard({ item, index, groupId }: ClipboardCardPro
     attributes.tabIndex = -1;
 
     return (
-        <li key={index} ref={setNodeRef} className={cn("relative flex-1 flex items-stretch justify-between px-4 py-2 bg-white border-y border-zinc-200 -my-px hover:bg-zinc-50 dark:bg-dark-main dark:border-zinc-800 dark:hover:bg-dark-hover")} style={style} {...attributes}>
-            <Button variant={"outline"} size={"i8"} {...listeners} ref={setActivatorNodeRef} className="flex items-center justify-center w-8 h-8 p-1 hover:bg-zinc-100 dark:hover:bg-dark-hover rounded-lg cursor-grab active:cursor-grabbing">
+        <li key={index} ref={setNodeRef}
+            className={cn("relative flex-1 flex items-stretch justify-between px-4 py-2 bg-white border-y border-zinc-200 -my-px hover:bg-zinc-50 dark:bg-dark-main dark:border-zinc-800 dark:hover:bg-dark-hover")}
+            style={style} {...attributes}>
+            <Button variant={"outline"} size={"i8"} {...listeners} ref={setActivatorNodeRef}
+                    className="flex items-center justify-center w-8 h-8 p-1 hover:bg-zinc-100 dark:hover:bg-dark-hover rounded-lg cursor-grab active:cursor-grabbing">
                 <GripVertical className="size-4" />
             </Button>
             <div className="flex-1 truncate flex items-center justify-start px-4" onClick={copyToClipboard}>
                 <span className={cn(item.isPrivate && "blur-sm", "text-left text-sm")}>{item.text}</span>
             </div>
-            <div className="flex shrink-0 items-center gap-1">
-                <Button variant="outline" size="i8">
+            <AnimatePresence initial={false}>
+                {isMenuOpen && (
+                    <motion.div key="menu" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.2 }}
+                                className="flex shrink-0 items-center gap-1">
 
-                </Button>
-                <Button variant="outline" size="i8" onClick={handleHide}>
-                    {item.isPrivate ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
-                </Button>
-                <EditButton item={item} groupId={groupId} />
-                <DeleteGroupButton item={item} groupId={groupId} />
+                        <Button variant="outline" size="i8">
+                            <Link className="size-4" />
+                        </Button>
+                        <Button variant="outline" size="i8">
+                            <Share className="size-4" />
+                        </Button>
+                        <Button variant="outline" size="i8" onClick={handleHide}>
+                            {item.isPrivate ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                        </Button>
+                        <EditButton item={item} groupId={groupId} />
+                        <DeleteGroupButton item={item} groupId={groupId} />
+                        <span className="mx-1 h-4 w-px bg-zinc-200 dark:bg-zinc-700" />
+                    </motion.div>
+                )}
+                <motion.div key="trigger" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.2 }}>
+                    <Button variant="outline" size="i8" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                        {isMenuOpen ? <X className="size-4" /> : <EllipsisVertical className="size-3" />}
+                    </Button>
+                </motion.div>
+            </AnimatePresence>
+
+            <div
+                className={cn(isCopied ? "opacity-100 h-full" : "opacity-0 h-0", "absolute inset-x-0 top-1/2 -translate-y-1/2 select-none flex items-center justify-center text-sm bg-green-50 text-green-700 dark:bg-[#142118] dark:text-green-400 transition-all duration-500 ease-in-out")}>Copied
             </div>
-
-            <div className={cn(isCopied ? "opacity-100 h-full" : "opacity-0 h-0", "absolute inset-x-0 top-1/2 -translate-y-1/2 select-none flex items-center justify-center text-sm bg-green-50 text-green-700 dark:bg-[#142118] dark:text-green-400 transition-all duration-500 ease-in-out")}>Copied</div>
         </li>
     );
 }
@@ -98,7 +129,8 @@ function DeleteGroupButton({ item, groupId }: DeleteButtonProps) {
                     </DialogHeader>
                     <div className="flex flex-col items-center justify-center">
                         <Trash className="size-10 text-red-500" />
-                        <p className="mt-4 text-md font-semibold text-center">Are you sure you want to delete this item ?</p>
+                        <p className="mt-4 text-md font-semibold text-center">Are you sure you want to delete this item
+                            ?</p>
                         <p className="mt-2 text-sm text-center text-muted-foreground">{`"${item.text}"`}</p>
                         <div className="mt-2 w-full bg-red-50 border-l-4 border-red-400 text-red-700 text-sm p-4">
                             <ul className="list-disc list-inside">

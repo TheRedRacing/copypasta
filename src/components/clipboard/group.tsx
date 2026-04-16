@@ -8,7 +8,19 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import { ChevronDown, ChevronUp, Clipboard, Eye, Menu, Pencil, Trash, X } from "lucide-react";
+import {
+    ChevronDown,
+    ChevronUp,
+    Clipboard,
+    Folder,
+    FolderOpen,
+    Link,
+    Menu,
+    Pencil,
+    Share,
+    Trash,
+    X,
+} from "lucide-react";
 
 interface ClipboardGroupCardProps {
     current: clipboardGroup;
@@ -18,7 +30,7 @@ interface ClipboardGroupCardProps {
 }
 
 export default function ClipboardGroupCard({ current, children, index, lastIndex }: ClipboardGroupCardProps) {
-    const { renameGroup, toogleGroup } = useClipboard();
+    const { renameGroup, toggleGroup } = useClipboard();
     const [isEditing, setIsEditing] = useState(false);
     const [title, setTitle] = useState(current.title);
 
@@ -37,7 +49,7 @@ export default function ClipboardGroupCard({ current, children, index, lastIndex
     };
 
     const toggleHide = () => {
-        toogleGroup(current.id);
+        toggleGroup(current.id);
     };
 
     return (
@@ -79,8 +91,14 @@ function InlineMenu({ current, index, lastIndex, handleCopy, toggleHide, onEdit 
                         <Button variant="outline" size="i6" onClick={handleCopy}>
                             <Clipboard className="size-3" />
                         </Button>
+                        <Button variant="outline" size="i6">
+                            <Link className="size-3" />
+                        </Button>
+                        <Button variant="outline" size="i6">
+                            <Share className="size-3" />
+                        </Button>
                         <Button variant="outline" size="i6" onClick={toggleHide}>
-                            <Eye className="size-3" />
+                            {current.opened ? <FolderOpen className={"size-3"} /> : <Folder className="size-3" />}
                         </Button>
                         <Button variant="outline" size="i6" onClick={() => moveGroupUp(index)} disabled={index === 0}>
                             <ChevronUp className="size-3" />

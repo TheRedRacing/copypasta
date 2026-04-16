@@ -13,7 +13,7 @@ type ClipboardContextType = {
     moveGroupUp: (index: number) => void;
     moveGroupDown: (index: number) => void;
     renameGroup: (id: string, newTitle: string) => void;
-    toogleGroup: (id: string) => void;
+    toggleGroup: (id: string) => void;
     deleteGroup: (id: string) => void;
     addItemToGroup: (groupId: string, item: clipboardItem) => void;
     updateItem: (originalGroupId: string, updatedGroupId: string, updatedItem: clipboardItem) => void;
@@ -63,7 +63,7 @@ export const ClipboardProvider = ({ children }: { children: React.ReactNode }) =
         persistGroups(newGroups);
     };
 
-    const toogleGroup = (id: string) => {
+    const toggleGroup = (id: string) => {
         const newGroups = clipboardGroups.map((group) => (group.id === id ? { ...group, opened: !group.opened } : group));
         persistGroups(newGroups);
     };
@@ -155,7 +155,7 @@ export const ClipboardProvider = ({ children }: { children: React.ReactNode }) =
                 moveGroupUp,
                 moveGroupDown,
                 renameGroup,
-                toogleGroup,
+                toggleGroup,
                 deleteGroup,
                 addItemToGroup,
                 updateItem,
