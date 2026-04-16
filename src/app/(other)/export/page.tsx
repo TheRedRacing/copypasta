@@ -80,7 +80,7 @@ export default function Export() {
                                 return (
                                     <li key={key} className="flex items-center gap-3 p-3">
                                         <Checkbox
-                                            checked={selected[key] === true}
+                                            checked={selected[key]}
                                             onCheckedChange={(value: CheckedState) => {
                                                 const next = value === true;
                                                 setSelected((s) => ({ ...s, [key]: next }));
