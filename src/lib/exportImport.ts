@@ -83,9 +83,7 @@ function isClipboardGroup(value: unknown): value is clipboardGroup {
     if (!(typeof opened === "boolean" || typeof opened === "undefined")) return false;
 
     if (!Array.isArray(items)) return false;
-    if (!items.every(isClipboardItem)) return false;
-
-    return true;
+    return items.every(isClipboardItem);
 }
 
 export function parseImportPayload(jsonText: string): ExportPayloadV1 {
