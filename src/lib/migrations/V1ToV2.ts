@@ -1,8 +1,7 @@
-import { clipboardGroup, clipboardItem } from "@/type/clipboard";
 import { setClipboardGroups } from "@/lib/clipboardStorage";
+import { clipboardGroup, clipboardItem } from "@/lib/exportImport";
 import generateId from "@/lib/uuid";
 
-// Ancienne structure de données (V1.0 à V1.9)
 type clipboardItemOld = {
     id: number;
     text: string;
@@ -22,7 +21,6 @@ export function migrateToV2(): void {
         const order: number[] = JSON.parse(localStorage.getItem("clipboardOrder") || "[]");
         const archive: clipboardItemOld[] = JSON.parse(localStorage.getItem("clipboardArchive") || "[]");
 
-        // Vérification de doublons / correspondance
         const orderedItems = order.map((id) => texts.find((item) => item.id === id)).filter((item): item is clipboardItemOld => !!item);
 
         const defaultGroup: clipboardGroup = {
@@ -50,7 +48,6 @@ export function migrateToV2(): void {
         const newGroups: clipboardGroup[] = [defaultGroup, archivedGroup];
         setClipboardGroups(newGroups);
 
-        // Nettoyage des anciennes clés
         localStorage.removeItem("clipboardTexts");
         localStorage.removeItem("clipboardOrder");
         localStorage.removeItem("clipboardArchive");

@@ -1,16 +1,18 @@
 import { useClipboard } from "@/context/ClipboardContext";
-import { clipboardItem } from "@/type/clipboard";
 import React, { useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { sendGAEvent } from "@next/third-parties/google";
 import { AnimatePresence, motion } from "framer-motion";
-import { EllipsisVertical, Eye, EyeOff, GripVertical, Link, Share, Trash, X } from "lucide-react";
+import { EllipsisVertical, Eye, EyeOff, GripVertical, Share, Trash, X } from "lucide-react";
 import { toast } from "sonner";
 import EditButton from "@/components/clipboard/edit";
+import { StreamDeckButton } from "@/components/streamdeck";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { clipboardItem } from "@/lib/exportImport";
 import { cn } from "@/lib/utils";
+
 
 interface ClipboardCardProps {
     item: clipboardItem;
@@ -60,9 +62,7 @@ export default function ClipboardCard({ item, index, groupId }: ClipboardCardPro
             <AnimatePresence initial={false}>
                 {isMenuOpen && (
                     <motion.div key="menu" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.2 }} className="flex shrink-0 items-center gap-1">
-                        <Button variant="outline" size="i8">
-                            <Link className="size-4" />
-                        </Button>
+                        <StreamDeckButton itemId={item.id} itemLabel={item.text} />
                         <Button variant="outline" size="i8">
                             <Share className="size-4" />
                         </Button>

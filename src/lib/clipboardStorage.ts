@@ -1,4 +1,4 @@
-import { clipboardGroup, clipboardItem } from "@/type/clipboard";
+import { clipboardGroup, clipboardItem } from "@/lib/exportImport";
 
 const STORAGE_KEY = "clipboardGroups";
 const VERSION_KEY = "clipboardGroupsVersion";

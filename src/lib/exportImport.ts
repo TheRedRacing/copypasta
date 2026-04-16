@@ -1,9 +1,14 @@
-// exportImport.ts
 export type clipboardItem = {
     id: string;
     text: string;
     isPrivate: boolean;
 };
+
+export type clipboardItemOrNull = {
+    id: string;
+    text: string;
+    isPrivate: boolean;
+} | null;
 
 export type clipboardGroup = {
     id: string;

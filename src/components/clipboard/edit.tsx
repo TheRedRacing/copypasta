@@ -1,10 +1,10 @@
 "use client";
 
-import { clipboardItem } from "@/type/clipboard";
 import { useState } from "react";
 import { Pencil } from "lucide-react";
 import ItemForm from "@/components/form/itemForm";
 import { Button } from "@/components/ui/button";
+import { clipboardItem } from "@/lib/exportImport";
 
 interface EditButtonProps {
     item: clipboardItem;

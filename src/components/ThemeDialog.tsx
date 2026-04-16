@@ -38,7 +38,7 @@ const ThemeOption: React.FC = () => {
     }
 
     function getDarkMode(): "light" | "dark" {
-        if (!theme) return "dark"; // Fallback par défaut
+        if (!theme) return "dark";
 
         if (theme.startsWith("dark")) {
             return "dark";

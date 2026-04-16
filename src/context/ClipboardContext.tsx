@@ -1,8 +1,8 @@
 "use client";
 
-import { clipboardGroup, clipboardItem } from "@/type/clipboard";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { getClipboardGroups, setClipboardGroups } from "@/lib/clipboardStorage";
+import { clipboardGroup, clipboardItem } from "@/lib/exportImport";
 import { migrateToV2, shouldMigrateToV2 } from "@/lib/migrations/V1ToV2";
 
 type ClipboardContextType = {
@@ -79,7 +79,7 @@ export const ClipboardProvider = ({ children }: { children: React.ReactNode }) =
     };
 
     const updateItem = (originalGroupId: string, updatedGroupId: string, updatedItem: clipboardItem) => {
-        // Si même groupe → édition simple
+        // Si même group → édition simple
         if (originalGroupId === updatedGroupId) {
             const updatedGroups = clipboardGroups.map((group) => {
                 if (group.id !== originalGroupId) return group;
@@ -91,7 +91,6 @@ export const ClipboardProvider = ({ children }: { children: React.ReactNode }) =
 
             persistGroups(updatedGroups);
         } else {
-            // Sinon, déplacer l’item dans un autre groupe
             let movedItem: clipboardItem | undefined;
 
             const newGroups = clipboardGroups

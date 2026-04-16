@@ -16,13 +16,11 @@ export default function Cookies() {
         checkCookies();
     }, []);
 
-    // Appeler l'API côté serveur pour accepter les cookies
     const acceptCookies = async () => {
         await fetch("/api/accept-cookies", { method: "POST" });
         setIsAccepted(true);
     };
 
-    // Appeler l'API côté serveur pour refuser les cookies
     const rejectCookies = async () => {
         await fetch("/api/reject-cookies", { method: "POST" });
         setIsAccepted(false);

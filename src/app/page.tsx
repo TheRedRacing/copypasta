@@ -20,7 +20,6 @@ export default function Home() {
 
         if (!over || active.id === over.id) return;
 
-        // Trouver le groupe contenant l'item déplacé
         const groupWithItem = clipboardGroups.find((group) => group.items.find((item) => item.id === active.id));
 
         if (!groupWithItem) return;
@@ -40,7 +39,6 @@ export default function Home() {
         setClipboardGroups(newGroups);
     };
 
-    // État de chargement
     if (loading) {
         return (
             <>
@@ -76,7 +74,6 @@ export default function Home() {
         );
     }
 
-    // Aucun groupe
     if (clipboardGroups.length === 0) {
         return (
             <>
@@ -90,7 +87,6 @@ export default function Home() {
         );
     }
 
-    // Affichage normal
     return (
         <>
             <Header />

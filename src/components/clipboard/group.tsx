@@ -1,13 +1,13 @@
 "use client";
 
 import { useClipboard } from "@/context/ClipboardContext";
-import { clipboardGroup } from "@/type/clipboard";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, ChevronUp, Clipboard, Folder, FolderOpen, Link, Menu, Pencil, Share, Trash, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { clipboardGroup } from "@/lib/exportImport";
 import { cn } from "@/lib/utils";
 
 interface ClipboardGroupCardProps {
@@ -26,7 +26,7 @@ export default function ClipboardGroupCard({ current, children, index, lastIndex
         const trimmed = title.trim();
         if (trimmed && trimmed !== current.title) {
             renameGroup(current.id, trimmed);
-            toast.success("Groupe renamed with success");
+            toast.success("Group renamed with success");
         }
         setIsEditing(false);
     };
