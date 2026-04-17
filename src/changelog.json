@@ -1,6 +1,14 @@
 {
     "changes": [
         {
+            "version": "2.1.0",
+            "date": "2026-04-17",
+            "description": "This update introduces new features and a complete icon overhaul.",
+            "news": ["Added Stream Deck integration, allowing you to trigger a copy directly from a physical key.", "Added a share link feature to quickly share any clipboard item via a generated URL."],
+            "updates": ["Improved the way private text is hidden for a cleaner and more discreet experience.", "Refreshed all icons across the app for a more consistent and polished look.", "Improved focus styles and visual feedback throughout the app."],
+            "fixes": ["Fixed an issue with the share link not generating the correct URL in some environments.", "Fixed an issue where importing data could fail in certain edge cases."]
+        },
+        {
             "version": "2.0.5.1",
             "date": "2026-03-24",
             "description": "",
