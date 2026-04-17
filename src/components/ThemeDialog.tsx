@@ -32,8 +32,6 @@ const ThemeOption: React.FC = () => {
             key = selectedColor;
         }
 
-        console.log(key);
-
         setTheme(themeMapping[key] ?? themeMapping.default);
     }
 

@@ -1,90 +1,98 @@
 {
     "changes": [
         {
+            "version": "2.1.0.1",
+            "date": "2026-04-17",
+            "description": "",
+            "news": [],
+            "updates": [],
+            "fixes": ["Fixed a minor issue with the focus styles on the new item form - they should now look consistent across all browsers and platforms."]
+        },
+        {
             "version": "2.1.0",
             "date": "2026-04-17",
-            "description": "This update introduces new features and a complete icon overhaul.",
-            "news": ["Added Stream Deck integration, allowing you to trigger a copy directly from a physical key.", "Added a share link feature to quickly share any clipboard item via a generated URL."],
-            "updates": ["Improved the way private text is hidden for a cleaner and more discreet experience.", "Refreshed all icons across the app for a more consistent and polished look.", "Improved focus styles and visual feedback throughout the app."],
-            "fixes": ["Fixed an issue with the share link not generating the correct URL in some environments.", "Fixed an issue where importing data could fail in certain edge cases."]
+            "description": "Big one! Copy-Pasta just left the browser. Control your snippets from a physical Stream Deck key, share anything with a single link, and enjoy a refreshed look across the whole app.",
+            "news": ["Stream Deck integration - assign any snippet to a physical key and copy it without ever touching your mouse.", "Share link - generate a link to share any clipboard item instantly with anyone."],
+            "updates": ["Private mode got a glow-up - hidden text is now even more discreet and visually polished.", "Swapped out all icons for a new set that feels more consistent and cohesive throughout the app.", "Keyboard navigation looks better than ever with improved focus styles across the board."],
+            "fixes": ["Fixed an issue where the share link would generate the wrong URL depending on your environment.", "Fixed a sneaky bug where importing data could silently fail in some edge cases."]
         },
         {
             "version": "2.0.5.1",
             "date": "2026-03-24",
             "description": "",
             "news": [],
-            "updates": ["Compatibility and security updates to ensure the app continues to run smoothly and securely for everyone."],
+            "updates": ["Under-the-hood compatibility and security updates - nothing to see here, just keeping things safe and smooth."],
             "fixes": []
         },
         {
             "version": "2.0.5",
             "date": "2026-02-07",
-            "description": "Yes I know, I didn't update this project for a long time ^^\n\nI added a new feature to allow users to export their copied items as a JSON file, making it easier to back up and transfer data.\nAdditionally, I made some minor bug fixes and performance improvements :",
-            "news": ["Added an additional link to export and import your data as a JSON file.\n(You can find this link in the footer)."],
-            "updates": ["Changed the focus-visible state on all elements to a more visible one.\nYou can try using the Tab key to navigate through the app and see the new focus-visible state in action.", "Add the possibility to make the description of a change multiline, so I can write more details about the changes if needed.\nNow I can provide more comprehensive descriptions for each change, making it easier for users to understand the updates and fixes included in each version.\n\nLike this one for example :)\n\nOr even this one :D\n\nCool right ?\n\nOk I will stop now."],
-            "fixes": ["Fixed border color in dark mode on the new item form."]
+            "description": "Ok yes, it's been a while. I missed you too. 👋\n\nThis update brings a long-awaited export feature so you can finally back up and move your data around freely. Plus a handful of improvements and fixes along the way :",
+            "news": ["You can now export and import all your data as a JSON file - perfect for backups or switching devices.\n(Look for the link in the footer, it's right there waiting for you.)"],
+            "updates": ["Focus styles got a serious upgrade - try pressing Tab and navigating with your keyboard, it actually looks great now.", "Changelog descriptions can now be multiline, so I can finally write proper notes for each update instead of cramming everything into one line.\n\nLike this one for example :)\n\nOr even this one :D\n\nCool right?\n\nOk I will stop now."],
+            "fixes": ["Fixed the border color in dark mode on the new item form - it was bothering me too."]
         },
         {
             "version": "2.0.1",
             "date": "2025-04-22",
-            "description": "This update includes minor bug fixes and performance improvements :",
-            "news": ["Added an additional button to copy all items in the group."],
+            "description": "A small but handy update with a few things that were missing :",
+            "news": ["Added a one-click button to copy every item in a group at once - great for batch workflows."],
             "updates": [],
-            "fixes": ["Changed the size of all buttons on the copied card.", "Groups now remember if they were open or closed, even after a refresh."]
+            "fixes": ["Resized all the action buttons on clipboard cards so they feel more balanced.", "Groups now remember whether they were open or collapsed - even after you refresh the page."]
         },
         {
             "version": "2.0.0",
             "date": "2025-04-21",
-            "description": "On this update, I added a new feature to allow users to create groups of copied items, making it easier to manage and organize them.\nAdditionally, I made some minor bug fixes and performance improvements :",
-            "news": ["Added a new feature to create groups of copied items for better organization.", "Implemented system to order groups of copied items.", "Improved the performance of the app for a smoother user experience."],
-            "updates": ["Confirmation dialog when deleting a group of copied items."],
-            "fixes": ["Fixed a bug that caused multiple rows when you create a duplicated item.", "Resolved an issue where the copied items were not displaying correctly in certain cases."]
+            "description": "The biggest update yet. Copy-Pasta now supports groups, so you can finally bring some order to your snippet chaos.\nOrganize, reorder, and manage your items like a pro :",
+            "news": ["Create groups to organize your clipboard items the way you actually think.", "Drag and reorder your groups however you like.", "Significant performance improvements for a snappier experience all around."],
+            "updates": ["Added a confirmation dialog before deleting a group - no more accidental wipes."],
+            "fixes": ["Fixed a bug that stacked duplicated items into multiple rows instead of handling them cleanly.", "Fixed clipboard items not displaying correctly in certain situations."]
         },
         {
             "version": "1.1.2",
             "date": "2025-03-25",
-            "description": "This update includes minor bug fixes and performance improvements :",
+            "description": "A quick patch to squash a couple of annoying bugs :",
             "news": [],
             "updates": [],
-            "fixes": ["Fixed bug when you create a new item duplicate or replace an existing one.", "Fixed bug when you tried to delete on archeved items."]
+            "fixes": ["Fixed a bug when creating an item that already exists - duplicate or replace now works as expected.", "Fixed a crash when trying to delete an archived item."]
         },
         {
             "version": "1.1.1",
             "date": "2025-03-12",
-            "description": "This update introduces new feature, you need to archive your copied items before deleting them :",
-            "news": ["Added success message when an item is created, updated, archived, or deleted.", "Added an archive feature to store copied items before deleting them permanently.", "Added google analytics to track user interactions and improve the user experience."],
-            "updates": ["Link in footer to the archive page."],
-            "fixes": ["Missing active state for the link in the footer."]
+            "description": "This update introduces an archive system - your items are now safe before they're gone for good :",
+            "news": ["Toast notifications now confirm every action - create, update, archive, delete. You'll always know what just happened.", "Items now go to an archive before being permanently deleted - no more accidental losses.", "Added analytics to better understand how the app is used and keep improving it."],
+            "updates": ["Added a link to the archive page in the footer so it's always one click away."],
+            "fixes": ["Fixed the missing active state on footer links - they now highlight properly when selected."]
         },
         {
             "version": "1.1.0",
             "date": "2025-03-09",
-            "description": "This update introduces a brand new contact page and enhances the overall user experience with design improvements and bug fixes.",
-            "news": ["Added a contact page, making it easier to reach out via email or LinkedIn, report issues on GitHub, and support the project."],
-            "updates": ["Redesigned the footer to include useful links and a dedicated changelog section for better navigation."],
-            "fixes": ["Fixed an issue where clicking on a copied item required selecting the text instead of the full card.", "Improved the animation of copied items for a smoother visual experience."]
+            "description": "A fresh new page and a better footer to tie everything together :",
+            "news": ["Added a contact page - say hi, report a bug, or just show some love. Email, LinkedIn, and GitHub are all there."],
+            "updates": ["Redesigned the footer with useful links and a dedicated changelog section - much easier to navigate."],
+            "fixes": ["Fixed a frustrating issue where you had to select the text inside a card instead of just clicking it to copy.", "Smoothed out the copy animation for a more satisfying experience."]
         },
         {
             "version": "1.0.6",
             "date": "2025-03-02",
-            "description": "This update brings a fresh new look with redesigned UI elements.",
+            "description": "A visual refresh to make things cleaner and easier on the eyes :",
             "news": [],
-            "updates": ["Revamped the header design for a cleaner and more modern look.", "Updated the copied card design to enhance readability and usability."],
+            "updates": ["The header has a new look - cleaner, more modern, more Copy-Pasta.", "Clipboard cards got a redesign too - better readability, better feel."],
             "fixes": []
         },
         {
             "version": "1.0.4",
             "date": "2025-02-27",
-            "description": "This update introduces new features and usability improvements.",
-            "news": ["Implemented drag-and-drop functionality to easily sort copied cards.", "Added a 'Page Not Found' error message to enhance the user experience."],
-            "updates": ["Updated the delete button to a destructive action for clearer intent and better usability."],
+            "description": "Two new features that make the app a lot more intuitive to use :",
+            "news": ["Drag and drop is here - reorder your clipboard cards however you want, effortlessly.", "Added a proper 404 page so getting lost actually feels intentional."],
+            "updates": ["The delete button is now clearly destructive - red, bold, and impossible to miss."],
             "fixes": []
         },
         {
             "version": "1.0.0",
             "date": "2025-02-20",
-            "description": "Initial release – The first official version is live!",
-            "news": ["The project is now officially launched with its core features."],
+            "description": "It's alive. Welcome to Copy-Pasta - your new home for clipboard snippets.",
+            "news": ["The first official version is live with all the core features ready to go."],
             "updates": [],
             "fixes": []
         }
