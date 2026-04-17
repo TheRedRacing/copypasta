@@ -13,19 +13,6 @@ export function FocusBlob() {
         if (!blob) return;
 
         const OFFSET = 4;
-
-        const getInfo = (el: Element): Rect => {
-            const r = el.getBoundingClientRect();
-            const br = parseFloat(getComputedStyle(el).borderRadius) + OFFSET;
-            return {
-                left: r.left - OFFSET,
-                top: r.top - OFFSET,
-                width: r.width + OFFSET * 2,
-                height: r.height + OFFSET * 2,
-                br,
-            };
-        };
-
         const SELECTOR = "button, input, textarea, a[href], [tabindex]:not([tabindex='-1'])";
 
         const onFocus = (e: FocusEvent) => {
