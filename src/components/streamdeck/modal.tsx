@@ -24,7 +24,7 @@ export function StreamDeckModal({ open, onOpenChange, itemId, itemLabel }: Strea
 
     // Build the full URL from the current origin so it works on every environment
     // (localhost, staging, production).
-    const origin = typeof window !== "undefined" ? window.location.origin : "https://copypasta.ch";
+    const origin = typeof window !== "undefined" ? window.location.origin : "https://copy-pasta.ch";
     const url = `${origin}/streamdeck/${itemId}`;
 
     async function handleCopy() {
