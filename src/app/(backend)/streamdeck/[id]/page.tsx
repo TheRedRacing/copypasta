@@ -1,12 +1,11 @@
 "use client";
 
 import { useClipboard } from "@/context/ClipboardContext";
+import { ClipboardItemOrNull } from "@/type/clipboard";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { AlertCircle, CheckCircle, XCircle } from "lucide-react";
-import { clipboardItemOrNull } from "@/lib/exportImport";
-
 
 type Status = "loading" | "success" | "not_found" | "error";
 
@@ -24,7 +23,7 @@ export default function StreamDeckPage() {
             return;
         }
 
-        let found: clipboardItemOrNull = null;
+        let found: ClipboardItemOrNull = null;
 
         for (const group of clipboardGroups) {
             const item = group.items?.find((i) => i.id === id);

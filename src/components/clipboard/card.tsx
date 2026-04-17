@@ -1,4 +1,5 @@
 import { useClipboard } from "@/context/ClipboardContext";
+import { ClipboardItem } from "@/type/clipboard";
 import React, { useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -11,12 +12,10 @@ import { InvisibleInk } from "@/components/invisibleInk";
 import { StreamDeckButton } from "@/components/streamdeck";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { clipboardItem } from "@/lib/exportImport";
 import { cn } from "@/lib/utils";
 
-
 interface ClipboardCardProps {
-    item: clipboardItem;
+    item: ClipboardItem;
     index: number;
     groupId: string;
 }
@@ -88,7 +87,7 @@ export default function ClipboardCard({ item, index, groupId }: ClipboardCardPro
 }
 
 interface DeleteButtonProps {
-    item: clipboardItem;
+    item: ClipboardItem;
     groupId: string;
 }
 

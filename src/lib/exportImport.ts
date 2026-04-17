@@ -1,31 +1,14 @@
-export type clipboardItem = {
-    id: string;
-    text: string;
-    isPrivate: boolean;
-};
-
-export type clipboardItemOrNull = {
-    id: string;
-    text: string;
-    isPrivate: boolean;
-} | null;
-
-export type clipboardGroup = {
-    id: string;
-    title: string;
-    opened?: boolean;
-    items: clipboardItem[];
-};
+import { ClipboardGroup, ClipboardItem } from "@/type/clipboard";
 
 export type ExportPayloadV1 = {
     version: 1;
     exportedAt: string; // ISO
-    groups: clipboardGroup[];
+    groups: ClipboardGroup[];
 };
 
 export type ImportMode = "replace" | "merge";
 
-export function buildExportPayload(groups: clipboardGroup[]): ExportPayloadV1 {
+export function buildExportPayload(groups: ClipboardGroup[]): ExportPayloadV1 {
     return {
         version: 1,
         exportedAt: new Date().toISOString(),
@@ -58,7 +41,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
     return typeof value === "object" && value !== null;
 }
 
-function isClipboardItem(value: unknown): value is clipboardItem {
+function isClipboardItem(value: unknown): value is ClipboardItem {
     if (!isRecord(value)) return false;
 
     const id = value.id;
@@ -68,7 +51,7 @@ function isClipboardItem(value: unknown): value is clipboardItem {
     return typeof id === "string" && typeof text === "string" && typeof isPrivate === "boolean";
 }
 
-function isClipboardGroup(value: unknown): value is clipboardGroup {
+function isClipboardGroup(value: unknown): value is ClipboardGroup {
     if (!isRecord(value)) return false;
 
     const id = value.id;
@@ -105,13 +88,13 @@ export function parseImportPayload(jsonText: string): ExportPayloadV1 {
 
 /**
  * Merge rules:
- * - groups merged by group.id
- * - items merged by item.id
+ * - groups merged by group id
+ * - items merged by item id
  * - incoming group props override existing (title/opened)
  * - incoming items override existing items on same id
  */
-export function mergeGroups(existing: clipboardGroup[], incoming: clipboardGroup[]): clipboardGroup[] {
-    const byGroupId = new Map<string, clipboardGroup>();
+export function mergeGroups(existing: ClipboardGroup[], incoming: ClipboardGroup[]): ClipboardGroup[] {
+    const byGroupId = new Map<string, ClipboardGroup>();
 
     for (const g of existing) byGroupId.set(g.id, g);
 
@@ -123,7 +106,7 @@ export function mergeGroups(existing: clipboardGroup[], incoming: clipboardGroup
             continue;
         }
 
-        const itemsById = new Map<string, clipboardItem>();
+        const itemsById = new Map<string, ClipboardItem>();
         for (const it of cur.items) itemsById.set(it.id, it);
         for (const it of inc.items) itemsById.set(it.id, it);
 

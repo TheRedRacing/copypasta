@@ -5,7 +5,6 @@ import { Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StreamDeckModal } from "./modal";
 
-
 // ---------------------------------------------------------------------------
 // StreamDeckButton
 // ---------------------------------------------------------------------------

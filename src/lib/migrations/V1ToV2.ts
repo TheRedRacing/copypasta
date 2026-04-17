@@ -1,8 +1,8 @@
+import { ClipboardGroup, ClipboardItem } from "@/type/clipboard";
 import { setClipboardGroups } from "@/lib/clipboardStorage";
-import { clipboardGroup, clipboardItem } from "@/lib/exportImport";
 import generateId from "@/lib/uuid";
 
-type clipboardItemOld = {
+type ClipboardItemOld = {
     id: number;
     text: string;
     isPrivate: boolean;
@@ -17,35 +17,35 @@ export function shouldMigrateToV2(): boolean {
 
 export function migrateToV2(): void {
     try {
-        const texts: clipboardItemOld[] = JSON.parse(localStorage.getItem("clipboardTexts") || "[]");
+        const texts: ClipboardItemOld[] = JSON.parse(localStorage.getItem("clipboardTexts") || "[]");
         const order: number[] = JSON.parse(localStorage.getItem("clipboardOrder") || "[]");
-        const archive: clipboardItemOld[] = JSON.parse(localStorage.getItem("clipboardArchive") || "[]");
+        const archive: ClipboardItemOld[] = JSON.parse(localStorage.getItem("clipboardArchive") || "[]");
 
-        const orderedItems = order.map((id) => texts.find((item) => item.id === id)).filter((item): item is clipboardItemOld => !!item);
+        const orderedItems = order.map((id) => texts.find((item) => item.id === id)).filter((item): item is ClipboardItemOld => !!item);
 
-        const defaultGroup: clipboardGroup = {
+        const defaultGroup: ClipboardGroup = {
             id: generateId(),
             title: "V2",
             opened: true,
-            items: orderedItems.map<clipboardItem>((item) => ({
+            items: orderedItems.map<ClipboardItem>((item) => ({
                 id: generateId(),
                 text: item.text,
                 isPrivate: item.isPrivate,
             })),
         };
 
-        const archivedGroup: clipboardGroup = {
+        const archivedGroup: ClipboardGroup = {
             id: generateId(),
             title: "Archived Items",
             opened: true,
-            items: archive.map<clipboardItem>((item) => ({
+            items: archive.map<ClipboardItem>((item) => ({
                 id: generateId(),
                 text: item.text,
                 isPrivate: item.isPrivate,
             })),
         };
 
-        const newGroups: clipboardGroup[] = [defaultGroup, archivedGroup];
+        const newGroups: ClipboardGroup[] = [defaultGroup, archivedGroup];
         setClipboardGroups(newGroups);
 
         localStorage.removeItem("clipboardTexts");
@@ -53,8 +53,8 @@ export function migrateToV2(): void {
         localStorage.removeItem("clipboardArchive");
         localStorage.removeItem("clipboardArchiveOrder");
 
-        console.log("✅ Migration vers V2 terminée avec succès !");
+        console.log("✅ Migration to V2 completed successfully !");
     } catch (error) {
-        console.error("❌ Erreur durant la migration vers V2 :", error);
+        console.error("❌ Error during migration to V2 :", error);
     }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useClipboard } from "@/context/ClipboardContext";
-import { clipboardGroup } from "@/lib/exportImport";
+import { clipboardGroup } from "@/type/clipboard";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import generateId from "@/lib/uuid";

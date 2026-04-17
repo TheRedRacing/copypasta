@@ -1,22 +1,22 @@
 "use client";
 
+import { ClipboardGroup, ClipboardItem } from "@/type/clipboard";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { getClipboardGroups, setClipboardGroups } from "@/lib/clipboardStorage";
-import { clipboardGroup, clipboardItem } from "@/lib/exportImport";
 import { migrateToV2, shouldMigrateToV2 } from "@/lib/migrations/V1ToV2";
 
 type ClipboardContextType = {
-    clipboardGroups: clipboardGroup[];
-    setClipboardGroups: (groups: clipboardGroup[]) => void;
+    clipboardGroups: ClipboardGroup[];
+    setClipboardGroups: (groups: ClipboardGroup[]) => void;
     loading: boolean;
-    addGroup: (group: clipboardGroup) => void;
+    addGroup: (group: ClipboardGroup) => void;
     moveGroupUp: (index: number) => void;
     moveGroupDown: (index: number) => void;
     renameGroup: (id: string, newTitle: string) => void;
     toggleGroup: (id: string) => void;
     deleteGroup: (id: string) => void;
-    addItemToGroup: (groupId: string, item: clipboardItem) => void;
-    updateItem: (originalGroupId: string, updatedGroupId: string, updatedItem: clipboardItem) => void;
+    addItemToGroup: (groupId: string, item: ClipboardItem) => void;
+    updateItem: (originalGroupId: string, updatedGroupId: string, updatedItem: ClipboardItem) => void;
     hideItem: (groupId: string, itemId: string) => void;
     deleteItem: (groupId: string, itemId: string) => void;
 };
@@ -24,7 +24,7 @@ type ClipboardContextType = {
 const ClipboardContext = createContext<ClipboardContextType | undefined>(undefined);
 
 export const ClipboardProvider = ({ children }: { children: React.ReactNode }) => {
-    const [clipboardGroups, setClipboardGroupState] = useState<clipboardGroup[]>([]);
+    const [clipboardGroups, setClipboardGroupState] = useState<ClipboardGroup[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -34,12 +34,12 @@ export const ClipboardProvider = ({ children }: { children: React.ReactNode }) =
         setTimeout(() => setLoading(false), 500);
     }, []);
 
-    const persistGroups = (groups: clipboardGroup[]) => {
+    const persistGroups = (groups: ClipboardGroup[]) => {
         setClipboardGroupState(groups);
         setClipboardGroups(groups);
     };
 
-    const addGroup = (group: clipboardGroup) => {
+    const addGroup = (group: ClipboardGroup) => {
         const newGroups = [...clipboardGroups, group];
         persistGroups(newGroups);
     };
@@ -73,12 +73,12 @@ export const ClipboardProvider = ({ children }: { children: React.ReactNode }) =
         persistGroups(newGroups);
     };
 
-    const addItemToGroup = (groupId: string, item: clipboardItem) => {
+    const addItemToGroup = (groupId: string, item: ClipboardItem) => {
         const newGroups = clipboardGroups.map((group) => (group.id === groupId ? { ...group, items: [...group.items, item] } : group));
         persistGroups(newGroups);
     };
 
-    const updateItem = (originalGroupId: string, updatedGroupId: string, updatedItem: clipboardItem) => {
+    const updateItem = (originalGroupId: string, updatedGroupId: string, updatedItem: ClipboardItem) => {
         // Si même group → édition simple
         if (originalGroupId === updatedGroupId) {
             const updatedGroups = clipboardGroups.map((group) => {
@@ -91,7 +91,7 @@ export const ClipboardProvider = ({ children }: { children: React.ReactNode }) =
 
             persistGroups(updatedGroups);
         } else {
-            let movedItem: clipboardItem | undefined;
+            let movedItem: ClipboardItem | undefined;
 
             const newGroups = clipboardGroups
                 .map((group) => {
