@@ -55,27 +55,20 @@ export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOp
     }, [isOpen, id, text, isPrivate, groupId, form]);
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log("Submitted values:", values);
-
         if (values.id && groupId) {
-            // 🛠 On est en mode édition
-            updateItem(
-                groupId, // originalGroupId
-                values.groupId, // updatedGroupId
-                {
-                    id: values.id,
-                    text: values.text,
-                    isPrivate: values.isPrivate,
-                },
-            );
-            toast.success("Clipboard edited with success");
+            updateItem(groupId, values.groupId, {
+                id: values.id,
+                text: values.text,
+                isPrivate: values.isPrivate,
+            });
+            toast.success("Clipboard edited successfully");
         } else {
             addItemToGroup(values.groupId, {
                 id: generateId(),
                 text: values.text,
                 isPrivate: values.isPrivate,
             });
-            toast.success("Clipboard added with success");
+            toast.success("Clipboard added successfully");
         }
 
         setIsOpen(false);
@@ -96,7 +89,8 @@ export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOp
                             name="groupId"
                             render={({ field }) => (
                                 <FormItem>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                    <FormLabel>Group</FormLabel>
+                                    <Select onValueChange={field.onChange} value={field.value}>
                                         <FormControl>
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Select a group" />
@@ -126,8 +120,9 @@ export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOp
                             name="text"
                             render={({ field }) => (
                                 <FormItem>
+                                    <FormLabel>Content</FormLabel>
                                     <FormControl>
-                                        <Textarea {...field} />
+                                        <Textarea {...field} placeholder="Paste your snippet here…" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -140,8 +135,8 @@ export default function ItemForm({ id, text, isPrivate, groupId, isOpen, setIsOp
                             render={({ field }) => (
                                 <FormItem className="flex flex-row items-center justify-between gap-10 rounded-lg border border-zinc-300 dark:border-zinc-700 p-4">
                                     <div className="space-y-0.5">
-                                        <FormLabel className="text-base font-medium">Hide row?</FormLabel>
-                                        <FormDescription>The row will be hidden. You’ll need to click the eye icon to view it.</FormDescription>
+                                        <FormLabel className="text-base font-medium">Private item</FormLabel>
+                                        <FormDescription>The content will be hidden. Click the eye icon to reveal it.</FormDescription>
                                     </div>
                                     <FormControl>
                                         <Switch checked={field.value} onCheckedChange={field.onChange} />

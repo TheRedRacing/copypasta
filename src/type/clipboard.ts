@@ -17,19 +17,7 @@ export type ClipboardGroup = {
     items: ClipboardItem[];
 };
 
-export interface ShareRecord {
-    token: string; // nanoid(12)
-    label?: string; // nom optionnel pour s'y retrouver
-    createdAt: number; // Date.now()
-    expiresAt?: number; // Date.now() + ms, undefined = pas d'expiration
-    itemIds: string[]; // IDs des ClipboardItems inclus
-    groupIds: string[]; // IDs des groupes entiers inclus
-}
-
 export interface SharePayload {
     version: 1;
-    items: ClipboardItem[];
-    groups: ClipboardGroup[];
-    createdAt: number;
-    expiresAt?: number;
+    item: ClipboardItem;
 }

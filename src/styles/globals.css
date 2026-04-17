@@ -161,17 +161,6 @@
     }
 }
 
-/* Add primary color on all element  */
-a:focus,
-a:focus-visible,
-button:focus,
-button:focus-visible,
-input:focus,
-input:focus-visible,
-select:focus,
-select:focus-visible,
-textarea:focus,
-textarea:focus-visible {
-    outline: var(--primary-500) auto 2px;
-    outline-offset: 2rem;
+* {
+    outline: none !important;
 }

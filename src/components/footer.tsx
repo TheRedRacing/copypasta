@@ -56,7 +56,7 @@ function FooterContent() {
                 <span className="size-6 text-white flex items-center justify-center bg-primary-500 rounded">
                     <Clipboard className="size-4" />
                 </span>
-                <div className="flex items-center">
+                <div className="flex items-center gap-4 px-4">
                     <NavLink href={"/"}>Home</NavLink>
                     <span className="size-1 bg-zinc-400 rounded-full"></span>
                     <NavLink href={"/faq"}>F.A.Q</NavLink>
@@ -64,10 +64,12 @@ function FooterContent() {
                     <NavLink href={"/contact"}>Contact</NavLink>
                 </div>
             </div>
-            <div className="flex items-center gap-2">
-                <Badge variant={"green"} className="hover:opacity-90">
-                    <Link href="/changelog">Changelog {lastUpdate.version}</Link>
-                </Badge>
+            <div className="flex items-center gap-4">
+                <Link href="/changelog">
+                    <Badge variant={"green"} className="hover:opacity-90">
+                        Changelog {lastUpdate.version}
+                    </Badge>
+                </Link>
 
                 <Button size={"i8"} variant={"outline"} asChild>
                     <Link href={"https://github.com/TheRedRacing/copypasta"} target="_blank">
@@ -87,7 +89,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
     const isActive = pathname === href;
 
     return (
-        <Link href={href} className={cn(isActive ? "text-primary-500 underline" : "text-zinc-600 dark:text-zinc-400", "px-4 py-2 text-sm hover:underline underline-offset-4 hover:text-primary-500  dark:hover:text-primary-500")}>
+        <Link href={href} className={cn(isActive ? "text-primary-500 underline" : "text-zinc-600 dark:text-zinc-400", "text-sm hover:underline underline-offset-4 hover:text-primary-500  dark:hover:text-primary-500")}>
             {children}
         </Link>
     );

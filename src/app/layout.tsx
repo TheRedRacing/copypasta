@@ -6,6 +6,9 @@ import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/lib/themeProvider";
 import { cn } from "@/lib/utils";
+import { FocusBlob } from "@/components/focus";
+import React from "react";
+
 
 const roboto = Roboto({
     weight: ["100", "300", "400", "500", "700", "900"],
@@ -29,6 +32,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <body className="flex flex-col min-h-[100svh] antialiased bg-zinc-50 dark:bg-dark-main text-zinc-900 dark:text-zinc-100">
                 <ThemeProvider defaultTheme="orange" disableTransitionOnChange enableColorScheme enableSystem themes={["cyan", "dark-cyan", "red", "dark-red", "orange", "dark-orange", "yellow", "dark-yellow", "green", "dark-green", "teal", "dark-teal", "blue", "dark-blue", "indigo", "dark-indigo", "pink", "dark-pink"]}>
                     <ClipboardProvider>{children}</ClipboardProvider>
+                    <FocusBlob />
                 </ThemeProvider>
                 <Toaster />
                 <Analytics />

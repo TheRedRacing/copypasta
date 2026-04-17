@@ -13,6 +13,8 @@ import { StreamDeckButton } from "@/components/streamdeck";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { ShareLinkModal } from "@/components/share/ShareLinkModal";
+
 
 interface ClipboardCardProps {
     item: ClipboardItem;
@@ -24,6 +26,7 @@ export default function ClipboardCard({ item, index, groupId }: ClipboardCardPro
     const { hideItem } = useClipboard();
     const [isCopied, setIsCopied] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [shareOpen, setShareOpen] = useState(false);
 
     const copyToClipboard = async () => {
         try {
@@ -61,18 +64,21 @@ export default function ClipboardCard({ item, index, groupId }: ClipboardCardPro
             </div>
             <AnimatePresence initial={false}>
                 {isMenuOpen && (
-                    <motion.div key="menu" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.2 }} className="flex shrink-0 items-center gap-1 pr-1">
-                        <StreamDeckButton itemId={item.id} itemLabel={item.text} />
-                        <Button variant="outline" size="i8">
-                            <Share className="size-4" />
-                        </Button>
-                        <Button variant="outline" size="i8" onClick={handleHide}>
-                            {item.isPrivate ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
-                        </Button>
-                        <EditButton item={item} groupId={groupId} />
-                        <DeleteGroupButton item={item} groupId={groupId} />
-                        <span className="mx-1 h-4 w-px bg-zinc-200 dark:bg-zinc-700" />
-                    </motion.div>
+                    <>
+                        <motion.div key="menu" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.2 }} className="flex shrink-0 items-center gap-1 pr-1">
+                            <StreamDeckButton itemId={item.id} itemLabel={item.text} />
+                            <Button variant="outline" size="i8" onClick={() => setShareOpen(true)}>
+                                <Share className="size-4" />
+                            </Button>
+                            <Button variant="outline" size="i8" onClick={handleHide}>
+                                {item.isPrivate ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                            </Button>
+                            <EditButton item={item} groupId={groupId} />
+                            <DeleteGroupButton item={item} groupId={groupId} />
+                            <span className="mx-1 h-4 w-px bg-zinc-200 dark:bg-zinc-700" />
+                        </motion.div>
+                        <ShareLinkModal item={item} open={shareOpen} onClose={() => setShareOpen(false)} />
+                    </>
                 )}
                 <motion.div key="trigger" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} transition={{ duration: 0.2 }}>
                     <Button variant="outline" size="i8" onClick={() => setIsMenuOpen(!isMenuOpen)}>
