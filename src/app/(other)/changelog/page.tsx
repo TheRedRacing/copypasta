@@ -33,7 +33,7 @@ export default function Changelog() {
                             <div key={change.version} className="flex flex-col pb-6 border-b border-zinc-300 dark:border-zinc-800 last:border-b-0 last:pb-0">
                                 <div className="flex items-baseline gap-2">
                                     <h1 className="text-xl font-semibold text-primary-500">Version {change.version}</h1>
-                                    <span className="text-xs text-zinc-600 dark:text-zinc-400">{change.date}</span>
+                                    <span className="text-sm text-zinc-600 dark:text-zinc-400">{new Date(change.date).toLocaleString("en-us", { day: "2-digit", month: "short", year: "numeric" })}</span>
                                 </div>
                                 {change.description && <p className="mt-2 text-sm text-zinc-800 dark:text-zinc-200 whitespace-pre-line">{change.description}</p>}
                                 {change.news.length > 0 && (
