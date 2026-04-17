@@ -1,7 +1,7 @@
 "use client";
 
 import { useClipboard } from "@/context/ClipboardContext";
-import { clipboardGroup } from "@/type/clipboard";
+import { ClipboardGroup } from "@/type/clipboard";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import generateId from "@/lib/uuid";
@@ -11,7 +11,7 @@ export default function AddGroup() {
 
     const handleAddGroup = () => {
         const uuid = generateId();
-        const newGroup: clipboardGroup = {
+        const newGroup: ClipboardGroup = {
             id: uuid,
             title: "Untitled",
             opened: true,

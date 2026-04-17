@@ -1,7 +1,7 @@
 "use client";
 
 import { useClipboard } from "@/context/ClipboardContext";
-import { clipboardGroup } from "@/type/clipboard";
+import { ClipboardGroup } from "@/type/clipboard";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, ChevronUp, Clipboard, Folder, FolderOpen, Link, Menu, Pencil, Share, Trash, X } from "lucide-react";
@@ -11,7 +11,7 @@ import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle } from "@
 import { cn } from "@/lib/utils";
 
 interface ClipboardGroupCardProps {
-    current: clipboardGroup;
+    current: ClipboardGroup;
     children?: React.ReactNode;
     index: number;
     lastIndex: number;
@@ -59,7 +59,7 @@ export default function ClipboardGroupCard({ current, children, index, lastIndex
 }
 
 interface GroupInlineMenuProps {
-    current: clipboardGroup;
+    current: ClipboardGroup;
     index: number;
     lastIndex: number;
     handleCopy: () => void;
@@ -112,7 +112,7 @@ function InlineMenu({ current, index, lastIndex, handleCopy, toggleHide, onEdit 
 }
 
 interface DeleteGroupButtonProps {
-    current: clipboardGroup;
+    current: ClipboardGroup;
 }
 
 function DeleteGroupButton({ current }: DeleteGroupButtonProps) {
