@@ -2,9 +2,6 @@
 
 import { useEffect, useRef } from "react";
 
-
-type Rect = { left: number; top: number; width: number; height: number; br: number };
-
 export function FocusBlob() {
     const blobRef = useRef<HTMLDivElement>(null);
 

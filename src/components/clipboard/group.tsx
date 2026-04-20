@@ -79,12 +79,12 @@ function InlineMenu({ current, index, lastIndex, handleCopy, toggleHide, onEdit 
                         <Button variant="outline" size="i6" onClick={handleCopy}>
                             <Clipboard className="size-3" />
                         </Button>
-                        <Button variant="outline" size="i6">
+                        {/*<Button variant="outline" size="i6">
                             <Link className="size-3" />
                         </Button>
                         <Button variant="outline" size="i6">
                             <Share className="size-3" />
-                        </Button>
+                        </Button>*/}
                         <Button variant="outline" size="i6" onClick={toggleHide}>
                             {current.opened ? <FolderOpen className={"size-3"} /> : <Folder className="size-3" />}
                         </Button>
