@@ -2,73 +2,91 @@
 
 import { useEffect, useRef } from "react";
 
+const OFFSET = 4;
+const SELECTOR = "button, input, textarea, a[href], [tabindex]:not([tabindex='-1'])";
+
 export function FocusBlob() {
     const blobRef = useRef<HTMLDivElement>(null);
+    const activeRef = useRef<Element | null>(null);
+    const rafRef = useRef<number | null>(null);
 
     useEffect(() => {
         const blob = blobRef.current;
         if (!blob) return;
 
-        const OFFSET = 4;
-        const SELECTOR = "button, input, textarea, a[href], [tabindex]:not([tabindex='-1'])";
+        const hide = () => {
+            blob.style.opacity = "0";
+            activeRef.current = null;
+        };
+
+        const show = (el: Element) => {
+            const r = el.getBoundingClientRect();
+
+            // Élément hors écran ou invisible
+            if (r.width <= 1 || r.height <= 1) return hide();
+
+            const br = parseFloat(getComputedStyle(el).borderRadius) + OFFSET;
+
+            blob.style.left = `${r.left + window.scrollX - OFFSET}px`;
+            blob.style.top = `${r.top + window.scrollY - OFFSET}px`;
+            blob.style.width = `${r.width + OFFSET * 2}px`;
+            blob.style.height = `${r.height + OFFSET * 2}px`;
+            blob.style.borderRadius = `${br}px`;
+            blob.style.opacity = "1";
+        };
 
         const onFocus = (e: FocusEvent) => {
             const el = e.target as Element;
-
-            if (el.tagName === "SELECT") return;
             if (!el.matches(SELECTOR)) return;
 
-            const rect = el.getBoundingClientRect();
-            if (rect.width <= 1 && rect.height <= 1) return;
-            if (getComputedStyle(el).clip === "rect(0px, 0px, 0px, 0px)") return;
+            activeRef.current = el;
 
-            const applyBlob = () => {
-                const r = el.getBoundingClientRect();
-                const isCombobox = el.getAttribute("role") === "combobox";
-                const height = isCombobox ? (el as HTMLElement).offsetHeight : r.height;
-                const br = parseFloat(getComputedStyle(el).borderRadius) + OFFSET;
+            // Annule un RAF en cours
+            if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
 
-                blob.style.transition = "none";
-                blob.style.left = `${r.left - OFFSET}px`;
-                blob.style.top = `${r.top - OFFSET}px`;
-                blob.style.width = `${r.width + OFFSET * 2}px`;
-                blob.style.height = `${height + OFFSET * 2}px`;
-                blob.style.borderRadius = `${br}px`;
-
-                void blob.offsetHeight;
-
-                blob.style.transition = "opacity 150ms ease";
-                blob.style.opacity = "1";
-            };
-
-            // cherche le parent dialog/modal en animation
-            const dialogContent = el.closest('[role="dialog"]');
-            if (dialogContent) {
-                const onAnimEnd = () => {
-                    applyBlob();
-                    dialogContent.removeEventListener("animationend", onAnimEnd);
-                };
-                dialogContent.addEventListener("animationend", onAnimEnd);
-            } else {
-                applyBlob();
-            }
+            // Defer d'un frame pour laisser les animations s'installer (dialog, popover…)
+            rafRef.current = requestAnimationFrame(() => {
+                // Vérifie que l'élément est toujours le focused
+                if (activeRef.current !== el) return;
+                show(el);
+            });
         };
 
-        const onBlur = (e: FocusEvent) => {
-            const next = (e as FocusEvent & { relatedTarget: Element | null }).relatedTarget;
-            if (!next || !next.matches(SELECTOR)) {
-                blob.style.transition = "opacity 150ms ease";
-                blob.style.opacity = "0";
+        const onBlur = () => {
+            if (rafRef.current !== null) {
+                cancelAnimationFrame(rafRef.current);
+                rafRef.current = null;
             }
+            hide();
+        };
+
+        // Cache le blob dès qu'un dialog/modal se ferme
+        const onAnimationStart = (e: AnimationEvent) => {
+            const target = e.target as Element;
+            if (target.closest('[role="dialog"]')) hide();
         };
 
         document.addEventListener("focusin", onFocus);
         document.addEventListener("focusout", onBlur);
+        document.addEventListener("animationstart", onAnimationStart);
+
         return () => {
-            document.removeEventListener("focusin", onFocus);
+            document.removeEventListener("focusin", onFocus, );
             document.removeEventListener("focusout", onBlur);
+            document.removeEventListener("animationstart", onAnimationStart);
+            if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
         };
     }, []);
 
-    return <div ref={blobRef} aria-hidden className="fixed pointer-events-none z-[9999] opacity-0" style={{ boxShadow: "0 0 0 2px rgb(var(--primary-500))" }} />;
+    return (
+        <div
+            ref={blobRef}
+            aria-hidden
+            className="absolute pointer-events-none z-[9999] opacity-0"
+            style={{
+                boxShadow: "0 0 0 2px rgb(var(--primary-500))",
+                transition: "opacity 150ms ease",
+            }}
+        />
+    );
 }

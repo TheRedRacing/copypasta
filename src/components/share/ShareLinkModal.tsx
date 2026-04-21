@@ -1,9 +1,11 @@
 import type { ClipboardItem } from "@/type/clipboard";
 import { useEffect, useState } from "react";
+import { Check, Copy } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { buildShareUrl } from "@/lib/shareEncoding";
+import { Input } from "@/components/ui/input";
 
 
 interface ShareLinkModalProps {
@@ -42,8 +44,8 @@ export function ShareLinkModal({ item, open, onClose }: ShareLinkModalProps) {
                 </p>
                 <div className="flex gap-2 mt-3">
                     {/* Read-only input showing the share URL; clicking selects all text for easy copying */}
-                    <input readOnly value={url} className="flex-1 truncate rounded-md border px-3 py-2 text-sm bg-muted" onClick={(e) => (e.target as HTMLInputElement).select()} />
-                    <Button onClick={handleCopy}>{copied ? "Copied ✓" : "Copy"}</Button>
+                    <Input readOnly value={url} onClick={(e) => (e.target as HTMLInputElement).select()} />
+                    <Button onClick={handleCopy}>{copied ? <Check className="h-4 w-4 text-green-500" /> : <Copy className="h-4 w-4" />}</Button>
                 </div>
             </DialogContent>
         </Dialog>

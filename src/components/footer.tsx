@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 
+
 export default function Footer() {
     return (
         <footer className="bg-white flex flex-col gap-4 border-t border-zinc-200 pt-4 p-8 dark:bg-dark-header dark:border-none">
@@ -66,7 +67,8 @@ function FooterContent() {
             </div>
             <div className="flex items-center gap-4">
                 <Link href="/changelog">
-                    <Badge variant={"green"} className="hover:opacity-90">
+                    <Badge variant={"green"} className="hover:opacity-90 gap-1.5">
+                        <span className="size-1.5 rounded-full bg-green-700 dark:bg-green-400 animate-pulse" />
                         Changelog {lastUpdate.version}
                     </Badge>
                 </Link>
