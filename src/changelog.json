@@ -1,6 +1,14 @@
 {
     "changes": [
         {
+            "version": "2.1.1",
+            "date": "2026-09-16",
+            "description": "A colorful little addition to keep things fresh every time you open the app.",
+            "news": ["Added a Rainbow theme option - pick it once and Copy-Pasta will surprise you with a random color from the palette on every visit."],
+            "updates": ["Updated project dependencies to fix some version mismatch issues under the hood."],
+            "fixes": []
+        },
+        {
             "version": "2.1.0.1",
             "date": "2026-04-17",
             "description": "",

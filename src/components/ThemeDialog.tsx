@@ -1,10 +1,11 @@
 "use client";
 
+import * as React from "react";
 import { useTheme } from "next-themes";
 import { SwatchBook } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { focusClassName } from "@/lib/focus";
-import { themeMapping } from "@/lib/themeProvider";
+import { colorThemes, rainbowStorageKey, themeMapping } from "@/lib/themeProvider";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 
@@ -18,10 +19,18 @@ const colors = [
     { name: "Blue", value: "blue", color: "bg-blue-500" },
     { name: "Indigo", value: "indigo", color: "bg-indigo-500" },
     { name: "Pink", value: "pink", color: "bg-pink-500" },
+    { name: "Rainbow", value: "rainbow", color: "" }
 ];
+
+const rainbowGradient = "conic-gradient(from 0deg, #ef4444, #f97316, #eab308, #22c55e, #14b8a6, #06b6d4, #3b82f6, #6366f1, #ec4899, #ef4444)";
 
 const ThemeOption: React.FC = () => {
     const { theme, setTheme } = useTheme();
+    const [isRainbow, setIsRainbow] = React.useState(false);
+
+    React.useEffect(() => {
+        setIsRainbow(localStorage.getItem(rainbowStorageKey) === "true");
+    }, []);
 
     function getTheme(DarkMode: "light" | "dark", selectedColor: string) {
         let key: string;
@@ -55,6 +64,19 @@ const ThemeOption: React.FC = () => {
         } else {
             return theme;
         }
+    }
+
+    function selectColor(selectedColor: string) {
+        localStorage.setItem(rainbowStorageKey, "false");
+        setIsRainbow(false);
+        getTheme(getDarkMode(), selectedColor);
+    }
+
+    function selectRainbow() {
+        localStorage.setItem(rainbowStorageKey, "true");
+        setIsRainbow(true);
+        const randomColor = colorThemes[Math.floor(Math.random() * colorThemes.length)];
+        getTheme(getDarkMode(), randomColor);
     }
 
     return (
@@ -117,17 +139,24 @@ const ThemeOption: React.FC = () => {
                                 <button
                                     key={themeIdx}
                                     type="button"
-                                    className={cn("relative overflow-hidden size-8 rounded-full border border-zinc-300 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-zinc-500 dark:bg-zinc-800 dark:text-zinc-100 dark:focus-visible:ring-offset-zinc-950", getColor() === color.value && "ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-zinc-950")}
+                                    className={cn("relative overflow-hidden size-8 rounded-full border border-zinc-300 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-zinc-500 dark:bg-zinc-800 dark:text-zinc-100 dark:focus-visible:ring-offset-zinc-950", (color.value === "rainbow" ? isRainbow : !isRainbow && getColor() === color.value) && "ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-zinc-950")}
                                     onClick={() => {
-                                        getTheme(getDarkMode(), color.value);
+                                        if (color.value === "rainbow") {
+                                            selectRainbow();
+                                        } else {
+                                            selectColor(color.value);
+                                        }
                                     }}
                                 >
-                                    <span className={cn(color.color, "absolute inset-0 rounded-full")}></span>
+                                    <span
+                                        className={cn("absolute inset-0 rounded-full", color.value === "rainbow" ? "animate-spin-slow" : color.color)}
+                                        style={color.value === "rainbow" ? { background: rainbowGradient } : undefined}
+                                    ></span>
                                 </button>
                             ))}
                         </div>
                         <p className="mt-6 text-sm font-medium leading-6 text-zinc-900 dark:text-zinc-100">
-                            Your color theme is : <span className="capitalize">{getColor()}</span>
+                            Your color theme is : <span className="capitalize">{isRainbow ? "Rainbow" : getColor()}</span>
                         </p>
                     </div>
                 </DialogContent>
